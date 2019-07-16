@@ -11,7 +11,7 @@ mail@eliasnaur.com
 
 : Some of you have probably seen this figure before. It's from the Go 2018 survey results, and shows the top responses to the question "What is the biggest obstacle you personally face using Go today?"
 
-: As you can tell, the top complaint, packaging and modules, is being taken care of.
+: As you may know, the top complaint, packaging and modules, is being taken care of.
 
 : The second, familarity; I suppose that's going to work itself out over time.
 
@@ -51,7 +51,7 @@ mail@eliasnaur.com
 
 : Gio is an open source library for writing fast and portable graphical interfaces in Go
 
-: I spend a lot of effort to ensure Gio's design follows that of Go: simple, orthogonal and scalable. Not just for speed but for programmer productivity.
+: I put a lot of effort into ensuring Gio's design follows that of Go: simple, orthogonal and scalable. Not just for speed but for programmer productivity.
 
 
 
@@ -76,7 +76,7 @@ mail@eliasnaur.com
 
 : When writing the custom GUI code for the 3D multiplayer game Tribal Trouble 15 years ago, I instinctively chose a design similar to Dear ImGui.
 
-: Finally, for the efficient drawing of vector graphics, text in particular, Gio use the same approach as Pathfinder, a Rust library for drawing vector graphics on the GPU.
+: Finally, for the efficient drawing of vector graphics, text in particular, Gio uses the same approach as Pathfinder, a Rust library for drawing vector graphics on the GPU.
 
 : With Pathfinder, there is no need to pre-bake vector outlines into images before drawing. For example, all text in Gio is rendered from the truetype font character outlines every frame.
 
@@ -100,7 +100,7 @@ mail@eliasnaur.com
 
 .code blank.go HLinitfunc
 
-: A few surprising details arrise from the listing. The first is that the window is created and run from a goroutine started in an init function, not from main. That's because on Android, all non-Java code must be loaded from a C library. And in Go, libraries don't run main functions.
+: A few surprising details arise from the listing. The first is that the window is created and run from a goroutine started in an init function, not from main. That's because on Android, all non-Java code must be loaded from a C library. And in Go, libraries don't run main functions.
 
 
 * Empty window
@@ -116,9 +116,9 @@ mail@eliasnaur.com
 
 : Finally, there is the creation of the main window and the loop that processes incoming events.
 
-: The important and mandatory event to handle is DrawEvent. It must be handled by calling Window.Draw.
+: The important and mandatory event to handle is DrawEvent. It must be handled by calling the Draw method on Window.
 
-: The structure of the program is one consequence of the immediate mode design; if you've ever done any old school windows win32 programming and squint a little, you might recognize the initialization of a window and the straightforward event loop. Everything is explicit, and the program is in control at all times.
+: The structure of the program is one consequence of the immediate mode design; if you've ever done any old school windows win32 programming and squint a little, you might recognize the initialization of a window and the straightforward event loop. Everything is explicit, and your program is in control at all times.
 
 
 * Hello, World
@@ -144,7 +144,7 @@ Build, install or run the program
 
 	go run helloworld.go
 
-: Running Gio programs is as straightforward as any other program, at least on desktop systems. Linux require a C compiler and a few development libraries, while macOS require Xcode. There are no build dependencies for Windows, but Gio currently need the ANGLE OpenGL ES emulator to run.
+: Running Gio programs is as straightforward as any other program, at least on desktop systems. Linux require a C compiler and a few development libraries, while macOS requires Xcode. There are no build dependencies for Windows, but Gio currently need the ANGLE OpenGL ES emulator to run.
 
 : I recommend enabling module mode so Gio is automatically downloaded for you and to shield yourself from the still frequent API changes.
 
@@ -161,9 +161,9 @@ Install on a connected device or emulator with adb
 
 	adb install hello.apk
 
-: The mobile platforms are of course more troublesome. The Gio project include a tool that can package a Gio program suitable for installation to a mobile device, and emulator or for including in an existing project.
+: The mobile platforms are of course more troublesome. The Gio project include a tool that can package a Gio program suitable for installation to a mobile device, an emulator or for including in an existing project.
 
-: To build for Android you need to Android SDK and NDK installed. The gio tool can produce an apk file that can be installed with the Android adb tool.
+: To build for Android you need the Android SDK and NDK installed. The gio tool can produce an apk file that can be installed with the Android adb tool.
 
 
 
@@ -177,7 +177,7 @@ Use the .app file extension for simulators:
 
 	$GOBIN/gio -target <ios|tvos> -o hello.app helloworld.go
 
-: iOS and tvOS you need Xcode and the bundle id for a valid provisioning profile. A good way to acquire that is to set up a sample project in Xcode and run it once on your device.
+: To build for iOS and tvOS you need Xcode and the bundle id from a valid provisioning profile. A good way to acquire that is to set up a sample project in Xcode and run it once on your device.
 
 : The iSimulators don't accept ipa packages, but rather raw .app directories. The gio tool use the output extension to distinguish.
 
@@ -245,6 +245,12 @@ Use a webserver or goexec to serve it:
 
 * Layout
 
+: Layout is the positioning, sizing and layering of widgets.
+
+: Some framework add properties or special widgets for laying out other widgets.
+
+: Layouts in Gio is done through transient helper objects, except for the scrollable list which is user controlled.
+
 * Two labels
 
 .code layoutlabels.go /START OMIT/,/END OMIT/ HLdraw
@@ -257,7 +263,7 @@ Use a webserver or goexec to serve it:
 
 : As you can see, the result is that the two labels are drawn on top of each other.
 
-: If our goal is to position the two labels on top of each other, so we need to offset the second label.
+: If our goal is to position one label below the other, we need to offset the second label.
 
 : By how much? That depends on the font and font size. Lucky for us, the Layout method returns the dimensions of the label given a set of constraints.
 
@@ -287,7 +293,9 @@ Label's Layout method
 
 : Gio borrows Constraints and Dimensions from the Flutter framework.
 
-: The idea is that widgets are told the range of accepted sizes, and return their actual drawn sizes.
+: The idea is that a widgets is given a range of accepted sizes, and return its actual "layout" size.
+
+: Note that some widgets may choose to draw outside its layout rectangle.
 
 : By convention, widgets have a Layout method that take the constraints as input and return the dimensions.
 
@@ -297,8 +305,6 @@ Label's Layout method
 * Two labels
 
 .code layoutlabels2.go /START DRAW OMIT/,/END DRAW OMIT/ HLdraw
-
-: Constraints
 
 : The constraints given to us in drawLabel are rigid, and forces the dimensions of the labels to take up the whole window.
 
@@ -323,7 +329,7 @@ But drawing is complete when Layout returns
 
 : For example, computing the offset for centering a widget requires the dimension of both the container and the widget.
 
-: In other words, if need to call Layout to get the dimensions, but then the drawing will be complete before we can offset it.
+: In other words, we need to call Layout to get the dimensions, but then the drawing will be complete before we can offset it.
 
 
 
@@ -377,13 +383,12 @@ Insetting
 	...
 	dimensions = inset.End(dimensions)
 
-: Centering is a special case of Align for aligning widgets. Aligning and insetting widgets are so common that Gio provides two helper
-: types in the layout package.
+: Centering is a special case of aligning widgets. Aligning and insetting widgets are so common that Gio provides two helper
+: types in the layout package, Align and Inset.
 
-: Both Align and Inset are designed to be garbage free. Go is clever enough to allocate them on the stack even though their Begin methods
-mutate them.
+: Both Align and Inset are designed to be garbage free. Go is clever enough to allocate them on the stack even though their Begin methods mutate them.
 
-: Note that the layout package uses device independent points instead of pixels to represent distances to ensure your Gio program looks the
+: Note that the layout package represent distances with device independent points instead of pixels to ensure your program looks the
 : same regardless of your monitor's pixel density.
 
 
@@ -473,7 +478,7 @@ mutate them.
 
 : at the beginning of the next frame.
 
-: Registration and handling of events are separate and can be done in order, because event handling is for the current set of events, while registration is for delivering events between frames.
+: Registration and handling of events are separate and can be done in any order, because event handling is for the current set of events, while registration is for delivering events between frames.
 
 : [go run pointer.go]
 
@@ -481,7 +486,7 @@ mutate them.
 
 .code pointer.go /START QUEUE OMIT/,/END QUEUE OMIT/ HLqueue
 
-: This is the event for the button example.
+: This is the event loop for the button example.
 
 : The input.Queue implementation returned by a Window's Queue method takes care of multiplexing the incoming system events between the registered handlers.
 
@@ -508,13 +513,13 @@ Gio is
 
 : So why should you use Gio? Here is a list of features most important to me. 
 
+: Simplicity. The immediate mode design makes it much less frustrating to debug and develop UI programs.
+
 : Portability, because it's written in Go and because its only non-Go dependencies are low level system libraries for window management, input handling, and access to the GPU.
 
 : Gio is fast because Go is fast and because it's designed not to generate garbage during a frame. And the heavy lifting is done by your GPU.
 
 : Convenient. Gio enjoys the very low compilation times and because it runs on your desktop you don't need a device or emulator for much of your mobile development.
-
-: Simplicity. The immediate mode design makes it much less frustrating to debug and develop UI programs.
 
 : And finally, Gio is unlicenced so you can take whatever you like from Gio and use it in your own project if you choose. You don't need to pollute your code with attribution or licence.
 
