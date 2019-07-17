@@ -53,8 +53,6 @@ mail@eliasnaur.com
 
 : It really does feel much simpler and faster to write user interfaces with Gio compared to my years of experience with other libraries and frameworks.
 
-: I put a lot of effort into ensuring Gio's design follows that of Go: simple, orthogonal and scalable. Not just for speed but for programmer productivity.
-
 
 
 * Demo
@@ -333,23 +331,6 @@ Specify path with PathBuilder
 
 : Layouts in Gio is done through transient helper objects, except for the scrollable list which is user controlled.
 
-* Two labels
-
-.code layout.go /START OMIT/,/END OMIT/ HLdraw
-
-.code layout.go /START DRAW OMIT/,/END DRAW OMIT/
-
-: Let's add another label and see what happens.
-
-: [ go run layout.go ]
-
-: As you can see, the result is that the two labels are drawn on top of each other.
-
-: If our goal is to position one label below the other, we need to offset the second label.
-
-: By how much? That depends on the font and font size. Lucky for us, the Layout method returns the dimensions of the label given a set of constraints.
-
-
 
 * Constraints and dimensions
 
@@ -384,6 +365,26 @@ Label's Layout method
 : By convention, widgets have a Layout method that take the constraints as input and return the dimensions.
 
 : Label is no different
+
+
+
+
+* Two labels
+
+.code layout.go /START OMIT/,/END OMIT/ HLdraw
+
+.code layout.go /START DRAW OMIT/,/END DRAW OMIT/
+
+: Let's add another label and see what happens.
+
+: [ go run layout.go ]
+
+: As you can see, the result is that the two labels are drawn on top of each other.
+
+: If our goal is to position one label below the other, we need to offset the second label.
+
+: By how much? That depends on the font and font size. Lucky for us, the Layout method returns the dimensions of the label given a set of constraints.
+
 
 
 * Two labels
@@ -601,6 +602,8 @@ Gio is
 - Public domain source (UNLICENCE). Dual licenced MIT to please your lawyers.
 
 : So why should you use Gio? Here is a list of features most important to me. 
+
+: I put a lot of effort into ensuring Gio's design follows that of Go: simple, orthogonal and scalable. Not just for speed but for programmer productivity.
 
 : Simplicity. The immediate mode design makes it much less frustrating to debug and develop UI programs.
 
