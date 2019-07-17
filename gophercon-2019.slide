@@ -30,7 +30,7 @@ mail@eliasnaur.com
 
 : From the same survey, only 7% of the respondents in total work on GUI programs or mobile apps. The number for mobile apps, 2%, is the same as the number of people that don't write in Go at all, yet bothered to fill out the survey!
 
-: I think Go is a wonderful language, and more than capable of writing graphical interfaces with. I suspect the very low number comes from the fact that there are very few packages for writing user interfaces in Go. There is of course Go bindings to UI libraries in other languages, but they always comes with the cost of mixing two programming languages and sets of libraries.
+: I think Go is a wonderful language, and more than capable of writing graphical interfaces with. I suspect the very low number comes from the fact that there are very few packages for writing user interfaces in Go. There is of course Go bindings to UI libraries in other languages, but they always come with the cost of mixing two programming languages and sets of libraries.
 
 : I would even go out on a limb and claim that almost none of the 7% are writing the so called front-end code of their users interfaces in Go. I believe most, if not virtually all, Go code in UI programs are in the non-graphical parts.
 
@@ -41,15 +41,17 @@ mail@eliasnaur.com
 
 * What
 
-[[https://gioui.org][Gio]], a module for writing fast and portable graphical interfaces in Go.
+[[https://gioui.org][Gio]], an open source module for writing simple, portable and fast graphical interfaces.
 
 : So what's in it for you?
 
-: I don't think I can overstate how proud I am to be able to finally present Gio to all of you at Gophercon today.
+: In this talk I'm going to introduce Gio, a set of packages for writing simple and portable graphical user interfaces in Go.
 
-: Not just because I've spent almost 2 years on designing and developing it, but also because it's been my dog food for the last month or so while developing Scatter. It really does feel much simpler and faster to write user interfaces with Gio compared to my years of experience with other libraries and frameworks.
+: It is written from scratch in Go and only depend on a few system libraries.
 
-: Gio is an open source library for writing fast and portable graphical interfaces in Go
+: I've spent almost 2 years designing and developing it, and it's been my dog food for the last month or so while developing Scatter.
+
+: It really does feel much simpler and faster to write user interfaces with Gio compared to my years of experience with other libraries and frameworks.
 
 : I put a lot of effort into ensuring Gio's design follows that of Go: simple, orthogonal and scalable. Not just for speed but for programmer productivity.
 
@@ -61,7 +63,14 @@ mail@eliasnaur.com
 
 : Gio is a comprehensive module and I have a lot to cover in my time slot. However, as a motivating example of what can be achieved today, here's Scatter which is a small program for sending encrypted messages over email.
 
+: Scatter runs on the desktop as well as on the two mobile platforms.
+
+: It asks for login details to a SMTP and IMAP host, after which you can send or receive invitations to messaging using the Signal protocol.
+
+: I've filled a few demo contacts and message threads to give you a feel of the program.
+
 : [demo scatter]
+
 
 
 * Background
