@@ -236,9 +236,6 @@ Use a webserver or goexec to serve it:
 : This is the event loop for a program that displays a pulsating square.
 
 
-
-* (Demo - pulse)
-
 : [go run pulse.go]
 
 : The pulsing square program is trivial, but its drawing and animation are not fundamentally different from that of larger programs. Gio has no implicit tree of widgets.
