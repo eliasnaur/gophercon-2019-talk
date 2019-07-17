@@ -2,6 +2,8 @@ package main
 
 import (
 	"image/color"
+	"math"
+	"time"
 
 	"gioui.org/ui"
 	"gioui.org/ui/app"
@@ -18,11 +20,18 @@ func init() {
 			if e, ok := e.(app.DrawEvent); ok {
 				ops.Reset()
 
+				ui.TransformOp{ui.Offset(f32.Point{
+					X: 100,
+					Y: 100,
+				})}.Add(ops)
+
+				draw.ColorOp{Color: color.RGBA{A: 0xff, G: 0xcc}}.Add(ops)
+				radius := animateRadius(e.Config.Now(), 250)
+				roundRect(ops, 500, 500, radius, radius, radius, radius) // HLpath
 				square := f32.Rectangle{
-					Min: f32.Point{X: 50, Y: 50},
 					Max: f32.Point{X: 500, Y: 500},
 				}
-				draw.ColorOp{Color: color.RGBA{A: 0xff, G: 0xff}}.Add(ops)
+				draw.ColorOp{Color: color.RGBA{A: 0xff, G: 0xcc}}.Add(ops)
 				draw.DrawOp{Rect: square}.Add(ops)
 				ui.InvalidateOp{}.Add(ops)
 
@@ -35,4 +44,32 @@ func init() {
 
 func main() {
 	app.Main()
+}
+
+// START RR OMIT
+// https://pomax.github.io/bezierinfo/#circles_cubic.
+func roundRect(ops *ui.Ops, width, height, se, sw, nw, ne float32) {
+	w, h := float32(width), float32(height)
+	const c = 0.55228475 // 4*(sqrt(2)-1)/3
+	var b draw.PathBuilder
+	b.Init(ops)
+	b.Move(f32.Point{X: w, Y: h - se})
+	b.Cube(f32.Point{X: 0, Y: se * c}, f32.Point{X: -se + se*c, Y: se}, f32.Point{X: -se, Y: se})
+	b.Line(f32.Point{X: sw - w + se, Y: 0})
+	b.Cube(f32.Point{X: -sw * c, Y: 0}, f32.Point{X: -sw, Y: -sw + sw*c}, f32.Point{X: -sw, Y: -sw})
+	b.Line(f32.Point{X: 0, Y: nw - h + sw})
+	b.Cube(f32.Point{X: 0, Y: -nw * c}, f32.Point{X: nw - nw*c, Y: -nw}, f32.Point{X: nw, Y: -nw})
+	b.Line(f32.Point{X: w - ne - nw, Y: 0})
+	b.Cube(f32.Point{X: ne * c, Y: 0}, f32.Point{X: ne, Y: ne - ne*c}, f32.Point{X: ne, Y: ne})
+	b.End()
+}
+
+// END RR OMIT
+
+var start = time.Now()
+
+func animateRadius(t time.Time, max float32) float32 {
+	dt := t.Sub(start).Seconds()
+	radius := math.Abs(math.Sin(dt))
+	return float32(radius) * max
 }

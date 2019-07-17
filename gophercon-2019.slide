@@ -295,6 +295,24 @@ Specify path with PathBuilder
 
 .code animatedpaths.go /START OMIT/,/END OMIT/ HLpath
 
+: This is another animated example, this time with a clip that changes over time.
+
+: [go run animatedpaths.go]
+
+
+* Animated paths
+
+.code animatedpaths.go /START RR OMIT/,/END RR OMIT/
+
+: If you're cursious, here's the listing for generating the round corner clipping.
+
+: I'm using PathBuilder to approximate the circular corner roundings.
+
+: [go run animatedpaths.go]
+
+
+
+
 * Layout
 
 : Layout is the positioning, sizing and layering of widgets.
