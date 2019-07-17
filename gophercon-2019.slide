@@ -110,7 +110,7 @@ mail@eliasnaur.com
 : Another detail is that the main function calls app.Main. Some platforms such as macOS require that all calls to their UI platform libraries happen on the main thread. In turn, your program must give up the main goroutine. The app.Main call blocks until the window is closed.
 
 
-* Empty window
+* Blank window
 
 .code blank.go HLeventloop
 
@@ -119,6 +119,8 @@ mail@eliasnaur.com
 : The important and mandatory event to handle is DrawEvent. It must be handled by calling the Draw method on Window.
 
 : The structure of the program is one consequence of the immediate mode design; if you've ever done any old school windows win32 programming and squint a little, you might recognize the initialization of a window and the straightforward event loop. Everything is explicit, and your program is in control at all times.
+
+: [go run blank.go]
 
 
 * Hello, World
@@ -531,6 +533,7 @@ Gio is also
 - Unproven. The largest (and only) Gio program today is Scatter.
 - Unusual. Almost no-one outside games uses immediate mode GUIs.
 - Unfinished. Many missing features: IME, Right-to-left layout/text, accessibility, widget library, embedding, ...
+- Unstable. No tests, sparse documentation, no CI.
 
 : However, Gio is still far from useful in a production program.
 
