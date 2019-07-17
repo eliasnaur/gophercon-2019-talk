@@ -219,8 +219,11 @@ Use a webserver or goexec to serve it:
 * (Demo - helloworld)
 
 : [go run helloworld.go]
-: [gio -target android helloworld.go]
-: ...
+: [gio -target android -o android.apk helloworld.go]
+: [gio -target ios -o hello.app helloworld.go]
+: [xcrun simctl install booted hello.app]
+: [adb install hello.apk]
+: [go run webassembly.go]
 
 * Drawing
 
