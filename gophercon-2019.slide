@@ -55,8 +55,16 @@ mail@eliasnaur.com
 
 
 
+* Demo
 
-* Inspiration
+[[https://scatter.im][Scatter]], a Gio program for end-to-end encrypted messaging over email.
+
+: Gio is a comprehensive module and I have a lot to cover in my time slot. However, as a motivating example of what can be achieved today, here's Scatter which is a small program for sending encrypted messages over email.
+
+: [demo scatter]
+
+
+* Background
 
 [[https://flutter.dev/][Flutter]], a Google library for portable UI programs in Dart.
 
@@ -82,17 +90,11 @@ mail@eliasnaur.com
 
 
 
-* Demo
-
-[[https://scatter.im][Scatter]], a Gio program for end-to-end encrypted messaging over email.
-
-: Gio is a comprehensive module and I have a lot to cover in my time slot. However, as a motivating example of what can be achieved today, here's Scatter which is a small program for sending encrypted messages over email.
-
-: [demo scatter]
-
-* Empty window
+* Blank window
 
 .code blank.go
+
+: I tried to fit a complete hello worl example on a slide, but failed. Here's a minimal program for a blank window instead.
 
 : This is a minimal complete Gio program ready to run; it displays an empty window, and is otherwise fully functional.
 
@@ -103,7 +105,7 @@ mail@eliasnaur.com
 : A few surprising details arise from the listing. The first is that the window is created and run from a goroutine started in an init function, not from main. That's because on Android, all non-Java code must be loaded from a C library. And in Go, libraries don't run main functions.
 
 
-* Empty window
+* Blank window
 
 .code blank.go HLmain
 
@@ -219,28 +221,79 @@ Use a webserver or goexec to serve it:
 
 
 
-* Operations
+* (Drawing) Operations
 
-.code pulse.go /START OMIT/,/END OMIT/ HLops
+Storing operations
+
+	package ui
+
+	type Ops
+
+Positioning other operations
+
+	func (c TransformOp) Add(o *ui.Ops)
+
+Drawing
+
+	package draw
+
+	func (c ColorOp) Add(o *ui.Ops) // Set current color.
+	func (c ImageOp) Add(o *ui.Ops) // Set current image.
+	func (c DrawOp) Add(o *ui.Ops) // Draw.
 
 : In Gio, a fundamental concept is operations or ops. There are operations for clipping, transforming and drawing as well as ops for controlling input flow and requesting a redraw for animation.
 
+: This is a list of drawing operations.
+
 : Immediate mode UI libraries redraw everything and Gio is no different; if your program state changes, you request a Redraw to redraw everything.
 
-: This is actually more efficient than it might sound, both through the sheer power of modern GPUs but also through designing the drawing code to be efficient and garbage free.
+: This is actually more efficient than it might sound, both through the sheer power of modern GPUs but also through designing operations to be efficient.
 
 : Operations are carefully designed such that they generate no garbage when drawing. The underlying Ops buffer is reused and the Add method of every op is written so the op itself never escapes to the heap.
 
-: The label from the helloworld example is drawn garbage free, as long as your string is constant and re-use the font cache.
+: For example, the label from the helloworld example is drawn garbage free, as long as your string is constant and re-use the font cache.
+
+
+
+* Drawing (and Animating)
+
+.code drawingandanimating.go /START OMIT/,/END OMIT/ HLops
 
 : This is the event loop for a program that displays a pulsating square.
 
+: Note how there is no need for further support for animations, apart from the invalidate op. You simply invalidate and draw with the animated state.
 
-: [go run pulse.go]
+
+: [go run drawingandanimating.go]
 
 : The pulsing square program is trivial, but its drawing and animation are not fundamentally different from that of larger programs. Gio has no implicit tree of widgets.
 
 
+
+* Path clipping
+
+Clip with ClipOp
+
+	package draw
+	func (p ClipOp) Add(o *ui.Ops)
+
+Specify path with PathBuilder
+
+	func (p *PathBuilder) Init(ops *ui.Ops)
+	func (p *PathBuilder) Cube(ctrl0, ctrl1, to f32.Point)
+	func (p *PathBuilder) Line(to f32.Point)
+	func (p *PathBuilder) Move(to f32.Point)
+	func (p *PathBuilder) Quad(ctrl, to f32.Point)
+	func (p *PathBuilder) End()
+
+: The ClipOp operation clips drawing by arbitrary paths specified by an outline made out of lines and curves.
+
+: Again, the api is constructed so that you can either store outlines between frames, for example for text, or you can specify a dynamic path every frame in a garbage free manner.
+
+
+* Animated paths
+
+.code animatedpaths.go /START OMIT/,/END OMIT/ HLpath
 
 * Layout
 
@@ -252,19 +305,21 @@ Use a webserver or goexec to serve it:
 
 * Two labels
 
-.code layoutlabels.go /START OMIT/,/END OMIT/ HLdraw
+.code layout.go /START OMIT/,/END OMIT/ HLdraw
 
-.code layoutlabels.go /START DRAW OMIT/,/END DRAW OMIT/
+.code layout.go /START DRAW OMIT/,/END DRAW OMIT/
 
 : Let's add another label and see what happens.
 
-: [ go run layoutlabels.go ]
+: [ go run layout.go ]
 
 : As you can see, the result is that the two labels are drawn on top of each other.
 
 : If our goal is to position one label below the other, we need to offset the second label.
 
 : By how much? That depends on the font and font size. Lucky for us, the Layout method returns the dimensions of the label given a set of constraints.
+
+
 
 * Constraints and dimensions
 
@@ -303,7 +358,7 @@ Label's Layout method
 
 * Two labels
 
-.code layoutlabels2.go /START DRAW OMIT/,/END DRAW OMIT/ HLdraw
+.code twolabels.go /START DRAW OMIT/,/END DRAW OMIT/ HLdraw
 
 : The constraints given to us in drawLabel are rigid, and forces the dimensions of the labels to take up the whole window.
 
@@ -311,7 +366,7 @@ Label's Layout method
 
 : Then, we use the dimensions of the first label to offset the second.
 
-: [go run layoutlabels2.go]
+: [go run twolabels.go]
 
 
 * Centering
@@ -354,11 +409,11 @@ Invoke macro
 
 * Centering
 
-.code layoutcenter.go /START OMIT/,/END OMIT/ HLcenter
+.code centering.go /START OMIT/,/END OMIT/ HLcenter
 
 : With a macro, centering is now straightforward: capture the operations from Layout, compute and apply the offset before invoking the recorded macro.
 
-: [go run layoutcenter.go]
+: [go run centering.go]
 
 
 * Layout helpers
@@ -394,32 +449,32 @@ Insetting
 
 * Flex layout
 
-.code layoutflex.go /START OMIT/,/END OMIT/ HLflex
+.code flex.go /START OMIT/,/END OMIT/ HLflex
 
 : A more complex layout in Gio is the Flex. It mimics the flex layout from Flutter and is used for laying out widgets along an axis.
 
 : The program shown on this slide demonstrates a weighted layout, where the first rectangle takes up half the available space, while the two last
 : share the other half.
 
-: [go run layoutflex.go]
+: [go run flex.go]
 
 
 
 * Stack layout
 
-.code layoutstack.go /START OMIT/,/END OMIT/ HLstack
+.code stack.go /START OMIT/,/END OMIT/ HLstack
 
 : Stack is another layout in Gio which as the name implies is used for layering widget on top of each other.
 
 : In this example, stack is used to stack a list of rectangles with increasing insets.
 
-: [go run layoutstack.go]
+: [go run stack.go]
 
 
 
 * List layout
 
-.code layoutlist.go /START OMIT/,/END OMIT/ HLlist
+.code list.go /START OMIT/,/END OMIT/ HLlist
 
 : The most complex layout in Gio is the scrollable List. It is also the first stateful widget you've seen, in that it can accept user input and scroll its content to match.
 
@@ -427,7 +482,7 @@ Insetting
 
 : List does that by asking your program to lay out a particular index, returned by the Index method.
 
-: [go run layoutlist.go]
+: [go run list.go]
 
 
 
@@ -463,6 +518,8 @@ Insetting
 
 : Typically the address of the handler is used as its Key.
 
+
+
 * Pointer event handling
 
 .code pointer.go /START OMIT/,/END OMIT/ HLevent
@@ -481,6 +538,8 @@ Insetting
 
 : [go run pointer.go]
 
+
+
 * Window input queue
 
 .code pointer.go /START QUEUE OMIT/,/END QUEUE OMIT/ HLqueue
@@ -490,6 +549,7 @@ Insetting
 : The input.Queue implementation returned by a Window's Queue method takes care of multiplexing the incoming system events between the registered handlers.
 
 : The window queue also takes care of disambiguating overlapping pointer handlers and multiple touch points, which are important for touch gestures on mobiles.
+
 
 
 * Why Gio
