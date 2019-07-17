@@ -316,7 +316,7 @@ Specify path with PathBuilder
 
 .code animatedpaths.go /START RR OMIT/,/END RR OMIT/
 
-: If you're cursious, here's the listing for generating the round corner clipping.
+: If you're curious, here's the listing for generating the round corner clipping.
 
 : I'm using PathBuilder to approximate the circular corner roundings.
 
