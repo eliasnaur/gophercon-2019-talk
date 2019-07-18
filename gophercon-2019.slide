@@ -227,8 +227,6 @@ Use a webserver or goexec to serve it:
 
 : Also note that Gio use a WebGL Canvas element for display and input. You don't get the convenience of HTML DOM elements. At least not yet.
 
-* (Demo - helloworld)
-
 : [go run helloworld.go]
 : [gio -target android -o android.apk helloworld.go]
 : [gio -target ios -o hello.app helloworld.go]
@@ -264,7 +262,7 @@ Drawing
 	draw.ImageOp{Src: ..., Rect: ...}.Add(ops)
 	draw.DrawOp{Rect: ...}.Add(ops)
 
-: In Gio, a fundamental concept is operations or ops. There are operations for clipping, transforming and drawing as well as ops for controlling input flow and requesting a redraw for animation.
+: In Gio, the basic building block is the operation. There are operations for clipping, transforming and drawing as well as ops for controlling input flow and requesting a redraw for animation.
 
 : This is a list of drawing operations.
 
