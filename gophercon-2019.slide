@@ -79,22 +79,29 @@ mail@eliasnaur.com
 
 [[https://github.com/servo/pathfinder][Pathfinder]], a Rust library for drawing vector graphics on the GPU.
 
-.image tribaltrouble.jpg 300 _
-
 : At the time I decided to write Gio I simply wanted to write mobile apps in pure Go.
 
 : Then, as I considered the various designs, Google's at that time up and coming Flutter framework nudged me to take the clean slate approach. Rather than interfacing with some existing toolkit and suffering the maintenance load of keeping the two worlds cooperating, Flutter does everything internally: drawing, input handling, layout, animation and so on. It takes much longer to build, but the result is much more maintainable.
 
 : The popularity of Flutter is a great boon to Gio; side-stepping a platform's native UI toolkit is risky, but Flutter is proof that the approach is feasible and reasonable.
 
-: I haven't written a line of Dear ImGui code, but reading about it and watching a presentation by fellow game developer Casey Muratori, I went further that even Flutter and abandoned the traditional implicit widget hierarchy and state tracking of other frameworks. Even React doesn't go as far as Dear ImGui and Gio.
-
-: When writing the custom GUI code for the 3D multiplayer game Tribal Trouble 15 years ago, I instinctively chose a design similar to Dear ImGui.
-
 : Finally, for the efficient drawing of vector graphics, text in particular, Gio uses the same approach as Pathfinder, a Rust library for drawing vector graphics on the GPU.
 
 : With Pathfinder, there is no need to pre-bake vector outlines into images before drawing. For example, all text in Gio is rendered from the truetype font character outlines every frame.
 
+
+* Immediate mode UI
+
+- UI state is owned by the program. Even layout and the widget hierarchy.
+- No callbacks. Events are handled while drawing.
+
+.image tribaltrouble.jpg 400 _
+
+: I haven't written a line of Dear ImGui code, but reading about it and watching a presentation by fellow game developer Casey Muratori, I went further that even Flutter and abandoned the traditional implicit widget hierarchy and state tracking of other frameworks. Even React doesn't go as far as Dear ImGui and Gio.
+
+: What is an immediate mode UI?
+
+: When I wrote the custom GUI code for the 3D multiplayer game Tribal Trouble 15 years ago, I instinctively chose a design similar to Dear ImGui.
 
 
 * Blank window
@@ -112,11 +119,13 @@ mail@eliasnaur.com
 : A few surprising details arise from the listing. The first is that the window is created and run from a goroutine started in an init function, not from main. That's because on Android, all non-Java code must be loaded from a C library. And in Go, libraries don't run main functions.
 
 
+
 * Blank window
 
 .code blank.go HLmain
 
 : Another detail is that the main function calls app.Main. Some platforms such as macOS require that all calls to their UI platform libraries happen on the main thread. In turn, your program must give up the main goroutine. The app.Main call blocks until the window is closed.
+
 
 
 * Blank window
@@ -447,6 +456,7 @@ Invoke macro
 : [go run centering.go]
 
 
+
 * Layout helpers
 
 Aligning
@@ -583,14 +593,6 @@ Insetting
 
 
 
-* Why Gio
-
-: That's it for a short introduction to the major parts of the Gio library as it looks like today.
-
-: Perhaps you're wondering whether you should spend time on Gio.
-
-
-
 * Why Gio?
 
 Gio is
@@ -601,7 +603,9 @@ Gio is
 - Convenient. Develop on desktop, deploy on mobile.
 - Public domain source (UNLICENCE). Dual licenced MIT to please your lawyers.
 
-: So why should you use Gio? Here is a list of features most important to me. 
+: That's it for a short introduction to the major parts of the Gio library as it looks like today.
+
+: Perhaps you're wondering whether you should spend time on Gio.
 
 : I put a lot of effort into ensuring Gio's design follows that of Go: simple, orthogonal and scalable. Not just for speed but for programmer productivity.
 
@@ -616,26 +620,6 @@ Gio is
 : And finally, Gio is unlicenced so you can take whatever you like from Gio and use it in your own project if you choose. You don't need to pollute your code with attribution or licence.
 
 
-* The catch
-
-Gio is also
-
-- Unproven. The largest (and only) Gio program today is Scatter.
-- Unusual. Almost no-one outside games uses immediate mode GUIs.
-- Unfinished. Many missing features: IME, Right-to-left layout/text, accessibility, widget library, embedding, ...
-- Unstable. No tests, sparse documentation, no CI.
-
-: However, Gio is still far from useful in a production program.
-
-: It is unproven; I don't know for sure whether its design will scale to large, real-world programs. My experience Scatter leaves me optimistic, but only time will tell.
-
-: The immediate mode design is unusual and needs to prove itself for general use.
-
-: And finally but definitely not least: a mature UI library is a huge undertaking and Gio is still at its very early stage. I've listed just a few majort features yet to come.
-
-: Gio has a basic text editor already, but it doesn't yet support right to left text layout or advanced input methods. There is not yet any integration with a platform's accessibility features. Gio's widget library is very basic, and there is almost no support for embedding a Gio view in existing projects or vice versa.
-
-
 
 : What about the future of Gio?
 
@@ -643,7 +627,7 @@ Gio is also
 
 : I'm going to spend that time bringing Gio closer to a 1.0 version and on Gio programs that interest me, such as Scatter.
 
-: I very much hope you will join me in the future development of Gio. It won't succeed without your help.
+: I very much hope you will join me in the future development of Gio. It most likely won't succeed without your help.
 
 : If you have any questions or comments I'm available during the entire Gophercon.
 
