@@ -232,8 +232,11 @@ Use a webserver or goexec to serve it:
 Storing operations
 
 	import gioui.org/ui
+	import gioui.org/ui/app
 
-	var ui.Ops
+	var ops ui.Ops
+	var w app.Window
+	w.Draw(&ops)
 
 Positioning other operations
 
@@ -245,7 +248,7 @@ Drawing
 
 	draw.ColorOp{Color: color.RGBA{...}}.Add(ops) // Set current color
 	draw.ImageOp{Src: ..., Rect: ...}.Add(ops) // Set current image
-	draw.DrawOp{Rect: ...}.Add(ops) // Draw to window
+	draw.DrawOp{Rect: ...}.Add(ops) // Draw current image or color
 
 : In Gio, the basic building block is the operation. There are operations for clipping, transforming and drawing as well as ops for controlling input flow and requesting a redraw for animation.
 
