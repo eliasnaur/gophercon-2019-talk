@@ -197,6 +197,10 @@ Use the .app file extension for simulators:
 
 	$GOBIN/gio -target <ios|tvos> -o hello.app helloworld.go
 
+Install on a running simulator
+
+	xcrun simctl install booted hello.app
+
 : To build for iOS and tvOS you need Xcode and the bundle id from a valid provisioning profile. A good way to acquire that is to set up a sample project in Xcode and run it once on your device.
 
 : The iSimulators don't accept ipa packages, but rather raw .app directories. The gio tool use the output extension to distinguish.
