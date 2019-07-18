@@ -24,21 +24,6 @@ mail@eliasnaur.com
 
 
 
-* Go 2018 Survey Results
-
-.image survey_areas.svg 550 _
-
-: From the same survey, only 7% of the respondents in total work on GUI programs or mobile apps. The number for mobile apps, 2%, is the same as the number of people that don't write in Go at all, yet bothered to fill out the survey!
-
-: I think Go is a wonderful language, and more than capable of writing graphical interfaces with. I suspect the very low number comes from the fact that there are very few packages for writing user interfaces in Go. There is of course Go bindings to UI libraries in other languages, but they always come with the cost of mixing two programming languages and sets of libraries.
-
-: I would even go out on a limb and claim that almost none of the 7% are writing the so called front-end code of their users interfaces in Go. I believe most, if not virtually all, Go code in UI programs are in the non-graphical parts.
-
-: So when I said that our #4 obstacle was open, it really means wide open.
-
-
-
-
 * What
 
 [[https://gioui.org][Gio]], an open source module for writing simple, portable and fast graphical interfaces.
