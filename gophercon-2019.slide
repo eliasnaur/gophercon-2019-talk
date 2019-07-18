@@ -77,7 +77,7 @@ mail@eliasnaur.com
 
 * Immediate mode UI
 
-- UI state is owned by the program. Even layout and the widget hierarchy.
+- UI state is owned by the program. Even layout and widget tree.
 - No callbacks. Events are handled while drawing.
 
 .image tribaltrouble.jpg 400 _
