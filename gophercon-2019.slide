@@ -580,6 +580,34 @@ Insetting
 
 
 
+* Gestures
+
+	import "gioui.org/ui"
+	import "gioui.org/ui/gesture"
+	import "gioui.org/ui/input"
+
+Detect clicks
+
+	var inputs input.Queue
+	var c gesture.Click
+	for _, event := range c.Events(inputs) {
+		// event is a gesture.ClickEvent, not a raw pointer.Event.
+	}
+
+Determine scroll distance from mouse wheel or touch drag/fling
+
+	var cfg ui.Config
+	var s gesture.Scroll
+
+	distance := s.Scroll(cfg, inputs, gesture.Vertical)
+
+: The gesture package help your program recognize higher level gestures from low level pointer events. Examples shown are click and scroll.
+
+: In a sense, gestures are state machines that are updated by raw pointers events.
+
+: The Click state machine record the current pressed state, which the Scroll state machine track touch velocity, while animating it on touch release.
+
+
 * Why Gio?
 
 Gio is
