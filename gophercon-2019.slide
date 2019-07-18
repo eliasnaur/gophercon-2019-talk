@@ -227,25 +227,26 @@ Use a webserver or goexec to serve it:
 
 
 
-* (Drawing) Operations
+* Operations
 
 Storing operations
 
-	import gioui.org/ui
-	import gioui.org/ui/app
+	import gioui.org/ui // Pure Go
 
 	var ops ui.Ops
+
+Only the app package depends on platform libraries
+
+	import gioui.org/ui/app
 	var w app.Window
 	w.Draw(&ops)
 
-Positioning other operations
 
-	ui.TransformOp{ui.Offset(f32.Point{...})}.Add(ops)
-
-Drawing
+Drawing operations
 
 	import gioui.org/ui/draw
 
+	ui.TransformOp{ui.Offset(f32.Point{...})}.Add(ops) // Transform
 	draw.ColorOp{Color: color.RGBA{...}}.Add(ops) // Set current color
 	draw.ImageOp{Src: ..., Rect: ...}.Add(ops) // Set current image
 	draw.DrawOp{Rect: ...}.Add(ops) // Draw current image or color
