@@ -258,9 +258,9 @@ Drawing
 
 	import gioui.org/ui/draw
 
-	draw.ColorOp{Color: color.RGBA{...}}.Add(ops)
-	draw.ImageOp{Src: ..., Rect: ...}.Add(ops)
-	draw.DrawOp{Rect: ...}.Add(ops)
+	draw.ColorOp{Color: color.RGBA{...}}.Add(ops) // Set current color
+	draw.ImageOp{Src: ..., Rect: ...}.Add(ops) // Set current image
+	draw.DrawOp{Rect: ...}.Add(ops) // Draw to window
 
 : In Gio, the basic building block is the operation. There are operations for clipping, transforming and drawing as well as ops for controlling input flow and requesting a redraw for animation.
 
