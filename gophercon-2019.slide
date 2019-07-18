@@ -235,27 +235,27 @@ Use a webserver or goexec to serve it:
 
 Storing operations
 
-	package ui
+	import gioui.org/ui
 
-	type Ops
+	var ui.Ops
 
 Positioning other operations
 
-	func (c TransformOp) Add(o *ui.Ops)
+	ui.TransformOp{ui.Offset(f32.Point{...})}.Add(ops)
 
 Drawing
 
-	package draw
+	import gioui.org/ui/draw
 
-	func (c ColorOp) Add(o *ui.Ops) // Set current color.
-	func (c ImageOp) Add(o *ui.Ops) // Set current image.
-	func (c DrawOp) Add(o *ui.Ops) // Draw.
+	draw.ColorOp{Color: color.RGBA{...}}.Add(ops)
+	draw.ImageOp{Src: ..., Rect: ...}.Add(ops)
+	draw.DrawOp{Rect: ...}.Add(ops)
 
 : In Gio, a fundamental concept is operations or ops. There are operations for clipping, transforming and drawing as well as ops for controlling input flow and requesting a redraw for animation.
 
 : This is a list of drawing operations.
 
-: Immediate mode UI libraries redraw everything and Gio is no different; if your program state changes, you request a Redraw to redraw everything.
+: Immediate mode UI libraries redraw everything and Gio is no different; if your program state changes, you simply request a Redraw and redraw everything.
 
 : This is actually more efficient than it might sound, both through the sheer power of modern GPUs but also through designing operations to be efficient.
 
