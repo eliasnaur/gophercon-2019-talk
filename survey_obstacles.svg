@@ -24,7 +24,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -39,8 +39,8 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="1994"
-     inkscape:window-height="2471"
+     inkscape:window-width="2155"
+     inkscape:window-height="2086"
      id="namedview173"
      showgrid="false"
      fit-margin-top="0"
@@ -48,7 +48,7 @@
      fit-margin-right="0"
      fit-margin-bottom="0"
      inkscape:zoom="1.619211"
-     inkscape:cx="258.03975"
+     inkscape:cx="99.01168"
      inkscape:cy="-135.14002"
      inkscape:window-x="0"
      inkscape:window-y="34"
@@ -60,10 +60,10 @@
      inkscape:connector-curvature="0"
      style="fill:#ffffff;fill-rule:nonzero;stroke-width:0.71529895" />
   <path
-     d="M 0,0 H 446.48517 V 272.97244 H 0 Z"
+     d="M 96.409697,101.74708 H 208.03099 v 68.24311 H 96.409697 Z"
      id="path4"
      inkscape:connector-curvature="0"
-     style="fill:#ffffff;fill-rule:nonzero;stroke-width:0.5947507" />
+     style="fill:#ffffff;fill-rule:nonzero;stroke-width:0.14868768" />
   <path
      d="M 175.38559,38.383475 V 227.82414"
      id="path6"
@@ -282,4 +282,11 @@
      id="path169"
      inkscape:connector-curvature="0"
      style="fill:#666666;fill-rule:nonzero" />
+  <ellipse
+     style="opacity:0.93999999;fill:none;fill-opacity:1;stroke:#dc0000;stroke-width:2.00397253;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+     id="path3755"
+     cx="95.314766"
+     cy="169.01555"
+     rx="86.421585"
+     ry="26.439228" />
 </svg>
