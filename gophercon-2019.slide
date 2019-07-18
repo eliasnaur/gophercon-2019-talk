@@ -97,25 +97,25 @@ mail@eliasnaur.com
 
 : This is a minimal complete Gio program ready to run; it displays an empty window, and is otherwise fully functional.
 
-* Empty window
+: * Blank window
 
-.code blank.go HLinitfunc
+: .code blank.go HLinitfunc
 
 : A few surprising details arise from the listing. The first is that the window is created and run from a goroutine started in an init function, not from main. That's because on Android, all non-Java code must be loaded from a C library. And in Go, libraries don't run main functions.
 
 
 
-* Blank window
+: * Blank window
 
-.code blank.go HLmain
+: .code blank.go HLmain
 
 : Another detail is that the main function calls app.Main. Some platforms such as macOS require that all calls to their UI platform libraries happen on the main thread. In turn, your program must give up the main goroutine. The app.Main call blocks until the window is closed.
 
 
 
-* Blank window
+: * Blank window
 
-.code blank.go HLeventloop
+: .code blank.go HLeventloop
 
 : Finally, there is the creation of the main window and the loop that processes incoming events.
 
