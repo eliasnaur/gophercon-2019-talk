@@ -355,16 +355,6 @@ Mouse and touch input
 	pointer.HandlerOp{Key: c, Grab true/false}
 
 
-* System operations
-
-Enable GPU profiling
-
-	import gioui.org/ui/system
-
-	// Declare profiling handler.
-	system.ProfileOp{Key: handler}.Add(ops)
-
-
 
 : * Drawing (and Animating)
 
