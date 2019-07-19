@@ -450,7 +450,7 @@ Widgets accept constraints, output dimensions
 
 	package widget // import gioui.org/ui/widget
 
-	func (im Image) Layout(c ui.Config, ops *ui.Ops, cs layout.Constraints) layout.Dimens {
+	func (im Image) Layout(c ui.Config, ops *ui.Ops, cs layout.Constraints) layout.Dimens
 
 
 : Gio borrows Constraints and Dimensions from the Flutter framework.
