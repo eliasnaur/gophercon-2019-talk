@@ -348,32 +348,14 @@ Or to an outline
 
 
 
-:* Path clipping
-:
-:Clip with ClipOp
-:
-:	package draw
-:	func (p ClipOp) Add(o *ui.Ops)
-:
-:Specify path with PathBuilder
-:
-:	func (p *PathBuilder) Init(ops *ui.Ops)
-:	func (p *PathBuilder) Cube(ctrl0, ctrl1, to f32.Point)
-:	func (p *PathBuilder) Line(to f32.Point)
-:	func (p *PathBuilder) Move(to f32.Point)
-:	func (p *PathBuilder) Quad(ctrl, to f32.Point)
-:	func (p *PathBuilder) End()
-
-: The ClipOp operation clips drawing by arbitrary paths specified by an outline made out of lines and curves.
-
-: Again, the api is constructed so that you can either store outlines between frames, for example for text, or you can specify a dynamic path every frame in a garbage free manner.
+* Drawing
 
 
 * Drawing (and animating)
 
 Drawing and animating a clipped square
 
-.code drawingandanimating.go /START OMIT/,/END OMIT/ HLdraw
+.code animatedclipping.go /START OMIT/,/END OMIT/
 
 : This is another animated example, this time with a clip that changes over time.
 
@@ -382,7 +364,7 @@ Drawing and animating a clipped square
 
 * Drawing (and animating)
 
-.code drawingandanimating.go /START RR OMIT/,/END RR OMIT/
+.code animatedclipping.go /START RR OMIT/,/END RR OMIT/
 
 : If you're curious, here's the listing for generating the round corner clipping.
 

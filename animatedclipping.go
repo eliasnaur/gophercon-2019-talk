@@ -17,24 +17,27 @@ func init() {
 		ops := new(ui.Ops)
 		for e := range w.Events() {
 			if e, ok := e.(app.DrawEvent); ok {
-				// START OMIT
 				ops.Reset()
 
+				// START OMIT
+				square := f32.Rectangle{Max: f32.Point{X: 500, Y: 500}}
+				radius := animateRadius(e.Config.Now(), 250)
+
+				// Position
 				ui.TransformOp{ui.Offset(f32.Point{ // HLdraw
 					X: 100, // HLdraw
 					Y: 100, // HLdraw
 				})}.Add(ops) // HLdraw
-
+				// Color
 				draw.ColorOp{Color: color.RGBA{A: 0xff, G: 0xcc}}.Add(ops) // HLdraw
-				radius := animateRadius(e.Config.Now(), 250)
+				// Clip corners
 				roundRect(ops, 500, 500, radius, radius, radius, radius) // HLdraw
-				square := f32.Rectangle{
-					Max: f32.Point{X: 500, Y: 500},
-				}
-				draw.ColorOp{Color: color.RGBA{A: 0xff, G: 0xcc}}.Add(ops) // HLdraw
-				draw.DrawOp{Rect: square}.Add(ops)                         // HLdraw
-				ui.InvalidateOp{}.Add(ops)                                 // HLdraw
+				// Draw
+				draw.DrawOp{Rect: square}.Add(ops) // HLdraw
+				// Animate
+				ui.InvalidateOp{}.Add(ops) // HLdraw
 
+				// Submit operations to the window.
 				w.Draw(ops) // HLdraw
 				// END OMIT
 			}
