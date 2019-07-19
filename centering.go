@@ -43,14 +43,14 @@ func drawLabels(face text.Face, ops *ui.Ops, cs layout.Constraints) {
 	cs.Height.Min = 0
 	lbl := text.Label{Face: face, Text: "I'm centered!"}
 	var macro ui.MacroOp // HLcenter
-	macro.Record(ops)    // HLcenter
+	macro.Record(ops)    // Start recording  // HLcenter
 	dimensions := lbl.Layout(ops, cs)
-	macro.Stop() // HLcenter
+	macro.Stop() // End recording // HLcenter
 	ui.TransformOp{ui.Offset(f32.Point{
 		X: float32(cs.Width.Max-dimensions.Size.X) / 2,
 		Y: float32(cs.Height.Max-dimensions.Size.Y) / 2,
 	})}.Add(ops)
-	macro.Add(ops) // HLcenter
+	macro.Add(ops) // Replay operations // HLcenter
 }
 
 // END OMIT

@@ -43,7 +43,7 @@ func main() {
 func drawLabels(face text.Face, ops *ui.Ops, cs layout.Constraints) {
 	cs.Height.Min = 0 // HLdraw
 	lbl := text.Label{Face: face, Text: "One label"}
-	dimensions := lbl.Layout(ops, cs)
+	dimensions := lbl.Layout(ops, cs) // HLdraw
 	ui.TransformOp{ui.Offset(f32.Point{
 		Y: float32(dimensions.Size.Y), // HLdraw
 	})}.Add(ops)
