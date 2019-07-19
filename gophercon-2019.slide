@@ -331,6 +331,39 @@ Or to an outline
 : We'll tackle drawing first.
 
 
+* Input operations
+
+Keyboard and text input
+
+	import gioui.org/ui/key
+
+	// Declare key handler.
+	key.HandlerOp{Key: handler, Focus: true/false}.Add(ops)
+
+	// Hide soft keyboard.
+	key.HideInputOp{}.Add(ops)
+
+Mouse and touch input
+
+	import gioui.org/ui/pointer
+
+	// Define hit area.
+	pointer.RectAreaOp{Size: ...}.Add(ops)
+	pointer.EllipseAreaOp{Size: ...}.Add(ops)
+
+	// Declare pointer handler.
+	pointer.HandlerOp{Key: c, Grab true/false}
+
+
+* System operations
+
+Enable GPU profiling
+
+	import gioui.org/ui/system
+
+	// Declare profiling handler.
+	system.ProfileOp{Key: handler}.Add(ops)
+
 
 
 : * Drawing (and Animating)
