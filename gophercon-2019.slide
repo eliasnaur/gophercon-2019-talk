@@ -605,6 +605,8 @@ Lay out widgets on an axis.
 
 * List layout
 
+.code list.go /START INIT OMIT/,/END INIT OMIT/ HLlist
+
 .code list.go /START OMIT/,/END OMIT/ HLlist
 
 : The most complex layout in Gio is the scrollable List. It is also the first stateful widget you've seen, in that it can accept user input and scroll its content to match.

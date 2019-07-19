@@ -34,18 +34,22 @@ func main() {
 
 // START OMIT
 func drawRects(c ui.Config, ops *ui.Ops, cs layout.Constraints) {
-	stack := layout.Stack{Alignment: layout.Center} // HLstack
-	stack.Init(ops, cs)                             // HLstack
-	cs = stack.Rigid()                              // HLstack
+	stack := layout.Stack{Alignment: layout.Center}
+	stack.Init(ops, cs)
+
+	cs = stack.Rigid()
 	dimensions := drawRect(c, ops, color.RGBA{A: 0xff, R: 0xff}, ui.Dp(50), cs)
 	red := stack.End(dimensions)
-	cs = stack.Rigid() // HLstack
+
+	cs = stack.Rigid()
 	dimensions = drawRect(c, ops, color.RGBA{A: 0xff, G: 0xff}, ui.Dp(100), cs)
 	green := stack.End(dimensions)
-	cs = stack.Rigid() // HLstack
+
+	cs = stack.Rigid()
 	dimensions = drawRect(c, ops, color.RGBA{A: 0xff, B: 0xff}, ui.Dp(150), cs)
-	blue := stack.End(dimensions)  // HLstack
-	stack.Layout(red, green, blue) // HLstack
+	blue := stack.End(dimensions)
+
+	stack.Layout(red, green, blue)
 }
 
 // END OMIT

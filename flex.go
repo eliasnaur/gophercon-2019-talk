@@ -34,7 +34,6 @@ func main() {
 
 // START OMIT
 func drawRects(c ui.Config, ops *ui.Ops, cs layout.Constraints) {
-	// Init
 	flex := layout.Flex{}
 	flex.Init(ops, cs)
 

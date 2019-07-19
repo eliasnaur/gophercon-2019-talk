@@ -20,11 +20,13 @@ func init() {
 		var cfg app.Config
 		faces := &measure.Faces{Config: &cfg}
 		ops := new(ui.Ops)
+		// START INIT OMIT
 		list := &layout.List{
 			Axis:   layout.Vertical,
 			Config: &cfg,
 			Inputs: w.Queue(),
 		}
+		// END INIT OMIT
 		for e := range w.Events() {
 			if e, ok := e.(app.DrawEvent); ok {
 				cfg = e.Config
@@ -46,13 +48,15 @@ func main() {
 // START OMIT
 func drawList(list *layout.List, face text.Face, ops *ui.Ops, cs layout.Constraints) {
 	const n = 1e6
-	for list.Init(ops, cs, n); list.More(); list.Next() { // HLlist
-		txt := fmt.Sprintf("List element #%d", list.Index()) // HLlist
+	for list.Init(ops, cs, n); list.More(); list.Next() {
+		txt := fmt.Sprintf("List element #%d", list.Index())
+
 		lbl := text.Label{Face: face, Text: txt}
-		dims := lbl.Layout(ops, list.Constraints()) // HLlist
-		list.Elem(dims)                             // HLlist
+		dims := lbl.Layout(ops, list.Constraints())
+
+		list.Elem(dims)
 	}
-	list.Layout() // HLlist
+	list.Layout()
 }
 
 // END OMIT
