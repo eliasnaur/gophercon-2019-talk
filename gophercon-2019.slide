@@ -7,6 +7,23 @@ mail@eliasnaur.com
 https://gioui.org
 https://scatter.im
 
+* Go 2018 Survey Results
+
+.image survey_obstacles.svg 550 _
+
+: Some of you have probably seen this figure before. It's from the Go 2018 survey results, and shows the top responses to the question "What is the biggest obstacle you personally face using Go today?"
+
+: As you may know, the top complaint, packaging and modules, is being taken care of.
+
+: The second, familarity; I suppose that's going to work itself out over time.
+
+: Number 3, generics, is also well covered; there's even a talk about it tomorrow by Ian Taylor.
+
+: So that's the top 3. And it seems momentum is building for doing something about the fifth entry, error handling.
+
+: That leaves #4 open, GUI development. This talk is about making a serious dent in that.
+
+
 
 
 * Introduction
@@ -30,21 +47,6 @@ Scatter is a Gio program for end-to-end encrypted messaging over email.
 : It really does feel much simpler and faster to write user interfaces with Gio compared to my years of experience with other libraries and frameworks.
 
 
-* Go 2018 Survey Results
-
-.image survey_obstacles.svg 550 _
-
-: Some of you have probably seen this figure before. It's from the Go 2018 survey results, and shows the top responses to the question "What is the biggest obstacle you personally face using Go today?"
-
-: As you may know, the top complaint, packaging and modules, is being taken care of.
-
-: The second, familarity; I suppose that's going to work itself out over time.
-
-: Number 3, generics, is also well covered; there's even a talk about it tomorrow by Ian Taylor.
-
-: So that's the top 3. And it seems momentum is building for doing something about the fifth entry, error handling.
-
-: That leaves #4 open, GUI development. This talk is about making a serious dent in that.
 
 
 
@@ -153,6 +155,8 @@ Enable modules
 
 Build, install or run the program
 
+	go build gioui.org/ui/apps/hello
+	go install scatter.im/cmd/scatter
 	go run helloworld.go
 
 : Running Gio programs is as straightforward as any other program, at least on desktop systems. Linux require a C compiler and a few development libraries, while macOS requires Xcode. There are no build dependencies for Windows, but Gio currently need the ANGLE OpenGL ES emulator to run.
