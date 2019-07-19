@@ -468,13 +468,13 @@ Widgets accept constraints, output dimensions
 
 * Two labels
 
-.code layout.go /START OMIT/,/END OMIT/ HLdraw
+.code twolabels1.go /START OMIT/,/END OMIT/ HLdraw
 
-.code layout.go /START DRAW OMIT/,/END DRAW OMIT/
+.code twolabels1.go /START DRAW OMIT/,/END DRAW OMIT/
 
 : Let's add another label and see what happens.
 
-: [ go run layout.go ]
+: [ go run twolabels1.go ]
 
 : As you can see, the result is that the two labels are drawn on top of each other.
 
@@ -486,7 +486,7 @@ Widgets accept constraints, output dimensions
 
 * Two labels
 
-.code twolabels.go /START DRAW OMIT/,/END DRAW OMIT/ HLdraw
+.code twolabels2.go /START DRAW OMIT/,/END DRAW OMIT/ HLdraw
 
 : The constraints given to us in drawLabel are rigid, and forces the dimensions of the labels to take up the whole window.
 
@@ -494,7 +494,7 @@ Widgets accept constraints, output dimensions
 
 : Then, we use the dimensions of the first label to offset the second.
 
-: [go run twolabels.go]
+: [go run twolabels2.go]
 
 
 * Centering
