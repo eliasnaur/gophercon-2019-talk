@@ -421,6 +421,8 @@ Drawing and animating a clipped square
 
 Constraints are input
 
+	package layout // import gioui.org/ui/layout
+
 	type Constraints struct {
 		Width  Constraint
 		Height Constraint
