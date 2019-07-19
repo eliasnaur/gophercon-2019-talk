@@ -14,28 +14,31 @@ import (
 func init() {
 	go func() {
 		w := app.NewWindow(nil)
-		// START OMIT
-		ops := new(ui.Ops) // HLops
+		ops := new(ui.Ops)
 		for e := range w.Events() {
 			if e, ok := e.(app.DrawEvent); ok {
-				ops.Reset() // HLops
+				// START OMIT
+				ops.Reset()
 
-				color := animateColor(e.Config.Now())
+				ui.TransformOp{ui.Offset(f32.Point{ // HLdraw
+					X: 100, // HLdraw
+					Y: 100, // HLdraw
+				})}.Add(ops) // HLdraw
+
+				draw.ColorOp{Color: color.RGBA{A: 0xff, G: 0xcc}}.Add(ops) // HLdraw
+				radius := animateRadius(e.Config.Now(), 250)
+				roundRect(ops, 500, 500, radius, radius, radius, radius) // HLdraw
 				square := f32.Rectangle{
-					Min: f32.Point{X: 50, Y: 50},
 					Max: f32.Point{X: 500, Y: 500},
 				}
-				// Add draw operations.
-				draw.ColorOp{Color: color}.Add(ops) // HLops
-				draw.DrawOp{Rect: square}.Add(ops)  // HLops
-				// Request immediate redraw.
-				ui.InvalidateOp{}.Add(ops) // HLops
+				draw.ColorOp{Color: color.RGBA{A: 0xff, G: 0xcc}}.Add(ops) // HLdraw
+				draw.DrawOp{Rect: square}.Add(ops)                         // HLdraw
+				ui.InvalidateOp{}.Add(ops)                                 // HLdraw
 
-				// Submit operations.
-				w.Draw(ops) // HLops
+				w.Draw(ops) // HLdraw
+				// END OMIT
 			}
 		}
-		// END OMIT
 	}()
 }
 
@@ -43,10 +46,30 @@ func main() {
 	app.Main()
 }
 
+// START RR OMIT
+// https://pomax.github.io/bezierinfo/#circles_cubic.
+func roundRect(ops *ui.Ops, width, height, se, sw, nw, ne float32) {
+	w, h := float32(width), float32(height)
+	const c = 0.55228475 // 4*(sqrt(2)-1)/3
+	var b draw.PathBuilder
+	b.Init(ops)
+	b.Move(f32.Point{X: w, Y: h - se})
+	b.Cube(f32.Point{X: 0, Y: se * c}, f32.Point{X: -se + se*c, Y: se}, f32.Point{X: -se, Y: se})
+	b.Line(f32.Point{X: sw - w + se, Y: 0})
+	b.Cube(f32.Point{X: -sw * c, Y: 0}, f32.Point{X: -sw, Y: -sw + sw*c}, f32.Point{X: -sw, Y: -sw})
+	b.Line(f32.Point{X: 0, Y: nw - h + sw})
+	b.Cube(f32.Point{X: 0, Y: -nw * c}, f32.Point{X: nw - nw*c, Y: -nw}, f32.Point{X: nw, Y: -nw})
+	b.Line(f32.Point{X: w - ne - nw, Y: 0})
+	b.Cube(f32.Point{X: ne * c, Y: 0}, f32.Point{X: ne, Y: ne - ne*c}, f32.Point{X: ne, Y: ne})
+	b.End()
+}
+
+// END RR OMIT
+
 var start = time.Now()
 
-func animateColor(t time.Time) color.RGBA {
+func animateRadius(t time.Time, max float32) float32 {
 	dt := t.Sub(start).Seconds()
-	green := math.Abs(math.Sin(dt))
-	return color.RGBA{A: 0xff, G: byte(green * 0xff)}
+	radius := math.Abs(math.Sin(dt))
+	return float32(radius) * max
 }

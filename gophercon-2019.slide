@@ -4,6 +4,31 @@ Gophercon 2019
 Elias Naur
 mail@eliasnaur.com
 @elias_naur
+https://gioui.org
+https://scatter.im
+
+
+
+* Introduction
+
+[[https://gioui.org][gioui.org]]
+
+Gio is a Go module for writing simple, portable and fast graphical interfaces.
+
+[[https://scatter.im][scatter.im]]
+
+Scatter is a Gio program for end-to-end encrypted messaging over email. 
+
+: So what's in it for you?
+
+: In this talk I'm going to introduce Gio, a set of packages for writing simple and portable graphical user interfaces in Go.
+
+: It is written from scratch in Go and only depend on a few system libraries.
+
+: I've spent almost 2 years designing and developing it, and it's been my dog food for the last month or so while developing Scatter.
+
+: It really does feel much simpler and faster to write user interfaces with Gio compared to my years of experience with other libraries and frameworks.
+
 
 * Go 2018 Survey Results
 
@@ -23,26 +48,7 @@ mail@eliasnaur.com
 
 
 
-
-* What
-
-[[https://gioui.org][Gio]], an open source module for writing simple, portable and fast graphical interfaces.
-
-: So what's in it for you?
-
-: In this talk I'm going to introduce Gio, a set of packages for writing simple and portable graphical user interfaces in Go.
-
-: It is written from scratch in Go and only depend on a few system libraries.
-
-: I've spent almost 2 years designing and developing it, and it's been my dog food for the last month or so while developing Scatter.
-
-: It really does feel much simpler and faster to write user interfaces with Gio compared to my years of experience with other libraries and frameworks.
-
-
-
-* Demo
-
-[[https://scatter.im][Scatter]], a Gio program for end-to-end encrypted messaging over email.
+* Demo - Scatter
 
 : Gio is a comprehensive module and I have a lot to cover in my time slot. However, as a motivating example of what can be achieved today, here's Scatter which is a small program for sending encrypted messages over email.
 
@@ -219,37 +225,28 @@ Use a webserver or goexec to serve it:
 : [adb install hello.apk]
 : [go run webassembly.go]
 
-* Drawing
-
-: The major parts of any UI program are drawing, layout and input handling.
-
-: We'll tackle drawing first.
-
 
 
 * Operations
 
-Storing operations
+* Operations
+
+Serializing operations
 
 	import gioui.org/ui // Pure Go
 
 	var ops ui.Ops
+	// Add operations to ops
+	ui.InvalidateOp{}.Add(ops)
+	...
 
 Only the app package depends on platform libraries
 
 	import gioui.org/ui/app
+
 	var w app.Window
 	w.Draw(&ops)
 
-
-Drawing operations
-
-	import gioui.org/ui/draw
-
-	ui.TransformOp{ui.Offset(f32.Point{...})}.Add(ops) // Transform
-	draw.ColorOp{Color: color.RGBA{...}}.Add(ops) // Set current color
-	draw.ImageOp{Src: ..., Rect: ...}.Add(ops) // Set current image
-	draw.DrawOp{Rect: ...}.Add(ops) // Draw current image or color
 
 : In Gio, the basic building block is the operation. There are operations for clipping, transforming and drawing as well as ops for controlling input flow and requesting a redraw for animation.
 
@@ -263,11 +260,82 @@ Drawing operations
 
 : For example, the label from the helloworld example is drawn garbage free, as long as your string is constant and re-use the font cache.
 
+* Operations
+
+Position other operations
+
+	import gioui.org/ui
+
+	ui.TransformOp{ui.Offset(f32.Point{...})}.Add(ops)
+
+Request a redraw
+
+	ui.InvalidateOp{}.Add(ops) // Immediate
+	ui.InvalidateOp{At: ...}.Add(ops) // Delayed
+
+* Control operations
+
+Save and restore the operation state
+
+	import gioui.org/ui
+
+	var stack ui.StackOp
+	stack.Push(ops) // Save state
+	... // Add operations
+	stack.Pop() // Restore state
+
+Record and replay operations
+
+	import gioui.org/ui
+
+	var macro ui.MacroOp
+	macro.Record(ops)
+	... // Add operations
+	macro.Stop()
+	...
+	macro.Add(ops) // Add recorded operations
+
+* Drawing operations
+
+Set current color or image
+
+	import gioui.org/ui/draw
+
+	draw.ColorOp{Color: color.RGBA{...}}.Add(ops)
+	draw.ImageOp{Src: ..., Rect: ...}.Add(ops)
+
+Draw with the current color or image
+
+	draw.DrawOp{Rect: ...}.Add(ops)
 
 
-* Drawing (and Animating)
+* Clip operations
 
-.code drawingandanimating.go /START OMIT/,/END OMIT/ HLops
+Clip drawing to a rectangle
+
+	import gioui.org/draw
+
+	draw.RectClip(image.Rectangle{...}).Add(ops)
+
+Or to an outline
+
+	var b draw.PathBuilder
+	b.Init(ops)
+	b.Line(...)
+	b.Quad(...) // Quadratic Beziér curve
+	b.Cube(...) // Cubic Beziér curve
+	b.End()
+
+: The major parts of any UI program are drawing, layout and input handling.
+
+: We'll tackle drawing first.
+
+
+
+
+: * Drawing (and Animating)
+
+: .code drawingandanimating.go /START OMIT/,/END OMIT/ HLops
 
 : This is the event loop for a program that displays a pulsating square.
 
@@ -280,39 +348,41 @@ Drawing operations
 
 
 
-* Path clipping
-
-Clip with ClipOp
-
-	package draw
-	func (p ClipOp) Add(o *ui.Ops)
-
-Specify path with PathBuilder
-
-	func (p *PathBuilder) Init(ops *ui.Ops)
-	func (p *PathBuilder) Cube(ctrl0, ctrl1, to f32.Point)
-	func (p *PathBuilder) Line(to f32.Point)
-	func (p *PathBuilder) Move(to f32.Point)
-	func (p *PathBuilder) Quad(ctrl, to f32.Point)
-	func (p *PathBuilder) End()
+:* Path clipping
+:
+:Clip with ClipOp
+:
+:	package draw
+:	func (p ClipOp) Add(o *ui.Ops)
+:
+:Specify path with PathBuilder
+:
+:	func (p *PathBuilder) Init(ops *ui.Ops)
+:	func (p *PathBuilder) Cube(ctrl0, ctrl1, to f32.Point)
+:	func (p *PathBuilder) Line(to f32.Point)
+:	func (p *PathBuilder) Move(to f32.Point)
+:	func (p *PathBuilder) Quad(ctrl, to f32.Point)
+:	func (p *PathBuilder) End()
 
 : The ClipOp operation clips drawing by arbitrary paths specified by an outline made out of lines and curves.
 
 : Again, the api is constructed so that you can either store outlines between frames, for example for text, or you can specify a dynamic path every frame in a garbage free manner.
 
 
-* Animated paths
+* Drawing (and animating)
 
-.code animatedpaths.go /START OMIT/,/END OMIT/ HLpath
+Drawing and animating a clipped square
+
+.code drawingandanimating.go /START OMIT/,/END OMIT/ HLdraw
 
 : This is another animated example, this time with a clip that changes over time.
 
 : [go run animatedpaths.go]
 
 
-* Animated paths
+* Drawing (and animating)
 
-.code animatedpaths.go /START RR OMIT/,/END RR OMIT/
+.code drawingandanimating.go /START RR OMIT/,/END RR OMIT/
 
 : If you're curious, here's the listing for generating the round corner clipping.
 
