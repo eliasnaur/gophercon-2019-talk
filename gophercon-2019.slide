@@ -101,9 +101,9 @@ Scatter is a Gio program for end-to-end encrypted messaging over email.
 
 * Blank window
 
-.code blank.go
+.play blank.go
 
-: I tried to fit a complete hello worl example on a slide, but failed. Here's a minimal program for a blank window instead.
+: I tried to fit a complete hello world example on a slide, but failed. Here's a minimal program for a blank window instead.
 
 : This is a minimal complete Gio program ready to run; it displays an empty window, and is otherwise fully functional.
 
@@ -115,30 +115,9 @@ Scatter is a Gio program for end-to-end encrypted messaging over email.
 
 
 
-: * Blank window
-
-: .code blank.go HLmain
-
-: Another detail is that the main function calls app.Main. Some platforms such as macOS require that all calls to their UI platform libraries happen on the main thread. In turn, your program must give up the main goroutine. The app.Main call blocks until the window is closed.
-
-
-
-: * Blank window
-
-: .code blank.go HLeventloop
-
-: Finally, there is the creation of the main window and the loop that processes incoming events.
-
-: The important and mandatory event to handle is DrawEvent. It must be handled by calling the Draw method on Window.
-
-: The structure of the program is one consequence of the immediate mode design; if you've ever done any old school windows win32 programming and squint a little, you might recognize the initialization of a window and the straightforward event loop. Everything is explicit, and your program is in control at all times.
-
-: [go run blank.go]
-
-
 * Hello, World
 
-.code helloworld.go /START OMIT/,/END OMIT/ HLdraw
+.play helloworld.go /START OMIT/,/END OMIT/ HLdraw
 
 : This the proverbial Hello, world program written with Gio. It's little bigger but still fit on a slide after leaving out the package statement and package imports.
 
@@ -369,7 +348,7 @@ Mouse and touch input
 
 Drawing and animating a clipped square
 
-.code animatedclipping.go /START OMIT/,/END OMIT/
+.play animatedclipping.go /START OMIT/,/END OMIT/
 
 : This is another animated example, this time with a clip that changes over time.
 
@@ -437,7 +416,7 @@ Widgets accept constraints, output dimensions
 
 * Example - two labels
 
-.code twolabels2.go /START DRAW OMIT/,/END DRAW OMIT/ HLdraw
+.play twolabels2.go /START DRAW OMIT/,/END DRAW OMIT/ HLdraw
 
 : The constraints given to us in drawLabel are rigid, and forces the dimensions of the labels to take up the whole window.
 
@@ -487,7 +466,7 @@ Insetting
 
 Lay out widgets on an axis.
 
-.code flex.go /START OMIT/,/END OMIT/ HLflex
+.play flex.go /START OMIT/,/END OMIT/ HLflex
 
 : A more complex layout in Gio is the Flex. It mimics the flex layout from Flutter and is used for laying out widgets along an axis.
 
@@ -500,7 +479,7 @@ Lay out widgets on an axis.
 
 * Stack layout
 
-.code stack.go /START OMIT/,/END OMIT/ HLstack
+.play stack.go /START OMIT/,/END OMIT/ HLstack
 
 : Stack is another layout in Gio which as the name implies is used for layering widget on top of each other.
 
@@ -514,7 +493,7 @@ Lay out widgets on an axis.
 
 .code list.go /START INIT OMIT/,/END INIT OMIT/ HLlist
 
-.code list.go /START OMIT/,/END OMIT/ HLlist
+.play list.go /START OMIT/,/END OMIT/ HLlist
 
 : The most complex layout in Gio is the scrollable List. It is also the first stateful widget you've seen, in that it can accept user input and scroll its content to match.
 
@@ -562,7 +541,7 @@ Lay out widgets on an axis.
 
 * Pointer event handling
 
-.code pointer.go /START OMIT/,/END OMIT/ HLevent
+.play pointer.go /START OMIT/,/END OMIT/ HLevent
 
 : Let's say you have a Button widget. It has only one field, the pressed boolean.
 
