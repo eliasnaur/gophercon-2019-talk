@@ -237,7 +237,7 @@ Use a webserver or goexec to serve it:
 
 Serializing operations
 
-	import gioui.org/ui // Pure Go
+	import "gioui.org/ui" // Pure Go
 
 	var ops ui.Ops
 	// Add operations to ops
@@ -246,7 +246,7 @@ Serializing operations
 
 Only the app package depends on platform libraries
 
-	import gioui.org/ui/app
+	import "gioui.org/ui/app"
 
 	var w app.Window
 	w.Draw(&ops)
@@ -268,7 +268,7 @@ Only the app package depends on platform libraries
 
 Position other operations
 
-	import gioui.org/ui
+	import "gioui.org/ui"
 
 	ui.TransformOp{ui.Offset(f32.Point{...})}.Add(ops)
 
@@ -281,7 +281,7 @@ Request a redraw
 
 Save and restore the operation state
 
-	import gioui.org/ui
+	import "gioui.org/ui"
 
 	var stack ui.StackOp
 	stack.Push(ops) // Save state
@@ -290,7 +290,7 @@ Save and restore the operation state
 
 Record and replay operations
 
-	import gioui.org/ui
+	import "gioui.org/ui"
 
 	var macro ui.MacroOp
 	macro.Record(ops)
@@ -303,7 +303,7 @@ Record and replay operations
 
 Set current color or image
 
-	import gioui.org/ui/draw
+	import "gioui.org/ui/draw"
 
 	draw.ColorOp{Color: color.RGBA{...}}.Add(ops)
 	draw.ImageOp{Src: ..., Rect: ...}.Add(ops)
@@ -317,7 +317,7 @@ Draw with the current color or image
 
 Clip drawing to a rectangle
 
-	import gioui.org/draw
+	import "gioui.org/draw"
 
 	draw.RectClip(image.Rectangle{...}).Add(ops)
 
@@ -339,7 +339,7 @@ Or to an outline
 
 Keyboard and text input
 
-	import gioui.org/ui/key
+	import "gioui.org/ui/key"
 
 	// Declare key handler.
 	key.HandlerOp{Key: handler, Focus: true/false}.Add(ops)
@@ -349,7 +349,7 @@ Keyboard and text input
 
 Mouse and touch input
 
-	import gioui.org/ui/pointer
+	import "gioui.org/ui/pointer"
 
 	// Define hit area.
 	pointer.RectAreaOp{Size: ...}.Add(ops)
@@ -357,21 +357,6 @@ Mouse and touch input
 
 	// Declare pointer handler.
 	pointer.HandlerOp{Key: c, Grab true/false}
-
-
-
-: * Drawing (and Animating)
-
-: .code drawingandanimating.go /START OMIT/,/END OMIT/ HLops
-
-: This is the event loop for a program that displays a pulsating square.
-
-: Note how there is no need for further support for animations, apart from the invalidate op. You simply invalidate and draw with the animated state.
-
-
-: [go run drawingandanimating.go]
-
-: The pulsing square program is trivial, but its drawing and animation are not fundamentally different from that of larger programs. Gio has no implicit tree of widgets.
 
 
 
@@ -387,18 +372,6 @@ Drawing and animating a clipped square
 : This is another animated example, this time with a clip that changes over time.
 
 : [go run animatedpaths.go]
-
-
-* Drawing (and animating)
-
-.code animatedclipping.go /START RR OMIT/,/END RR OMIT/
-
-: If you're curious, here's the listing for generating the round corner clipping.
-
-: I'm using PathBuilder to approximate the circular corner roundings.
-
-: [go run animatedpaths.go]
-
 
 
 
@@ -460,25 +433,7 @@ Widgets accept constraints, output dimensions
 
 
 
-* Two labels
-
-.code twolabels1.go /START OMIT/,/END OMIT/ HLdraw
-
-.code twolabels1.go /START DRAW OMIT/,/END DRAW OMIT/
-
-: Let's add another label and see what happens.
-
-: [ go run twolabels1.go ]
-
-: As you can see, the result is that the two labels are drawn on top of each other.
-
-: If our goal is to position one label below the other, we need to offset the second label.
-
-: By how much? That depends on the font and font size. Lucky for us, the Layout method returns the dimensions of the label given a set of constraints.
-
-
-
-* Two labels
+* Example - two labels
 
 .code twolabels2.go /START DRAW OMIT/,/END DRAW OMIT/ HLdraw
 
@@ -491,57 +446,13 @@ Widgets accept constraints, output dimensions
 : [go run twolabels2.go]
 
 
-* Centering
-
-Centering requires the dimensions of both the container and the widget
-
-	widgetOffset = (containerDimensions - widgetDimensions)/2
-
-But drawing is complete when Layout returns
-
-	dimensions := label.Layout(ops, cs)
-
-: In gio, widgets draw and determine their dimensions simultaneously. But what if we wanted to position a widget depending on its size?
-
-: For example, computing the offset for centering a widget requires the dimension of both the container and the widget.
-
-: In other words, we need to call Layout to get the dimensions, but then the drawing will be complete before we can offset it.
-
-
-
-* Macros
-
-Record macro
-
-	var ops *ui.Ops
-	var macro ui.MacroOp
-	macro.Record()
-	... // Operations
-	macro.Stop()
-
-Invoke macro
-
-	macro.Add(ops)
-
-: Gio operation macros is the solution to that chicken-and-egg problem.
-
-: A macro captures a list of operations for later use.
-
-
-
-* Centering
-
-.code centering.go /START OMIT/,/END OMIT/ HLcenter
-
-: With a macro, centering is now straightforward: capture the operations from Layout, compute and apply the offset before invoking the recorded macro.
-
-: [go run centering.go]
-
-
 
 * Layout helpers
 
 Aligning
+
+	var ops *ui.Ops
+	var cs layout.Constraints
 
 	align := layout.Align{Alignment: layout.Center}
 	cs = align.Begin(ops, cs)
