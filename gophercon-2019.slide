@@ -580,13 +580,11 @@ Lay out widgets on an axis.
 
 * Window input queue
 
-.code pointer.go /START QUEUE OMIT/,/END QUEUE OMIT/ HLqueue
+The Window's Queue method returns an input.Queue for OS events.
 
-: This is the event loop for the button example.
+	package app // import gioui.org/ui/app
 
-: The input.Queue implementation returned by a Window's Queue method takes care of multiplexing the incoming system events between the registered handlers.
-
-: The window queue also takes care of disambiguating overlapping pointer handlers and multiple touch points, which are important for touch gestures on mobiles.
+	func (w *Window) Queue() *Queue
 
 
 
