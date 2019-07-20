@@ -68,13 +68,14 @@ Scatter is a Gio program for end-to-end encrypted messaging over email.
 
 
 
-* Background
+* Features
 
-[[https://flutter.dev/][Flutter]], a Google library for portable UI programs in Dart.
-
-[[https://github.com/ocornut/imgui][Dear ImGui]], a C++ library for writing immediate mode UI programs.
-
-[[https://github.com/servo/pathfinder][Pathfinder]], a Rust library for drawing vector graphics on the GPU.
+- Immediate mode design.
+- Only depends on lowest-level platform libraries.
+- GPU accelerated vector and text rendering.
+- No garbage generated in drawing or layout code.
+- Cross platform (macOS, Linux, Windows, Android, iOS/tvOS, Webassembly).
+- Core is 100% Go. OS-specific native interfaces are optional.
 
 : At the time I decided to write Gio I simply wanted to write mobile apps in pure Go.
 
@@ -583,8 +584,8 @@ Determine scroll distance from mouse wheel or touch drag/fling
 
 Gio is
 
-- Portable. The core of Gio is all Go.
 - Simple. Immediate mode design, no hidden state.
+- Portable. The core of Gio is all Go.
 - Fast. GPU accelerated, very little per-frame garbage.
 - Convenient. Develop on desktop, deploy on mobile.
 - Public domain source (UNLICENCE). Dual licenced MIT to please your lawyers.
