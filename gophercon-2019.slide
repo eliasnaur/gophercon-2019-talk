@@ -11,6 +11,8 @@ https://scatter.im
 
 .image survey_obstacles.svg 550 _
 
+: This talk is about fixing one of the top five challenges of Go, at least according to the Go survey.
+
 : Some of you have probably seen this figure before. It's from the Go 2018 survey results, and shows the top responses to the question "What is the biggest obstacle you personally face using Go today?"
 
 : As you may know, the top complaint, packaging and modules, is being taken care of.
@@ -618,6 +620,8 @@ Determine scroll distance from mouse wheel or touch drag/fling
 
 * Why Gio?
 
+* Why Gio?
+
 Gio is
 
 - Portable. The core of Gio is all Go.
@@ -625,6 +629,8 @@ Gio is
 - Fast. GPU accelerated, very little per-frame garbage.
 - Convenient. Develop on desktop, deploy on mobile.
 - Public domain source (UNLICENCE). Dual licenced MIT to please your lawyers.
+
+Most importantly, Gio needs your help!
 
 : That's it for a short introduction to the major parts of the Gio library as it looks like today.
 
