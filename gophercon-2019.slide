@@ -11,7 +11,9 @@ https://scatter.im
 
 .image survey_obstacles.svg 550 _
 
-: This talk is about fixing one of the top five challenges of Go, at least according to the Go survey.
+: According to the Go survey, writing GUI programs is one of the top 5 challenges for Go programmers.
+
+: I want to make a serious dent in fixing that and I want to make Go a natural and even obvious choice for writing GUI programs with.
 
 : Some of you have probably seen this figure before. It's from the Go 2018 survey results, and shows the top responses to the question "What is the biggest obstacle you personally face using Go today?"
 
