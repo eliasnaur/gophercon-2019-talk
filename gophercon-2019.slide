@@ -260,28 +260,6 @@ Request a redraw
 	ui.InvalidateOp{}.Add(ops) // Immediate
 	ui.InvalidateOp{At: ...}.Add(ops) // Delayed
 
-* Control operations
-
-Save and restore the operation state
-
-	import "gioui.org/ui"
-
-	var stack ui.StackOp
-	stack.Push(ops) // Save state
-	... // Add operations
-	stack.Pop() // Restore state
-
-Record and replay operations
-
-	import "gioui.org/ui"
-
-	var macro ui.MacroOp
-	macro.Record(ops)
-	... // Add operations
-	macro.Stop()
-	...
-	macro.Add(ops) // Add recorded operations
-
 * Drawing operations
 
 Set current color or image
