@@ -578,6 +578,12 @@ Determine scroll distance from mouse wheel or touch drag/fling
 : The Click state machine record the current pressed state, which the Scroll state machine track touch velocity, while animating it on touch release.
 
 
+* Widgets
+
+* Editor
+
+
+
 * Why Gio?
 
 * Why Gio?

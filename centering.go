@@ -16,18 +16,18 @@ func init() {
 	go func() {
 		w := app.NewWindow(nil)
 		regular, _ := sfnt.Parse(goregular.TTF)
-		var cfg app.Config
-		faces := &measure.Faces{Config: &cfg}
+		var cfg ui.Config
+		var faces measure.Faces
 		ops := new(ui.Ops)
 		for e := range w.Events() {
 			if e, ok := e.(app.DrawEvent); ok {
-				cfg = e.Config
+				cfg = &e.Config
 				cs := layout.RigidConstraints(e.Size)
 				ops.Reset()
+				faces.Reset(cfg)
 				f := faces.For(regular, ui.Sp(72))
 				drawLabels(f, ops, cs)
 				w.Draw(ops)
-				faces.Frame()
 			}
 		}
 	}()

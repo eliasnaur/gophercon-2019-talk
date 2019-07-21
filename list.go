@@ -5,6 +5,7 @@ import (
 
 	"gioui.org/ui"
 	"gioui.org/ui/app"
+	"gioui.org/ui/input"
 	"gioui.org/ui/layout"
 	"gioui.org/ui/measure"
 	"gioui.org/ui/text"
@@ -17,25 +18,23 @@ func init() {
 	go func() {
 		w := app.NewWindow(nil)
 		regular, _ := sfnt.Parse(goregular.TTF)
-		var cfg app.Config
-		faces := &measure.Faces{Config: &cfg}
+		var cfg ui.Config
+		var faces measure.Faces
 		ops := new(ui.Ops)
 		// START INIT OMIT
 		list := &layout.List{
-			Axis:   layout.Vertical,
-			Config: &cfg,
-			Inputs: w.Queue(),
+			Axis: layout.Vertical,
 		}
 		// END INIT OMIT
 		for e := range w.Events() {
 			if e, ok := e.(app.DrawEvent); ok {
-				cfg = e.Config
+				cfg = &e.Config
 				cs := layout.RigidConstraints(e.Size)
 				ops.Reset()
+				faces.Reset(cfg)
 				f := faces.For(regular, ui.Sp(42))
-				drawList(list, f, ops, cs)
+				drawList(cfg, w.Queue(), list, f, ops, cs)
 				w.Draw(ops)
-				faces.Frame()
 			}
 		}
 	}()
@@ -46,9 +45,9 @@ func main() {
 }
 
 // START OMIT
-func drawList(list *layout.List, face text.Face, ops *ui.Ops, cs layout.Constraints) {
+func drawList(c ui.Config, q input.Queue, list *layout.List, face text.Face, ops *ui.Ops, cs layout.Constraints) {
 	const n = 1e6
-	for list.Init(ops, cs, n); list.More(); list.Next() {
+	for list.Init(c, q, ops, cs, n); list.More(); list.Next() {
 		txt := fmt.Sprintf("List element #%d", list.Index())
 
 		lbl := text.Label{Face: face, Text: txt}

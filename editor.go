@@ -19,15 +19,17 @@ func init() { // HLinitfunc
 		var cfg ui.Config                       // HLdraw
 		var faces measure.Faces                 // HLdraw
 		ops := new(ui.Ops)                      // HLdraw
+		editor := &text.Editor{
+			Face: faces.For(regular, ui.Sp(22)),
+		}
 		for e := range w.Events() {
 			if e, ok := e.(app.DrawEvent); ok {
-				cfg = &e.Config                                                               // HLdraw
-				cs := layout.RigidConstraints(e.Size)                                         // HLdraw
-				ops.Reset()                                                                   // HLdraw
-				faces.Reset(cfg)                                                              // HLdraw
-				lbl := text.Label{Face: faces.For(regular, ui.Sp(72)), Text: "Hello, World!"} // HLdraw
-				lbl.Layout(ops, cs)                                                           // HLdraw
-				w.Draw(ops)                                                                   // HLdraw
+				cfg = &e.Config                       // HLdraw
+				cs := layout.RigidConstraints(e.Size) // HLdraw
+				ops.Reset()                           // HLdraw
+				faces.Reset(cfg)                      // HLdraw
+				editor.Layout(cfg, w.Queue(), ops, cs)
+				w.Draw(ops) // HLdraw
 			}
 		} // HLeventloop
 	}() // HLinitfunc
