@@ -1,5 +1,5 @@
-gioui.org/ui v0.0.0-20190721153412-21ad48b7dee6 h1:L+QCT9dVBcomm5HsnAqh0m75dy4SWt+Txe7cklVwdUY=
-gioui.org/ui v0.0.0-20190721153412-21ad48b7dee6/go.mod h1:jbaSHnW/jO2+8gOhOraRz7/3A2tntNzXF9nra6FUOr4=
+gioui.org/ui v0.0.0-20190721171934-2f9e29d87850 h1:NspVvnSeX05EuK9d2aeB7Q6IR4AE5v1f0zNrUASfOGs=
+gioui.org/ui v0.0.0-20190721171934-2f9e29d87850/go.mod h1:jbaSHnW/jO2+8gOhOraRz7/3A2tntNzXF9nra6FUOr4=
 golang.org/x/image v0.0.0-20190703141733-d6a02ce849c9 h1:uc17S921SPw5F2gJo7slQ3aqvr2RwpL7eb3+DZncu3s=
 golang.org/x/image v0.0.0-20190703141733-d6a02ce849c9/go.mod h1:FeLwcggjj3mMvU+oOTbSwawSJRM1uh48EjtB4UJZlP0=
 golang.org/x/sys v0.0.0-20190626221950-04f50cda93cb h1:fgwFCsaw9buMuxNd6+DQfAuSFqbNiQZpcgJQAgJsK6k=
