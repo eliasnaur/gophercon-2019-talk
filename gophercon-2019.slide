@@ -580,9 +580,17 @@ Determine scroll distance from mouse wheel or touch drag/fling
 
 * Widgets
 
-* Editor
+* Widgets - the Editor
 
+Initialize the editor
 
+	import "gioui.org/ui/text"
+
+.code editor.go /START INIT OMIT/,/END INIT OMIT/
+
+Draw, layout and handle input in one call.
+
+.play editor.go /START OMIT/,/END OMIT/
 
 * Why Gio?
 
