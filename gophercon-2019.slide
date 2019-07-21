@@ -13,6 +13,8 @@ https://scatter.im
 
 : According to the Go survey, writing GUI programs is one of the top 5 challenges for Go programmers.
 
+: This talk is about that obstacle, and about making Go a good choice for writing GUI programs.
+
 : I want to make a serious dent in fixing that and I want to make Go a natural and even obvious choice for writing GUI programs with.
 
 : Some of you have probably seen this figure before. It's from the Go 2018 survey results, and shows the top responses to the question "What is the biggest obstacle you personally face using Go today?"
@@ -622,6 +624,7 @@ Most importantly, Gio needs your help to succeed!
 
 : And finally, Gio is unlicenced so you can take whatever you like from Gio and use it in your own project if you choose. You don't need to pollute your code with attribution or licence.
 
+: Let's make Go a natural and even obvious choice for writing GUI programs with.
 
 
 : What about the future of Gio?
