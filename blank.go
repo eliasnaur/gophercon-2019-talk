@@ -6,11 +6,8 @@ import (
 
 func init() { // HLinitfunc
 	go func() { // HLinitfunc
-		w := app.NewWindow(nil)     // HLeventloop
-		for e := range w.Events() { // HLeventloop
-			if _, ok := e.(app.DrawEvent); ok { // HLeventloop
-				w.Draw(nil) // HLeventloop
-			} // HLeventloop
+		w := app.NewWindow(nil) // HLeventloop
+		for range w.Events() {  // HLeventloop
 		} // HLeventloop
 	}() // HLinitfunc
 } // HLinitfunc
