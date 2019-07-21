@@ -13,7 +13,7 @@ https://scatter.im
 
 : According to the Go survey, writing GUI programs is one of the top 5 challenges for Go programmers.
 
-: This talk is about that obstacle, and about making Go a good choice for writing GUI programs.
+: This talk is about that challenge, and about making Go a good choice for writing GUI programs.
 
 : I want to make a serious dent in fixing that and I want to make Go a natural and even obvious choice for writing GUI programs with.
 
