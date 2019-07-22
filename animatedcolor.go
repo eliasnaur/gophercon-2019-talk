@@ -11,7 +11,7 @@ import (
 	"gioui.org/ui/f32"
 )
 
-func init() {
+func main() {
 	go func() {
 		w := app.NewWindow(nil)
 		// START OMIT
@@ -37,9 +37,6 @@ func init() {
 		}
 		// END OMIT
 	}()
-}
-
-func main() {
 	app.Main()
 }
 

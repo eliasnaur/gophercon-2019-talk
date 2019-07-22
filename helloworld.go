@@ -12,29 +12,28 @@ import (
 )
 
 // START OMIT
-func init() { // HLinitfunc
-	go func() { // HLinitfunc
+func main() {
+	go func() {
 		w := app.NewWindow(nil)
-		regular, _ := sfnt.Parse(goregular.TTF) // HLdraw
-		var cfg ui.Config                       // HLdraw
-		var faces measure.Faces                 // HLdraw
-		ops := new(ui.Ops)                      // HLdraw
+		regular, _ := sfnt.Parse(goregular.TTF)
+		var cfg ui.Config
+		var faces measure.Faces
+		ops := new(ui.Ops)
 		for e := range w.Events() {
 			if e, ok := e.(app.DrawEvent); ok {
-				cfg = &e.Config                                                               // HLdraw
-				cs := layout.RigidConstraints(e.Size)                                         // HLdraw
-				ops.Reset()                                                                   // HLdraw
-				faces.Reset(cfg)                                                              // HLdraw
+				cfg = &e.Config
+				cs := layout.RigidConstraints(e.Size)
+				ops.Reset()
+				faces.Reset(cfg)
+
 				lbl := text.Label{Face: faces.For(regular, ui.Sp(72)), Text: "Hello, World!"} // HLdraw
 				lbl.Layout(ops, cs)                                                           // HLdraw
-				w.Draw(ops)                                                                   // HLdraw
+
+				w.Draw(ops)
 			}
 		} // HLeventloop
-	}() // HLinitfunc
-} // HLinitfunc
-
-func main() { // HLmain
-	app.Main() // HLmain
-} // HLmain
+	}()
+	app.Main()
+}
 
 // END OMIT

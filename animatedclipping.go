@@ -11,7 +11,7 @@ import (
 	"gioui.org/ui/f32"
 )
 
-func init() {
+func main() {
 	go func() {
 		w := app.NewWindow(nil)
 		ops := new(ui.Ops)
@@ -43,9 +43,6 @@ func init() {
 			}
 		}
 	}()
-}
-
-func main() {
 	app.Main()
 }
 

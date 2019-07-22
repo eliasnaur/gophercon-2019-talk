@@ -11,8 +11,8 @@ import (
 	"golang.org/x/image/font/sfnt"
 )
 
-func init() { // HLinitfunc
-	go func() { // HLinitfunc
+func main() {
+	go func() {
 		w := app.NewWindow(nil)
 		regular, _ := sfnt.Parse(goregular.TTF) // HLdraw
 		var cfg ui.Config                       // HLdraw
@@ -37,9 +37,6 @@ func init() { // HLinitfunc
 				w.Draw(ops) // HLdraw
 			}
 		} // HLeventloop
-	}() // HLinitfunc
-} // HLinitfunc
-
-func main() { // HLmain
-	app.Main() // HLmain
-} // HLmain
+	}()
+	app.Main()
+}

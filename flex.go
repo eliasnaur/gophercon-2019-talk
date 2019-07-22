@@ -11,7 +11,7 @@ import (
 	"gioui.org/ui/layout"
 )
 
-func init() {
+func main() {
 	go func() {
 		w := app.NewWindow(nil)
 		var cfg app.Config
@@ -26,9 +26,6 @@ func init() {
 			}
 		}
 	}()
-}
-
-func main() {
 	app.Main()
 }
 

@@ -12,7 +12,7 @@ import (
 	"golang.org/x/image/font/sfnt"
 )
 
-func init() {
+func main() {
 	go func() {
 		w := app.NewWindow(nil)
 		regular, _ := sfnt.Parse(goregular.TTF)
@@ -31,9 +31,6 @@ func init() {
 			}
 		}
 	}()
-}
-
-func main() {
 	app.Main()
 }
 

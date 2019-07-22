@@ -13,7 +13,7 @@ import (
 )
 
 // START QUEUE OMIT
-func init() {
+func main() {
 	go func() {
 		w := app.NewWindow(nil)
 		button := new(Button)
@@ -27,13 +27,10 @@ func init() {
 			}
 		}
 	}()
+	app.Main()
 }
 
 // END QUEUE OMIT
-
-func main() {
-	app.Main()
-}
 
 type Button struct {
 	pressed bool

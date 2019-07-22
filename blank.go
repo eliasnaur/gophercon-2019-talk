@@ -4,14 +4,11 @@ import (
 	"gioui.org/ui/app"
 )
 
-func init() { // HLinitfunc
-	go func() { // HLinitfunc
+func main() {
+	go func() { // HLmain
 		w := app.NewWindow(nil) // HLeventloop
 		for range w.Events() {  // HLeventloop
-		} // HLeventloop
-	}() // HLinitfunc
-} // HLinitfunc
-
-func main() { // HLmain
+		}
+	}() // HLmain
 	app.Main() // HLmain
-} // HLmain
+}

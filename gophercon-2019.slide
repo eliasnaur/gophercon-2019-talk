@@ -108,6 +108,14 @@ Scatter is a Gio program for end-to-end encrypted messaging over email.
 
 .play blank.go
 
+* Blank window
+
+.play blank.go HLmain
+
+* Blank window
+
+.play blank.go HLeventloop
+
 : I tried to fit a complete hello world example on a slide, but failed. Here's a minimal program for a blank window instead.
 
 : This is a minimal complete Gio program ready to run; it displays an empty window, and is otherwise fully functional.
