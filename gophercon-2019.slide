@@ -569,9 +569,9 @@ The Window's Queue method returns an input.Queue for OS events.
 
 Detect clicks
 
-	var inputs input.Queue
+	var queue input.Queue
 	var c gesture.Click
-	for _, event := range c.Events(inputs) {
+	for _, event := range c.Events(queue) {
 		// event is a gesture.ClickEvent, not a raw pointer.Event.
 	}
 
@@ -580,7 +580,7 @@ Determine scroll distance from mouse wheel or touch drag/fling
 	var cfg ui.Config
 	var s gesture.Scroll
 
-	distance := s.Scroll(cfg, inputs, gesture.Vertical)
+	distance := s.Scroll(cfg, queue, gesture.Vertical)
 
 : The gesture package help your program recognize higher level gestures from low level pointer events. Examples shown are click and scroll.
 
