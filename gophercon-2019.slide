@@ -76,7 +76,7 @@ Scatter is a Gio program for end-to-end encrypted messaging over email.
 - Only depends on lowest-level platform libraries.
 - GPU accelerated vector and text rendering.
 - No garbage generated in drawing or layout code.
-- Cross platform (macOS, Linux, Windows, Android, iOS/tvOS, Webassembly).
+- Cross platform (macOS, Linux, Windows, Android, iOS, tvOS, Webassembly).
 - Core is 100% Go. OS-specific native interfaces are optional.
 
 : At the time I decided to write Gio I simply wanted to write mobile apps in pure Go.
