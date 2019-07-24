@@ -7,38 +7,13 @@ mail@eliasnaur.com
 https://gioui.org
 https://scatter.im
 
-* Go 2018 Survey Results
-
-.image survey_obstacles.svg 550 _
-
-: According to the Go survey, writing GUI programs is one of the top 5 challenges for Go programmers.
-
-: This talk is about that challenge, and about making Go a good choice for writing GUI programs.
-
-: I want to make a serious dent in fixing that and I want to make Go a natural and even obvious choice for writing GUI programs with.
-
-: Some of you have probably seen this figure before. It's from the Go 2018 survey results, and shows the top responses to the question "What is the biggest obstacle you personally face using Go today?"
-
-: As you may know, the top complaint, packaging and modules, is being taken care of.
-
-: The second, familarity; I suppose that's going to work itself out over time.
-
-: Number 3, generics, is also well covered; there's even a talk about it tomorrow by Ian Taylor.
-
-: So that's the top 3. And it seems momentum is building for doing something about the fifth entry, error handling.
-
-: That leaves #4 open, GUI development. This talk is about making a serious dent in that.
-
-
-
-
 * Introduction
 
-[[https://gioui.org][gioui.org]]
+Gio - [[https://gioui.org][gioui.org]]
 
 Gio is a simple Go module for writing portable and fast graphical interfaces.
 
-[[https://scatter.im][scatter.im]]
+Scatter - [[https://scatter.im][scatter.im]]
 
 Scatter is a Gio program for end-to-end encrypted messaging over email. 
 
@@ -94,7 +69,6 @@ Scatter is a Gio program for end-to-end encrypted messaging over email.
 
 - UI state is owned by the program. Even layout and widget tree.
 - No callbacks. Events are handled while drawing.
-- Mostly used in games.
 
 .image tribaltrouble.jpg 370 _
 
@@ -605,6 +579,32 @@ Draw, layout and handle input in one call.
 
 * Why Gio?
 
+
+* Go 2018 Survey Results
+
+.image survey_obstacles.svg 550 _
+
+: According to the Go survey, writing GUI programs is one of the top 5 challenges for Go programmers.
+
+: This talk is about that challenge, and about making Go a good choice for writing GUI programs.
+
+: I want to make a serious dent in fixing that and I want to make Go a natural and even obvious choice for writing GUI programs with.
+
+: Some of you have probably seen this figure before. It's from the Go 2018 survey results, and shows the top responses to the question "What is the biggest obstacle you personally face using Go today?"
+
+: As you may know, the top complaint, packaging and modules, is being taken care of.
+
+: The second, familarity; I suppose that's going to work itself out over time.
+
+: Number 3, generics, is also well covered; there's even a talk about it tomorrow by Ian Taylor.
+
+: So that's the top 3. And it seems momentum is building for doing something about the fifth entry, error handling.
+
+: That leaves #4 open, GUI development. This talk is about making a serious dent in that.
+
+
+
+
 * Why Gio?
 
 Gio is
@@ -616,6 +616,14 @@ Gio is
 - Public domain source (UNLICENCE). Dual licenced MIT to please your lawyers.
 
 Most importantly, Gio needs your help to succeed!
+
+: So if you want to write your user interface in Go,
+
+: and care about as simple and straightforward programming interface.
+
+: Or if you like myself, loathe to repeat yourself, Gio runs on all the popular platforms.
+
+: Portability is also very convenient during development. I usually test on my desktop system while only occasionally deploying to an emulator or device for verification or for mobile specific features.
 
 : That's it for a short introduction to the major parts of the Gio library as it looks like today.
 
