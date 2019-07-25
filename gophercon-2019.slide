@@ -7,6 +7,30 @@ mail@eliasnaur.com
 https://gioui.org
 https://scatter.im
 
+* Go 2018 Survey Results
+
+.image survey_obstacles.svg.png 900 _
+
+: According to the Go survey, writing GUI programs is one of the top 5 challenges for Go programmers.
+
+: This talk is about that challenge, and about making Go a good choice for writing GUI programs.
+
+: I want to make a serious dent in fixing that and I want to make Go a natural and even obvious choice for writing GUI programs with.
+
+: Some of you have probably seen this figure before. It's from the Go 2018 survey results, and shows the top responses to the question "What is the biggest obstacle you personally face using Go today?"
+
+: As you may know, the top complaint, packaging and modules, is being taken care of.
+
+: The second, familarity; I suppose that's going to work itself out over time.
+
+: Number 3, generics, is also well covered; there's even a talk about it tomorrow by Ian Taylor.
+
+: So that's the top 3. And it seems momentum is building for doing something about the fifth entry, error handling.
+
+: That leaves #4 open, GUI development. This talk is about making a serious dent in that.
+
+
+
 * Introduction
 
 Gio - [[https://gioui.org][gioui.org]]
@@ -578,30 +602,6 @@ Draw, layout and handle input in one call.
 .play editor.go /START OMIT/,/END OMIT/
 
 * Why Gio?
-
-
-* Go 2018 Survey Results
-
-.image survey_obstacles.svg 550 _
-
-: According to the Go survey, writing GUI programs is one of the top 5 challenges for Go programmers.
-
-: This talk is about that challenge, and about making Go a good choice for writing GUI programs.
-
-: I want to make a serious dent in fixing that and I want to make Go a natural and even obvious choice for writing GUI programs with.
-
-: Some of you have probably seen this figure before. It's from the Go 2018 survey results, and shows the top responses to the question "What is the biggest obstacle you personally face using Go today?"
-
-: As you may know, the top complaint, packaging and modules, is being taken care of.
-
-: The second, familarity; I suppose that's going to work itself out over time.
-
-: Number 3, generics, is also well covered; there's even a talk about it tomorrow by Ian Taylor.
-
-: So that's the top 3. And it seems momentum is building for doing something about the fifth entry, error handling.
-
-: That leaves #4 open, GUI development. This talk is about making a serious dent in that.
-
 
 
 
