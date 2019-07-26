@@ -91,10 +91,10 @@ Scatter is a Gio program for end-to-end encrypted messaging over email.
 
 * Immediate mode UI
 
-- UI state is owned by the program. Even layout and widget tree.
+- UI state is owned by the program. Even your layout and widget tree.
 - No callbacks. Events are handled while drawing.
 
-.image tribaltrouble.jpg 370 _
+: .image tribaltrouble.jpg 370 _
 
 : I haven't written a line of Dear ImGui code, but reading about it and watching a presentation by fellow game developer Casey Muratori, I went further that even Flutter and abandoned the traditional implicit widget hierarchy and state tracking of other frameworks. Even React doesn't go as far as Dear ImGui and Gio.
 
