@@ -43,10 +43,10 @@ func drawLabels(face text.Face, ops *ui.Ops, cs layout.Constraints) {
 	macro.Record(ops)    // Start recording  // HLcenter
 	dimensions := lbl.Layout(ops, cs)
 	macro.Stop() // End recording // HLcenter
-	ui.TransformOp{ui.Offset(f32.Point{
+	ui.TransformOp{}.Offset(f32.Point{
 		X: float32(cs.Width.Max-dimensions.Size.X) / 2,
 		Y: float32(cs.Height.Max-dimensions.Size.Y) / 2,
-	})}.Add(ops)
+	}).Add(ops)
 	macro.Add(ops) // Replay operations // HLcenter
 }
 

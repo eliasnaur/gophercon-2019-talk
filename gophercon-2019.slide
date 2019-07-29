@@ -263,7 +263,7 @@ Position other operations
 
 	import "gioui.org/ui"
 
-	ui.TransformOp{ui.Offset(f32.Point{...})}.Add(ops)
+	ui.TransformOp{}.Offset(f32.Point{...}).Add(ops)
 
 Request a redraw
 

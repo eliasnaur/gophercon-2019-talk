@@ -24,10 +24,10 @@ func main() {
 				radius := animateRadius(e.Config.Now(), 250)
 
 				// Position
-				ui.TransformOp{ui.Offset(f32.Point{ // HLdraw
+				ui.TransformOp{}.Offset(f32.Point{ // HLdraw
 					X: 100, // HLdraw
 					Y: 100, // HLdraw
-				})}.Add(ops) // HLdraw
+				}).Add(ops) // HLdraw
 				// Color
 				draw.ColorOp{Color: color.RGBA{A: 0xff, G: 0xcc}}.Add(ops) // HLdraw
 				// Clip corners
