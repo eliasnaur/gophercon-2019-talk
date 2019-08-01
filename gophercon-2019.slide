@@ -508,7 +508,7 @@ Lay out widgets on an axis.
 	// Queue maps an event handler key to the events
 	// available to the handler.
 	type Queue interface {
-		Events(k Key) []Event
+		Next(k Key) (Event, bool)
 	}
 
 	// Key is the stable identifier for an event handler.
@@ -519,7 +519,7 @@ Lay out widgets on an axis.
 
 : In gio all events from input sources such your mouse, finger, keyboard are distributed to handlers through the input.Queue.
 
-: Queue is an interface with just a single method, Events, returning the events available in this frame for a given
+: Queue is an interface with just a single method, Next, returning all events available in this frame for a given
 : handler.
 
 : A Key is the identifier for a handler. Any value will do, as long as it is stable across frames,
@@ -569,7 +569,7 @@ Detect clicks
 
 	var queue input.Queue
 	var c gesture.Click
-	for _, event := range c.Events(queue) {
+	for event, ok := c.Next(queue); ok; event, ok = c.Next(queue) {
 		// event is a gesture.ClickEvent, not a raw pointer.Event.
 	}
 

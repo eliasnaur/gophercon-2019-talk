@@ -38,7 +38,7 @@ type Button struct {
 
 // START OMIT
 func (b *Button) Layout(queue input.Queue, ops *ui.Ops) {
-	for _, e := range queue.Events(b) { // HLevent
+	for e, ok := queue.Next(b); ok; e, ok = queue.Next(b) { // HLevent
 		if e, ok := e.(pointer.Event); ok { // HLevent
 			switch e.Type { // HLevent
 			case pointer.Press: // HLevent
@@ -54,7 +54,7 @@ func (b *Button) Layout(queue input.Queue, ops *ui.Ops) {
 		col = color.RGBA{A: 0xff, G: 0xff}
 	}
 	pointer.RectAreaOp{ // HLevent
-		Size: image.Point{X: 500, Y: 500}, // HLevent
+		Rect: image.Rectangle{Max: image.Point{X: 500, Y: 500}}, // HLevent
 	}.Add(ops) // HLevent
 	pointer.HandlerOp{Key: b}.Add(ops) // HLevent
 	drawSquare(ops, col)
