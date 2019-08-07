@@ -20,14 +20,14 @@ func main() {
 		ops := new(ui.Ops)
 		// START OMIT
 		for e := range w.Events() {
-			if e, ok := e.(app.DrawEvent); ok {
+			if e, ok := e.(app.UpdateEvent); ok {
 				cfg = &e.Config
 				cs := layout.RigidConstraints(e.Size)
 				ops.Reset()
 				faces.Reset(cfg)
 				f := faces.For(regular, ui.Sp(122))
 				drawLabels(f, ops, cs) // HLdraw
-				w.Draw(ops)
+				w.Update(ops)
 			}
 		}
 		// END OMIT

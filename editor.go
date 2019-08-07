@@ -25,7 +25,7 @@ func main() {
 		editor.SetText("Hello, Gophercon! Edit me.")
 		// END INIT OMIT
 		for e := range w.Events() {
-			if e, ok := e.(app.DrawEvent); ok {
+			if e, ok := e.(app.UpdateEvent); ok {
 				cfg = &e.Config                       // HLdraw
 				cs := layout.RigidConstraints(e.Size) // HLdraw
 				ops.Reset()                           // HLdraw
@@ -34,7 +34,7 @@ func main() {
 				// START OMIT
 				editor.Layout(cfg, queue, ops, cs)
 				// END OMIT
-				w.Draw(ops) // HLdraw
+				w.Update(ops) // HLdraw
 			}
 		} // HLeventloop
 	}()

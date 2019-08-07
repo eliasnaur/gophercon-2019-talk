@@ -16,7 +16,7 @@ func main() {
 		w := app.NewWindow(nil)
 		ops := new(ui.Ops)
 		for e := range w.Events() {
-			if e, ok := e.(app.DrawEvent); ok {
+			if e, ok := e.(app.UpdateEvent); ok {
 				ops.Reset()
 
 				// START OMIT
@@ -38,7 +38,7 @@ func main() {
 				ui.InvalidateOp{}.Add(ops) // HLdraw
 
 				// Submit operations to the window.
-				w.Draw(ops) // HLdraw
+				w.Update(ops) // HLdraw
 				// END OMIT
 			}
 		}

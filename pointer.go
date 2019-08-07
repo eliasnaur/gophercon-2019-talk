@@ -19,11 +19,11 @@ func main() {
 		button := new(Button)
 		ops := new(ui.Ops) // HLops
 		for e := range w.Events() {
-			if _, ok := e.(app.DrawEvent); ok {
+			if _, ok := e.(app.UpdateEvent); ok {
 				ops.Reset()
 				queue := w.Queue() // HLqueue
 				button.Layout(queue, ops)
-				w.Draw(ops)
+				w.Update(ops)
 			}
 		}
 	}()

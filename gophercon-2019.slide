@@ -242,7 +242,7 @@ Only the app package depends on platform libraries
 	import "gioui.org/ui/app"
 
 	var w app.Window
-	w.Draw(&ops)
+	w.Update(&ops)
 
 
 : In Gio, the basic building block is the operation. There are operations for clipping, transforming and drawing as well as ops for controlling input flow and requesting a redraw for animation.
@@ -281,7 +281,7 @@ Set current color or image
 
 Draw with the current color or image
 
-	paint.DrawOp{Rect: ...}.Add(ops)
+	paint.PaintOp{Rect: ...}.Add(ops)
 
 
 * Clip operations

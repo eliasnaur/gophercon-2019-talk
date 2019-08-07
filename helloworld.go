@@ -20,7 +20,7 @@ func main() {
 		var faces measure.Faces
 		ops := new(ui.Ops)
 		for e := range w.Events() {
-			if e, ok := e.(app.DrawEvent); ok {
+			if e, ok := e.(app.UpdateEvent); ok {
 				cfg = &e.Config
 				cs := layout.RigidConstraints(e.Size)
 				ops.Reset()
@@ -29,7 +29,7 @@ func main() {
 				lbl := text.Label{Face: faces.For(regular, ui.Sp(72)), Text: "Hello, World!"} // HLdraw
 				lbl.Layout(ops, cs)                                                           // HLdraw
 
-				w.Draw(ops)
+				w.Update(ops)
 			}
 		} // HLeventloop
 	}()
