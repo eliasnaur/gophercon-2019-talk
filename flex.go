@@ -6,7 +6,7 @@ import (
 
 	"gioui.org/ui"
 	"gioui.org/ui/app"
-	"gioui.org/ui/draw"
+	"gioui.org/ui/paint"
 	"gioui.org/ui/f32"
 	"gioui.org/ui/layout"
 )
@@ -58,7 +58,7 @@ func drawRect(c ui.Config, ops *ui.Ops, color color.RGBA, cs layout.Constraints)
 			Y: float32(cs.Height.Max),
 		},
 	}
-	draw.ColorOp{Color: color}.Add(ops)
-	draw.DrawOp{Rect: square}.Add(ops)
+	paint.ColorOp{Color: color}.Add(ops)
+	paint.PaintOp{Rect: square}.Add(ops)
 	return layout.Dimens{Size: image.Point{X: cs.Width.Max, Y: cs.Height.Max}}
 }

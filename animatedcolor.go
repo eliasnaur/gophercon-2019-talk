@@ -7,7 +7,7 @@ import (
 
 	"gioui.org/ui"
 	"gioui.org/ui/app"
-	"gioui.org/ui/draw"
+	"gioui.org/ui/paint"
 	"gioui.org/ui/f32"
 )
 
@@ -26,8 +26,8 @@ func main() {
 					Max: f32.Point{X: 500, Y: 500},
 				}
 				// Add draw operations.
-				draw.ColorOp{Color: color}.Add(ops) // HLops
-				draw.DrawOp{Rect: square}.Add(ops)  // HLops
+				paint.ColorOp{Color: color}.Add(ops) // HLops
+				paint.PaintOp{Rect: square}.Add(ops)  // HLops
 				// Request immediate redraw.
 				ui.InvalidateOp{}.Add(ops) // HLops
 

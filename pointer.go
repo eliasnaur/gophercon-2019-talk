@@ -6,7 +6,7 @@ import (
 
 	"gioui.org/ui"
 	"gioui.org/ui/app"
-	"gioui.org/ui/draw"
+	"gioui.org/ui/paint"
 	"gioui.org/ui/f32"
 	"gioui.org/ui/input"
 	"gioui.org/ui/pointer"
@@ -66,6 +66,6 @@ func drawSquare(ops *ui.Ops, color color.RGBA) {
 	square := f32.Rectangle{
 		Max: f32.Point{X: 500, Y: 500},
 	}
-	draw.ColorOp{Color: color}.Add(ops)
-	draw.DrawOp{Rect: square}.Add(ops)
+	paint.ColorOp{Color: color}.Add(ops)
+	paint.PaintOp{Rect: square}.Add(ops)
 }

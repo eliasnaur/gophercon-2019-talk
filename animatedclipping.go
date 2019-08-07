@@ -7,7 +7,7 @@ import (
 
 	"gioui.org/ui"
 	"gioui.org/ui/app"
-	"gioui.org/ui/draw"
+	"gioui.org/ui/paint"
 	"gioui.org/ui/f32"
 )
 
@@ -29,11 +29,11 @@ func main() {
 					Y: 100, // HLdraw
 				}).Add(ops) // HLdraw
 				// Color
-				draw.ColorOp{Color: color.RGBA{A: 0xff, G: 0xcc}}.Add(ops) // HLdraw
+				paint.ColorOp{Color: color.RGBA{A: 0xff, G: 0xcc}}.Add(ops) // HLdraw
 				// Clip corners
 				roundRect(ops, 500, 500, radius, radius, radius, radius) // HLdraw
 				// Draw
-				draw.DrawOp{Rect: square}.Add(ops) // HLdraw
+				paint.PaintOp{Rect: square}.Add(ops) // HLdraw
 				// Animate
 				ui.InvalidateOp{}.Add(ops) // HLdraw
 
@@ -51,7 +51,7 @@ func main() {
 func roundRect(ops *ui.Ops, width, height, se, sw, nw, ne float32) {
 	w, h := float32(width), float32(height)
 	const c = 0.55228475 // 4*(sqrt(2)-1)/3
-	var b draw.PathBuilder
+	var b paint.PathBuilder
 	b.Init(ops)
 	b.Move(f32.Point{X: w, Y: h - se})
 	b.Cube(f32.Point{X: 0, Y: se * c}, f32.Point{X: -se + se*c, Y: se}, f32.Point{X: -se, Y: se})

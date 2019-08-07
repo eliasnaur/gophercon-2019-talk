@@ -276,12 +276,12 @@ Set current color or image
 
 	import "gioui.org/ui/draw"
 
-	draw.ColorOp{Color: color.RGBA{...}}.Add(ops)
-	draw.ImageOp{Src: ..., Rect: ...}.Add(ops)
+	paint.ColorOp{Color: color.RGBA{...}}.Add(ops)
+	paint.ImageOp{Src: ..., Rect: ...}.Add(ops)
 
 Draw with the current color or image
 
-	draw.DrawOp{Rect: ...}.Add(ops)
+	paint.DrawOp{Rect: ...}.Add(ops)
 
 
 * Clip operations
@@ -290,11 +290,11 @@ Clip drawing to a rectangle
 
 	import "gioui.org/draw"
 
-	draw.RectClip(image.Rectangle{...}).Add(ops)
+	paint.RectClip(image.Rectangle{...}).Add(ops)
 
 Or to an outline
 
-	var b draw.PathBuilder
+	var b paint.PathBuilder
 	b.Init(ops)
 	b.Line(...)
 	b.Quad(...) // Quadratic Beziér curve
