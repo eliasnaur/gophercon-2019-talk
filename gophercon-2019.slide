@@ -434,7 +434,7 @@ Aligning
 
 Insetting
 
-	var cfg ui.Config
+	var c ui.Config
 	inset := layout.Inset{Top: ui.Dp(8), ...} // 8dp top inset
 	cs = inset.Begin(c, ops, cs)
 	...
