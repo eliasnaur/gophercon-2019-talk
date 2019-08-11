@@ -50,7 +50,7 @@ func drawList(c ui.Config, q input.Queue, list *layout.List, face text.Face, ops
 		lbl := text.Label{Face: face, Text: txt}
 		dims := lbl.Layout(ops, list.Constraints())
 
-		list.Elem(dims)
+		list.End(dims)
 	}
 	list.Layout()
 }
