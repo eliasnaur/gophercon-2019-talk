@@ -6,7 +6,7 @@ import (
 
 func main() {
 	go func() { // HLmain
-		w := app.NewWindow(nil) // HLeventloop
+		w := app.NewWindow() // HLeventloop
 		for range w.Events() {  // HLeventloop
 		}
 	}() // HLmain

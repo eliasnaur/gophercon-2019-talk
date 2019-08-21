@@ -13,7 +13,7 @@ import (
 
 func main() {
 	go func() {
-		w := app.NewWindow(nil)
+		w := app.NewWindow()
 		ops := new(ui.Ops)
 		for e := range w.Events() {
 			if e, ok := e.(app.UpdateEvent); ok {

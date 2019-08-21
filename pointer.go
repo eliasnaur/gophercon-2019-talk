@@ -15,7 +15,7 @@ import (
 // START QUEUE OMIT
 func main() {
 	go func() {
-		w := app.NewWindow(nil)
+		w := app.NewWindow()
 		button := new(Button)
 		ops := new(ui.Ops) // HLops
 		for e := range w.Events() {

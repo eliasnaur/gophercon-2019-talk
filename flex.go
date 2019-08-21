@@ -13,7 +13,7 @@ import (
 
 func main() {
 	go func() {
-		w := app.NewWindow(nil)
+		w := app.NewWindow()
 		var cfg app.Config
 		ops := new(ui.Ops)
 		for e := range w.Events() {

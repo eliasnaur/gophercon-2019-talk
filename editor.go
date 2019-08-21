@@ -13,7 +13,7 @@ import (
 
 func main() {
 	go func() {
-		w := app.NewWindow(nil)
+		w := app.NewWindow()
 		regular, _ := sfnt.Parse(goregular.TTF) // HLdraw
 		var cfg ui.Config                       // HLdraw
 		ops := new(ui.Ops)                      // HLdraw

@@ -13,7 +13,7 @@ import (
 
 func main() {
 	go func() {
-		w := app.NewWindow(nil)
+		w := app.NewWindow()
 		// START OMIT
 		ops := new(ui.Ops) // HLops
 		for e := range w.Events() {

@@ -14,7 +14,7 @@ import (
 // START OMIT
 func main() {
 	go func() {
-		w := app.NewWindow(nil)
+		w := app.NewWindow()
 		regular, _ := sfnt.Parse(goregular.TTF)
 		var cfg ui.Config
 		var faces measure.Faces
