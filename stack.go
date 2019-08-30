@@ -6,9 +6,9 @@ import (
 
 	"gioui.org/ui"
 	"gioui.org/ui/app"
-	"gioui.org/ui/paint"
 	"gioui.org/ui/f32"
 	"gioui.org/ui/layout"
+	"gioui.org/ui/paint"
 )
 
 func main() {
@@ -51,7 +51,7 @@ func drawRects(c ui.Config, ops *ui.Ops, cs layout.Constraints) {
 
 // END OMIT
 
-func drawRect(c ui.Config, ops *ui.Ops, color color.RGBA, inset ui.Value, cs layout.Constraints) layout.Dimens {
+func drawRect(c ui.Config, ops *ui.Ops, color color.RGBA, inset ui.Value, cs layout.Constraints) layout.Dimensions {
 	in := layout.UniformInset(inset)
 	cs = in.Begin(c, ops, cs)
 	square := f32.Rectangle{
@@ -62,7 +62,7 @@ func drawRect(c ui.Config, ops *ui.Ops, color color.RGBA, inset ui.Value, cs lay
 	}
 	paint.ColorOp{Color: color}.Add(ops)
 	paint.PaintOp{Rect: square}.Add(ops)
-	dimens := layout.Dimens{Size: image.Point{X: cs.Width.Max, Y: cs.Height.Max}}
+	dimens := layout.Dimensions{Size: image.Point{X: cs.Width.Max, Y: cs.Height.Max}}
 	dimens = in.End(dimens)
 	return dimens
 }

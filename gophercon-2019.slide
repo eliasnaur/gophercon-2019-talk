@@ -313,7 +313,7 @@ Keyboard and text input
 	import "gioui.org/ui/key"
 
 	// Declare key handler.
-	key.HandlerOp{Key: handler, Focus: true/false}.Add(ops)
+	key.InputOp{Key: handler, Focus: true/false}.Add(ops)
 
 	// Hide soft keyboard.
 	key.HideInputOp{}.Add(ops)
@@ -327,7 +327,7 @@ Mouse and touch input
 	pointer.EllipseAreaOp{Size: ...}.Add(ops)
 
 	// Declare pointer handler.
-	pointer.HandlerOp{Key: c, Grab true/false}
+	pointer.InputOp{Key: c, Grab true/false}
 
 
 
@@ -372,7 +372,7 @@ Constraints are input
 
 Dimensions are output
 
-	type Dimens struct {
+	type Dimensions struct {
 		Size     image.Point
 		Baseline int
 	}
@@ -383,12 +383,12 @@ Widgets accept constraints, output dimensions
 
 	package text // import gioui.org/ui/text
 
-	func (l Label) Layout(ops *ui.Ops, cs layout.Constraints) layout.Dimens
-	func (e *Editor) Layout(ops *ui.Ops, cs layout.Constraints) layout.Dimens
+	func (l Label) Layout(ops *ui.Ops, cs layout.Constraints) layout.Dimensions
+	func (e *Editor) Layout(ops *ui.Ops, cs layout.Constraints) layout.Dimensions
 
 	package widget // import gioui.org/ui/widget
 
-	func (im Image) Layout(c ui.Config, ops *ui.Ops, cs layout.Constraints) layout.Dimens
+	func (im Image) Layout(c ui.Config, ops *ui.Ops, cs layout.Constraints) layout.Dimensions
 
 
 : Gio borrows Constraints and Dimensions from the Flutter framework.
@@ -537,7 +537,7 @@ Lay out widgets on an axis.
 
 : The first part of the button layout method updates the pressed state. It runs through the available events and set the pressed to true for press events and false for release events.
 
-: Then, it registers the handler by specifying a hit area, in this case a rectangle, and a HandlerOp for specifying its own key.
+: Then, it registers the handler by specifying a hit area, in this case a rectangle, and a InputOp for specifying its own key.
 
 : Note how there are no callbacks involved and that there is no way or need to unregister a handler; all handler registrations are cleared
 

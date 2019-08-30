@@ -6,9 +6,9 @@ import (
 
 	"gioui.org/ui"
 	"gioui.org/ui/app"
-	"gioui.org/ui/paint"
 	"gioui.org/ui/f32"
 	"gioui.org/ui/input"
+	"gioui.org/ui/paint"
 	"gioui.org/ui/pointer"
 )
 
@@ -56,7 +56,7 @@ func (b *Button) Layout(queue input.Queue, ops *ui.Ops) {
 	pointer.RectAreaOp{ // HLevent
 		Rect: image.Rectangle{Max: image.Point{X: 500, Y: 500}}, // HLevent
 	}.Add(ops) // HLevent
-	pointer.HandlerOp{Key: b}.Add(ops) // HLevent
+	pointer.InputOp{Key: b}.Add(ops) // HLevent
 	drawSquare(ops, col)
 }
 
