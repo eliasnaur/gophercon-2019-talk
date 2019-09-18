@@ -34,17 +34,17 @@ func drawRects(c ui.Config, ops *ui.Ops, cs layout.Constraints) {
 	stack := layout.Stack{Alignment: layout.Center}
 	stack.Init(ops, cs)
 
-	cs = stack.Rigid()
-	dimensions := drawRect(c, ops, color.RGBA{A: 0xff, R: 0xff}, ui.Dp(50), cs)
-	red := stack.End(dimensions)
+	red := stack.Rigid(func(cs layout.Constraints) layout.Dimensions {
+		return drawRect(c, ops, color.RGBA{A: 0xff, R: 0xff}, ui.Dp(50), cs)
+	})
 
-	cs = stack.Rigid()
-	dimensions = drawRect(c, ops, color.RGBA{A: 0xff, G: 0xff}, ui.Dp(100), cs)
-	green := stack.End(dimensions)
+	green := stack.Rigid(func(cs layout.Constraints) layout.Dimensions {
+		return drawRect(c, ops, color.RGBA{A: 0xff, G: 0xff}, ui.Dp(100), cs)
+	})
 
-	cs = stack.Rigid()
-	dimensions = drawRect(c, ops, color.RGBA{A: 0xff, B: 0xff}, ui.Dp(150), cs)
-	blue := stack.End(dimensions)
+	blue := stack.Rigid(func(cs layout.Constraints) layout.Dimensions {
+		return drawRect(c, ops, color.RGBA{A: 0xff, B: 0xff}, ui.Dp(150), cs)
+	})
 
 	stack.Layout(red, green, blue)
 }
@@ -53,16 +53,15 @@ func drawRects(c ui.Config, ops *ui.Ops, cs layout.Constraints) {
 
 func drawRect(c ui.Config, ops *ui.Ops, color color.RGBA, inset ui.Value, cs layout.Constraints) layout.Dimensions {
 	in := layout.UniformInset(inset)
-	cs = in.Begin(c, ops, cs)
-	square := f32.Rectangle{
-		Max: f32.Point{
-			X: float32(cs.Width.Max),
-			Y: float32(cs.Height.Max),
-		},
-	}
-	paint.ColorOp{Color: color}.Add(ops)
-	paint.PaintOp{Rect: square}.Add(ops)
-	dimens := layout.Dimensions{Size: image.Point{X: cs.Width.Max, Y: cs.Height.Max}}
-	dimens = in.End(dimens)
-	return dimens
+	return in.Layout(c, ops, cs, func(cs layout.Constraints) layout.Dimensions {
+		square := f32.Rectangle{
+			Max: f32.Point{
+				X: float32(cs.Width.Max),
+				Y: float32(cs.Height.Max),
+			},
+		}
+		paint.ColorOp{Color: color}.Add(ops)
+		paint.PaintOp{Rect: square}.Add(ops)
+		return layout.Dimensions{Size: image.Point{X: cs.Width.Max, Y: cs.Height.Max}}
+	})
 }

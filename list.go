@@ -44,15 +44,12 @@ func main() {
 // START OMIT
 func drawList(c ui.Config, q input.Queue, list *layout.List, face text.Face, ops *ui.Ops, cs layout.Constraints) {
 	const n = 1e6
-	for list.Init(c, q, ops, cs, n); list.More(); list.Next() {
-		txt := fmt.Sprintf("List element #%d", list.Index())
+	list.Layout(c, q, ops, cs, n, func(cs layout.Constraints, i int) layout.Dimensions {
+		txt := fmt.Sprintf("List element #%d", i)
 
 		lbl := text.Label{Face: face, Text: txt}
-		dims := lbl.Layout(ops, list.Constraints())
-
-		list.End(dims)
-	}
-	list.Layout()
+		return lbl.Layout(ops, cs)
+	})
 }
 
 // END OMIT

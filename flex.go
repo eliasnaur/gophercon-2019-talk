@@ -34,17 +34,17 @@ func drawRects(c ui.Config, ops *ui.Ops, cs layout.Constraints) {
 	flex := layout.Flex{}
 	flex.Init(ops, cs)
 
-	cs = flex.Flexible(0.5)
-	dimensions := drawRect(c, ops, color.RGBA{A: 0xff, R: 0xff}, cs)
-	red := flex.End(dimensions)
+	red := flex.Flexible(0.5, func(cs layout.Constraints) layout.Dimensions {
+		return drawRect(c, ops, color.RGBA{A: 0xff, R: 0xff}, cs)
+	})
 
-	cs = flex.Flexible(0.25)
-	dimensions = drawRect(c, ops, color.RGBA{A: 0xff, G: 0xff}, cs)
-	green := flex.End(dimensions)
+	green := flex.Flexible(0.25, func(cs layout.Constraints) layout.Dimensions {
+		return drawRect(c, ops, color.RGBA{A: 0xff, G: 0xff}, cs)
+	})
 
-	cs = flex.Flexible(0.25)
-	dimensions = drawRect(c, ops, color.RGBA{A: 0xff, B: 0xff}, cs)
-	blue := flex.End(dimensions)
+	blue := flex.Flexible(0.25, func(cs layout.Constraints) layout.Dimensions {
+		return drawRect(c, ops, color.RGBA{A: 0xff, B: 0xff}, cs)
+	})
 
 	flex.Layout(red, green, blue)
 }
