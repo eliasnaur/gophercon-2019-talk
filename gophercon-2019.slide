@@ -160,10 +160,10 @@ Build, install or run the program
 
 * Android
 
-Install the gio tool
+Install the gogio tool
 
-	go install gioui.org/cmd/gio
-	$GOBIN/gio -target android -o hello.apk helloworld.go
+	go install gioui.org/cmd/gogio
+	$GOBIN/gogio -target android -o hello.apk helloworld.go
 
 Install on a connected device or emulator with adb
 
@@ -171,7 +171,8 @@ Install on a connected device or emulator with adb
 
 : The mobile platforms are of course more troublesome. The Gio project include a tool that can package a Gio program suitable for installation to a mobile device, an emulator or for including in an existing project.
 
-: To build for Android you need the Android SDK and NDK installed. The gio tool can produce an apk file that can be installed with the Android adb tool.
+: To build for Android you need the Android SDK and NDK installed. The
+gogio tool can produce an apk file that can be installed with the Android adb tool.
 
 
 
@@ -179,11 +180,11 @@ Install on a connected device or emulator with adb
 
 For iOS/tvOS devices:
 
-	$GOBIN/gio -target <ios|tvos> -o hello.ipa -appid <bundle id> helloworld.go
+	$GOBIN/gogio -target <ios|tvos> -o hello.ipa -appid <bundle id> helloworld.go
 
 Use the .app file extension for simulators:
 
-	$GOBIN/gio -target <ios|tvos> -o hello.app helloworld.go
+	$GOBIN/gogio -target <ios|tvos> -o hello.app helloworld.go
 
 Install on a running simulator
 
@@ -191,7 +192,8 @@ Install on a running simulator
 
 : To build for iOS and tvOS you need Xcode and the bundle id from a valid provisioning profile. A good way to acquire that is to set up a sample project in Xcode and run it once on your device.
 
-: The iSimulators don't accept ipa packages, but rather raw .app directories. The gio tool use the output extension to distinguish.
+: The iSimulators don't accept ipa packages, but rather raw .app
+directories. The gogio tool use the output extension to distinguish.
 
 : Please note that tvOS support is very early. For example, there is currenctly no API exposed for the remote control. I added support because it was easy and as a proof of concept.
 
@@ -201,13 +203,13 @@ Install on a running simulator
 
 To output a directory ready to serve:
 
-	$GOBIN/gio -target js -o www helloworld.go
+	$GOBIN/gogio -target js -o www helloworld.go
 
 Use a webserver or goexec to serve it:
 
 	go run github.com/shurcooL/goexec 'http.ListenAndServe(":8080", http.FileServer(http.Dir("www")))'
 
-: The gio tool also build a webassembly version of your program. It includes the required support files and a basic HTML host page so the program is ready to serve.
+: The gogio tool also build a webassembly version of your program. It includes the required support files and a basic HTML host page so the program is ready to serve.
 
 : You can use any webserver that serves static files; I use Dmitri's goexec tool for demos and tests. Goexec can run a complete webserver in a single line if you have Go modules enabled.
 
@@ -216,8 +218,8 @@ Use a webserver or goexec to serve it:
 : Also note that Gio use a WebGL Canvas element for display and input. You don't get the convenience of HTML DOM elements. At least not yet.
 
 : [go run helloworld.go]
-: [gio -target android -o android.apk helloworld.go]
-: [gio -target ios -o hello.app helloworld.go]
+: [gogio -target android -o android.apk helloworld.go]
+: [gogio -target ios -o hello.app helloworld.go]
 : [xcrun simctl install booted hello.app]
 : [adb install hello.apk]
 : [go run webassembly.go]
@@ -517,7 +519,7 @@ Lay out widgets on an axis.
 
 : One of my favorite features of immediate mode UI programs is the absence of callbacks.
 
-: In gio all events from input sources such your mouse, finger, keyboard are distributed to handlers through the input.Queue.
+: In Gio all events from input sources such your mouse, finger, keyboard are distributed to handlers through the input.Queue.
 
 : Queue is an interface with just a single method, Next, returning all events available in this frame for a given
 : handler.
