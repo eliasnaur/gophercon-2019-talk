@@ -16,18 +16,17 @@ func main() {
 	go func() {
 		w := app.NewWindow()
 		regular, _ := sfnt.Parse(goregular.TTF)
-		var cfg ui.Config
 		var faces measure.Faces
-		ops := new(ui.Ops)
+		gtx := &layout.Context{
+			Queue: w.Queue(),
+		}
 		for e := range w.Events() {
 			if e, ok := e.(app.UpdateEvent); ok {
-				cfg = &e.Config
-				cs := layout.RigidConstraints(e.Size)
-				ops.Reset()
-				faces.Reset(cfg)
+				gtx.Reset(&e.Config, layout.RigidConstraints(e.Size))
+				faces.Reset(gtx.Config)
 				f := faces.For(regular, ui.Sp(72))
-				drawLabels(f, ops, cs)
-				w.Update(ops)
+				drawLabels(gtx, f)
+				w.Update(gtx.Ops)
 			}
 		}
 	}()
@@ -35,19 +34,20 @@ func main() {
 }
 
 // START OMIT
-func drawLabels(face text.Face, ops *ui.Ops, cs layout.Constraints) {
-	cs.Width.Min = 0
-	cs.Height.Min = 0
+func drawLabels(gtx *layout.Context, face text.Face) {
+	gtx.Constraints.Width.Min = 0
+	gtx.Constraints.Height.Min = 0
 	lbl := text.Label{Face: face, Text: "I'm centered!"}
-	var macro ui.MacroOp // HLcenter
-	macro.Record(ops)    // Start recording  // HLcenter
-	dimensions := lbl.Layout(ops, cs)
+	var macro ui.MacroOp  // HLcenter
+	macro.Record(gtx.Ops) // Start recording  // HLcenter
+	lbl.Layout(gtx)
+	dimensions := gtx.Dimensions
 	macro.Stop() // End recording // HLcenter
 	ui.TransformOp{}.Offset(f32.Point{
-		X: float32(cs.Width.Max-dimensions.Size.X) / 2,
-		Y: float32(cs.Height.Max-dimensions.Size.Y) / 2,
-	}).Add(ops)
-	macro.Add(ops) // Replay operations // HLcenter
+		X: float32(gtx.Constraints.Width.Max-dimensions.Size.X) / 2,
+		Y: float32(gtx.Constraints.Height.Max-dimensions.Size.Y) / 2,
+	}).Add(gtx.Ops)
+	macro.Add(gtx.Ops) // Replay operations // HLcenter
 }
 
 // END OMIT

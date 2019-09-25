@@ -16,19 +16,18 @@ func main() {
 	go func() {
 		w := app.NewWindow()
 		regular, _ := sfnt.Parse(goregular.TTF)
-		var cfg ui.Config
 		var faces measure.Faces
-		ops := new(ui.Ops)
+		gtx := &layout.Context{
+			Queue: w.Queue(),
+		}
 		// START OMIT
 		for e := range w.Events() {
 			if e, ok := e.(app.UpdateEvent); ok {
-				cfg = &e.Config
-				cs := layout.RigidConstraints(e.Size)
-				ops.Reset()
-				faces.Reset(cfg)
+				gtx.Reset(&e.Config, layout.RigidConstraints(e.Size))
+				faces.Reset(gtx.Config)
 				f := faces.For(regular, ui.Sp(122))
-				drawLabels(f, ops, cs) // HLdraw
-				w.Update(ops)
+				drawLabels(gtx, f) // HLdraw
+				w.Update(gtx.Ops)
 			}
 		}
 		// END OMIT
@@ -37,15 +36,16 @@ func main() {
 }
 
 // START DRAW OMIT
-func drawLabels(face text.Face, ops *ui.Ops, cs layout.Constraints) {
-	cs.Height.Min = 0 // HLdraw
+func drawLabels(gtx *layout.Context, face text.Face) {
+	gtx.Constraints.Height.Min = 0 // HLdraw
 	lbl := text.Label{Face: face, Text: "One label"}
-	dimensions := lbl.Layout(ops, cs) // HLdraw
+	lbl.Layout(gtx) // HLdraw
+	dimensions := gtx.Dimensions
 	ui.TransformOp{}.Offset(f32.Point{
 		Y: float32(dimensions.Size.Y), // HLdraw
-	}).Add(ops)
+	}).Add(gtx.Ops)
 	lbl2 := text.Label{Face: face, Text: "Another label"}
-	lbl2.Layout(ops, cs)
+	lbl2.Layout(gtx)
 }
 
 // END DRAW OMIT

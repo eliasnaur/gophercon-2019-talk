@@ -16,20 +16,19 @@ func main() {
 	go func() {
 		w := app.NewWindow()
 		regular, _ := sfnt.Parse(goregular.TTF)
-		var cfg ui.Config
 		var faces measure.Faces
-		ops := new(ui.Ops)
+		gtx := &layout.Context{
+			Queue: w.Queue(),
+		}
 		for e := range w.Events() {
 			if e, ok := e.(app.UpdateEvent); ok {
-				cfg = &e.Config
-				cs := layout.RigidConstraints(e.Size)
-				ops.Reset()
-				faces.Reset(cfg)
+				gtx.Reset(&e.Config, layout.RigidConstraints(e.Size))
+				faces.Reset(gtx.Config)
 
 				lbl := text.Label{Face: faces.For(regular, ui.Sp(72)), Text: "Hello, World!"} // HLdraw
-				lbl.Layout(ops, cs)                                                           // HLdraw
+				lbl.Layout(gtx)                                                               // HLdraw
 
-				w.Update(ops)
+				w.Update(gtx.Ops)
 			}
 		} // HLeventloop
 	}()

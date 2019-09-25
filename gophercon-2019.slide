@@ -381,16 +381,17 @@ Dimensions are output
 
 * Constraints and dimensions
 
-Widgets accept constraints, output dimensions
+Widgets accept constraints, output dimensions, stored in
+layout.Context.
 
 	package text // import gioui.org/ui/text
 
-	func (l Label) Layout(ops *ui.Ops, cs layout.Constraints) layout.Dimensions
-	func (e *Editor) Layout(ops *ui.Ops, cs layout.Constraints) layout.Dimensions
+	func (l Label) Layout(gtx *layout.Context)
+	func (e *Editor) Layout(gtx *layout.Context)
 
 	package widget // import gioui.org/ui/widget
 
-	func (im Image) Layout(c ui.Config, ops *ui.Ops, cs layout.Constraints) layout.Dimensions
+	func (im Image) Layout(gtx *layout.Context)
 
 
 : Gio borrows Constraints and Dimensions from the Flutter framework.
@@ -424,25 +425,21 @@ Widgets accept constraints, output dimensions
 
 Aligning
 
-	var ops *ui.Ops
-	var cs layout.Constraints
+	var gtx *layout.Context
 
-	align := layout.Align{Alignment: layout.Center}
-	cs = align.Begin(ops, cs)
-	...
-	dimensions := someWidget.Layout(..., cs) // Draw widget
-	...
-	dimensions = align.End(dimensions)
+	align := layout.Align(layout.Center)
+	align.Layout(gtx, func() {
+		someWidget.Layout(gtx, ...) // Draw widget
+	})
+	dimensions := gtx.Dimensions
 
 Insetting
 
-	var c ui.Config
 	inset := layout.Inset{Top: ui.Dp(8), ...} // 8dp top inset
-	cs = inset.Begin(c, ops, cs)
-	...
-	dimensions := anotherWidget.Layout(..., cs) // Draw widget
-	...
-	dimensions = inset.End(dimensions)
+	inset.Layout(gtx, func() {
+		anotherWidget.Layout(gtx, ...) // Draw widget
+	})
+	dimensions := gtx.Dimensions
 
 : Centering is a special case of aligning widgets. Aligning and insetting widgets are so common that Gio provides two helper
 : types in the layout package, Align and Inset.
@@ -551,9 +548,9 @@ Lay out widgets on an axis.
 
 
 
-* Window input queue
+* Window event queue
 
-The Window's Queue method returns an input.Queue for OS events.
+The Window's Queue method returns an ui.Queue for OS events.
 
 	package app // import gioui.org/ui/app
 
@@ -565,11 +562,10 @@ The Window's Queue method returns an input.Queue for OS events.
 
 	import "gioui.org/ui"
 	import "gioui.org/ui/gesture"
-	import "gioui.org/ui/input"
 
 Detect clicks
 
-	var queue input.Queue
+	var queue ui.Queue
 	var c gesture.Click
 	for event, ok := c.Next(queue); ok; event, ok = c.Next(queue) {
 		// event is a gesture.ClickEvent, not a raw pointer.Event.

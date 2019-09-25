@@ -7,7 +7,6 @@ import (
 	"gioui.org/ui"
 	"gioui.org/ui/app"
 	"gioui.org/ui/f32"
-	"gioui.org/ui/input"
 	"gioui.org/ui/paint"
 	"gioui.org/ui/pointer"
 )
@@ -37,7 +36,7 @@ type Button struct {
 }
 
 // START OMIT
-func (b *Button) Layout(queue input.Queue, ops *ui.Ops) {
+func (b *Button) Layout(queue ui.Queue, ops *ui.Ops) {
 	for e, ok := queue.Next(b); ok; e, ok = queue.Next(b) { // HLevent
 		if e, ok := e.(pointer.Event); ok { // HLevent
 			switch e.Type { // HLevent

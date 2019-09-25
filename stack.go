@@ -14,15 +14,14 @@ import (
 func main() {
 	go func() {
 		w := app.NewWindow()
-		var cfg app.Config
-		ops := new(ui.Ops)
+		gtx := &layout.Context{
+			Queue: w.Queue(),
+		}
 		for e := range w.Events() {
 			if e, ok := e.(app.UpdateEvent); ok {
-				cfg = e.Config
-				cs := layout.RigidConstraints(e.Size)
-				ops.Reset()
-				drawRects(&cfg, ops, cs)
-				w.Update(ops)
+				gtx.Reset(&e.Config, layout.RigidConstraints(e.Size))
+				drawRects(gtx)
+				w.Update(gtx.Ops)
 			}
 		}
 	}()
@@ -30,20 +29,20 @@ func main() {
 }
 
 // START OMIT
-func drawRects(c ui.Config, ops *ui.Ops, cs layout.Constraints) {
+func drawRects(gtx *layout.Context) {
 	stack := layout.Stack{Alignment: layout.Center}
-	stack.Init(ops, cs)
+	stack.Init(gtx)
 
-	red := stack.Rigid(func(cs layout.Constraints) layout.Dimensions {
-		return drawRect(c, ops, color.RGBA{A: 0xff, R: 0xff}, ui.Dp(50), cs)
+	red := stack.Rigid(func() {
+		drawRect(gtx, color.RGBA{A: 0xff, R: 0xff}, ui.Dp(50))
 	})
 
-	green := stack.Rigid(func(cs layout.Constraints) layout.Dimensions {
-		return drawRect(c, ops, color.RGBA{A: 0xff, G: 0xff}, ui.Dp(100), cs)
+	green := stack.Rigid(func() {
+		drawRect(gtx, color.RGBA{A: 0xff, G: 0xff}, ui.Dp(100))
 	})
 
-	blue := stack.Rigid(func(cs layout.Constraints) layout.Dimensions {
-		return drawRect(c, ops, color.RGBA{A: 0xff, B: 0xff}, ui.Dp(150), cs)
+	blue := stack.Rigid(func() {
+		drawRect(gtx, color.RGBA{A: 0xff, B: 0xff}, ui.Dp(150))
 	})
 
 	stack.Layout(red, green, blue)
@@ -51,17 +50,18 @@ func drawRects(c ui.Config, ops *ui.Ops, cs layout.Constraints) {
 
 // END OMIT
 
-func drawRect(c ui.Config, ops *ui.Ops, color color.RGBA, inset ui.Value, cs layout.Constraints) layout.Dimensions {
+func drawRect(gtx *layout.Context, color color.RGBA, inset ui.Value) {
 	in := layout.UniformInset(inset)
-	return in.Layout(c, ops, cs, func(cs layout.Constraints) layout.Dimensions {
+	in.Layout(gtx, func() {
+		cs := gtx.Constraints
 		square := f32.Rectangle{
 			Max: f32.Point{
 				X: float32(cs.Width.Max),
 				Y: float32(cs.Height.Max),
 			},
 		}
-		paint.ColorOp{Color: color}.Add(ops)
-		paint.PaintOp{Rect: square}.Add(ops)
-		return layout.Dimensions{Size: image.Point{X: cs.Width.Max, Y: cs.Height.Max}}
+		paint.ColorOp{Color: color}.Add(gtx.Ops)
+		paint.PaintOp{Rect: square}.Add(gtx.Ops)
+		gtx.Dimensions = layout.Dimensions{Size: image.Point{X: cs.Width.Max, Y: cs.Height.Max}}
 	})
 }
