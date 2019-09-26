@@ -37,7 +37,7 @@ type Button struct {
 
 // START OMIT
 func (b *Button) Layout(queue ui.Queue, ops *ui.Ops) {
-	for e, ok := queue.Next(b); ok; e, ok = queue.Next(b) { // HLevent
+	for _, e := range queue.Events(b) { // HLevent
 		if e, ok := e.(pointer.Event); ok { // HLevent
 			switch e.Type { // HLevent
 			case pointer.Press: // HLevent
