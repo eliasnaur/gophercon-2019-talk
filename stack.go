@@ -5,10 +5,10 @@ import (
 	"image/color"
 
 	"gioui.org/ui"
-	"gioui.org/ui/app"
-	"gioui.org/ui/f32"
-	"gioui.org/ui/layout"
-	"gioui.org/ui/paint"
+	"gioui.org/app"
+	"gioui.org/f32"
+	"gioui.org/layout"
+	"gioui.org/paint"
 )
 
 func main() {

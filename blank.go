@@ -1,7 +1,7 @@
 package main
 
 import (
-	"gioui.org/ui/app"
+	"gioui.org/app"
 )
 
 func main() {

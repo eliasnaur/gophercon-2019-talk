@@ -148,7 +148,7 @@ Enable modules
 
 Build, install or run the program
 
-	go build gioui.org/ui/apps/hello
+	go build gioui.org/apps/hello
 	go install scatter.im/cmd/scatter
 	go run helloworld.go
 
@@ -241,7 +241,7 @@ Serializing operations
 
 Only the app package depends on platform libraries
 
-	import "gioui.org/ui/app"
+	import "gioui.org/app"
 
 	var w app.Window
 	w.Update(&ops)
@@ -276,7 +276,7 @@ Request a redraw
 
 Set current color or image
 
-	import "gioui.org/ui/draw"
+	import "gioui.org/paint"
 
 	paint.ColorOp{Color: color.RGBA{...}}.Add(ops)
 	paint.ImageOp{Src: ..., Rect: ...}.Add(ops)
@@ -312,7 +312,7 @@ Or to an outline
 
 Keyboard and text input
 
-	import "gioui.org/ui/key"
+	import "gioui.org/key"
 
 	// Declare key handler.
 	key.InputOp{Key: handler, Focus: true/false}.Add(ops)
@@ -322,7 +322,7 @@ Keyboard and text input
 
 Mouse and touch input
 
-	import "gioui.org/ui/pointer"
+	import "gioui.org/pointer"
 
 	// Define hit area.
 	pointer.RectAreaOp{Size: ...}.Add(ops)
@@ -361,7 +361,7 @@ Drawing and animating a clipped square
 
 Constraints are input
 
-	package layout // import gioui.org/ui/layout
+	package layout // import gioui.org/layout
 
 	type Constraints struct {
 		Width  Constraint
@@ -384,12 +384,12 @@ Dimensions are output
 Widgets accept constraints, output dimensions, stored in
 layout.Context.
 
-	package text // import gioui.org/ui/text
+	package text // import gioui.org/text
 
 	func (l Label) Layout(gtx *layout.Context)
 	func (e *Editor) Layout(gtx *layout.Context)
 
-	package widget // import gioui.org/ui/widget
+	package widget // import gioui.org/widget
 
 	func (im Image) Layout(gtx *layout.Context)
 
@@ -552,7 +552,7 @@ Lay out widgets on an axis.
 
 The Window's Queue method returns an ui.Queue for OS events.
 
-	package app // import gioui.org/ui/app
+	package app // import gioui.org/app
 
 	func (w *Window) Queue() *Queue
 
@@ -561,7 +561,7 @@ The Window's Queue method returns an ui.Queue for OS events.
 * Gestures
 
 	import "gioui.org/ui"
-	import "gioui.org/ui/gesture"
+	import "gioui.org/gesture"
 
 Detect clicks
 
@@ -591,7 +591,7 @@ Determine scroll distance from mouse wheel or touch drag/fling
 
 Initialize the editor
 
-	import "gioui.org/ui/text"
+	import "gioui.org/text"
 
 .code editor.go /START INIT OMIT/,/END INIT OMIT/
 

@@ -4,10 +4,10 @@ import (
 	"fmt"
 
 	"gioui.org/ui"
-	"gioui.org/ui/app"
-	"gioui.org/ui/layout"
-	"gioui.org/ui/measure"
-	"gioui.org/ui/text"
+	"gioui.org/app"
+	"gioui.org/layout"
+	"gioui.org/measure"
+	"gioui.org/text"
 
 	"golang.org/x/image/font/gofont/goregular"
 	"golang.org/x/image/font/sfnt"
