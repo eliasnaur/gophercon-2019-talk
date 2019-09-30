@@ -4,11 +4,11 @@ import (
 	"image"
 	"image/color"
 
-	"gioui.org/ui"
 	"gioui.org/app"
 	"gioui.org/f32"
 	"gioui.org/layout"
-	"gioui.org/paint"
+	"gioui.org/op/paint"
+	"gioui.org/unit"
 )
 
 func main() {
@@ -34,15 +34,15 @@ func drawRects(gtx *layout.Context) {
 	stack.Init(gtx)
 
 	red := stack.Rigid(func() {
-		drawRect(gtx, color.RGBA{A: 0xff, R: 0xff}, ui.Dp(50))
+		drawRect(gtx, color.RGBA{A: 0xff, R: 0xff}, unit.Dp(50))
 	})
 
 	green := stack.Rigid(func() {
-		drawRect(gtx, color.RGBA{A: 0xff, G: 0xff}, ui.Dp(100))
+		drawRect(gtx, color.RGBA{A: 0xff, G: 0xff}, unit.Dp(100))
 	})
 
 	blue := stack.Rigid(func() {
-		drawRect(gtx, color.RGBA{A: 0xff, B: 0xff}, ui.Dp(150))
+		drawRect(gtx, color.RGBA{A: 0xff, B: 0xff}, unit.Dp(150))
 	})
 
 	stack.Layout(red, green, blue)
@@ -50,7 +50,7 @@ func drawRects(gtx *layout.Context) {
 
 // END OMIT
 
-func drawRect(gtx *layout.Context, color color.RGBA, inset ui.Value) {
+func drawRect(gtx *layout.Context, color color.RGBA, inset unit.Value) {
 	in := layout.UniformInset(inset)
 	in.Layout(gtx, func() {
 		cs := gtx.Constraints

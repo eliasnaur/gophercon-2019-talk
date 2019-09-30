@@ -232,11 +232,11 @@ Use a webserver or goexec to serve it:
 
 Serializing operations
 
-	import "gioui.org/ui" // Pure Go
+	import "gioui.org/op" // Pure Go
 
-	var ops ui.Ops
+	var ops op.Ops
 	// Add operations to ops
-	ui.InvalidateOp{}.Add(ops)
+	op.InvalidateOp{}.Add(ops)
 	...
 
 Only the app package depends on platform libraries
@@ -263,9 +263,10 @@ Only the app package depends on platform libraries
 
 Position other operations
 
-	import "gioui.org/ui"
+	import "gioui.org/op"
+	import "gioui.org/f32"
 
-	ui.TransformOp{}.Offset(f32.Point{...}).Add(ops)
+	op.TransformOp{}.Offset(f32.Point{...}).Add(ops)
 
 Request a redraw
 
@@ -276,7 +277,7 @@ Request a redraw
 
 Set current color or image
 
-	import "gioui.org/paint"
+	import "gioui.org/op/paint"
 
 	paint.ColorOp{Color: color.RGBA{...}}.Add(ops)
 	paint.ImageOp{Src: ..., Rect: ...}.Add(ops)
@@ -290,7 +291,7 @@ Draw with the current color or image
 
 Clip drawing to a rectangle
 
-	import "gioui.org/draw"
+	import "gioui.org/op/paint"
 
 	paint.RectClip(image.Rectangle{...}).Add(ops)
 
@@ -312,7 +313,7 @@ Or to an outline
 
 Keyboard and text input
 
-	import "gioui.org/key"
+	import "gioui.org/io/key"
 
 	// Declare key handler.
 	key.InputOp{Key: handler, Focus: true/false}.Add(ops)
@@ -322,7 +323,7 @@ Keyboard and text input
 
 Mouse and touch input
 
-	import "gioui.org/pointer"
+	import "gioui.org/io/pointer"
 
 	// Define hit area.
 	pointer.RectAreaOp{Size: ...}.Add(ops)
@@ -560,12 +561,12 @@ The Window's Queue method returns an ui.Queue for OS events.
 
 * Gestures
 
-	import "gioui.org/ui"
+	import "gioui.org/op"
 	import "gioui.org/gesture"
 
 Detect clicks
 
-	var queue ui.Queue
+	var queue op.Queue
 	var c gesture.Click
 	for _, event := range c.Events(queue) {
 		// event is a gesture.ClickEvent, not a raw pointer.Event.

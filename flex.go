@@ -7,7 +7,7 @@ import (
 	"gioui.org/app"
 	"gioui.org/f32"
 	"gioui.org/layout"
-	"gioui.org/paint"
+	"gioui.org/op/paint"
 )
 
 func main() {

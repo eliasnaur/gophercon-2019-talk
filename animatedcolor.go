@@ -5,17 +5,17 @@ import (
 	"math"
 	"time"
 
-	"gioui.org/ui"
 	"gioui.org/app"
 	"gioui.org/f32"
-	"gioui.org/paint"
+	"gioui.org/op"
+	"gioui.org/op/paint"
 )
 
 func main() {
 	go func() {
 		w := app.NewWindow()
 		// START OMIT
-		ops := new(ui.Ops) // HLops
+		ops := new(op.Ops) // HLops
 		for e := range w.Events() {
 			if e, ok := e.(app.UpdateEvent); ok {
 				ops.Reset() // HLops
@@ -29,7 +29,7 @@ func main() {
 				paint.ColorOp{Color: color}.Add(ops) // HLops
 				paint.PaintOp{Rect: square}.Add(ops) // HLops
 				// Request immediate redraw.
-				ui.InvalidateOp{}.Add(ops) // HLops
+				op.InvalidateOp{}.Add(ops) // HLops
 
 				// Submit operations.
 				w.Update(ops) // HLops

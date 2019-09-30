@@ -1,11 +1,11 @@
 package main
 
 import (
-	"gioui.org/ui"
 	"gioui.org/app"
 	"gioui.org/layout"
-	"gioui.org/measure"
 	"gioui.org/text"
+	"gioui.org/text/shape"
+	"gioui.org/unit"
 
 	"golang.org/x/image/font/gofont/goregular"
 	"golang.org/x/image/font/sfnt"
@@ -16,9 +16,9 @@ func main() {
 		w := app.NewWindow()
 		regular, _ := sfnt.Parse(goregular.TTF) // HLdraw
 		// START INIT OMIT
-		var faces measure.Faces // HLdraw
+		var faces shape.Faces // HLdraw
 		editor := &text.Editor{
-			Face: faces.For(regular, ui.Sp(52)),
+			Face: faces.For(regular, unit.Sp(52)),
 		}
 		editor.SetText("Hello, Gophercon! Edit me.")
 		gtx := &layout.Context{

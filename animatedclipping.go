@@ -5,16 +5,16 @@ import (
 	"math"
 	"time"
 
-	"gioui.org/ui"
 	"gioui.org/app"
 	"gioui.org/f32"
-	"gioui.org/paint"
+	"gioui.org/op"
+	"gioui.org/op/paint"
 )
 
 func main() {
 	go func() {
 		w := app.NewWindow()
-		ops := new(ui.Ops)
+		ops := new(op.Ops)
 		for e := range w.Events() {
 			if e, ok := e.(app.UpdateEvent); ok {
 				ops.Reset()
@@ -24,7 +24,7 @@ func main() {
 				radius := animateRadius(e.Config.Now(), 250)
 
 				// Position
-				ui.TransformOp{}.Offset(f32.Point{ // HLdraw
+				op.TransformOp{}.Offset(f32.Point{ // HLdraw
 					X: 100, // HLdraw
 					Y: 100, // HLdraw
 				}).Add(ops) // HLdraw
@@ -35,7 +35,7 @@ func main() {
 				// Draw
 				paint.PaintOp{Rect: square}.Add(ops) // HLdraw
 				// Animate
-				ui.InvalidateOp{}.Add(ops) // HLdraw
+				op.InvalidateOp{}.Add(ops) // HLdraw
 
 				// Submit operations to the window.
 				w.Update(ops) // HLdraw
@@ -48,7 +48,7 @@ func main() {
 
 // START RR OMIT
 // https://pomax.github.io/bezierinfo/#circles_cubic.
-func roundRect(ops *ui.Ops, width, height, se, sw, nw, ne float32) {
+func roundRect(ops *op.Ops, width, height, se, sw, nw, ne float32) {
 	w, h := float32(width), float32(height)
 	const c = 0.55228475 // 4*(sqrt(2)-1)/3
 	var b paint.PathBuilder

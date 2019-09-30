@@ -4,11 +4,12 @@ import (
 	"image"
 	"image/color"
 
-	"gioui.org/ui"
 	"gioui.org/app"
 	"gioui.org/f32"
-	"gioui.org/paint"
-	"gioui.org/pointer"
+	"gioui.org/io/event"
+	"gioui.org/io/pointer"
+	"gioui.org/op"
+	"gioui.org/op/paint"
 )
 
 // START QUEUE OMIT
@@ -16,7 +17,7 @@ func main() {
 	go func() {
 		w := app.NewWindow()
 		button := new(Button)
-		ops := new(ui.Ops) // HLops
+		ops := new(op.Ops) // HLops
 		for e := range w.Events() {
 			if _, ok := e.(app.UpdateEvent); ok {
 				ops.Reset()
@@ -36,7 +37,7 @@ type Button struct {
 }
 
 // START OMIT
-func (b *Button) Layout(queue ui.Queue, ops *ui.Ops) {
+func (b *Button) Layout(queue event.Queue, ops *op.Ops) {
 	for _, e := range queue.Events(b) { // HLevent
 		if e, ok := e.(pointer.Event); ok { // HLevent
 			switch e.Type { // HLevent
@@ -61,7 +62,7 @@ func (b *Button) Layout(queue ui.Queue, ops *ui.Ops) {
 
 // END OMIT
 
-func drawSquare(ops *ui.Ops, color color.RGBA) {
+func drawSquare(ops *op.Ops, color color.RGBA) {
 	square := f32.Rectangle{
 		Max: f32.Point{X: 500, Y: 500},
 	}
