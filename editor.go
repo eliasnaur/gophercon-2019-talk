@@ -27,8 +27,8 @@ func main() {
 		// END INIT OMIT
 		for e := range w.Events() {
 			if e, ok := e.(app.UpdateEvent); ok {
-				gtx.Reset(&e.Config, layout.RigidConstraints(e.Size)) // HLdraw
-				faces.Reset(gtx.Config)                               // HLdraw
+				gtx.Reset(&e.Config, e.Size) // HLdraw
+				faces.Reset(gtx.Config)      // HLdraw
 				// START OMIT
 				editor.Layout(gtx)
 				// END OMIT

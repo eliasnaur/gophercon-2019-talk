@@ -22,7 +22,7 @@ func main() {
 		}
 		for e := range w.Events() {
 			if e, ok := e.(app.UpdateEvent); ok {
-				gtx.Reset(&e.Config, layout.RigidConstraints(e.Size))
+				gtx.Reset(&e.Config, e.Size)
 				faces.Reset(gtx.Config)
 
 				lbl := text.Label{Face: faces.For(regular, unit.Sp(72)), Text: "Hello, World!"} // HLdraw

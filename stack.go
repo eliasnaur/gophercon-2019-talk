@@ -19,7 +19,7 @@ func main() {
 		}
 		for e := range w.Events() {
 			if e, ok := e.(app.UpdateEvent); ok {
-				gtx.Reset(&e.Config, layout.RigidConstraints(e.Size))
+				gtx.Reset(&e.Config, e.Size)
 				drawRects(gtx)
 				w.Update(gtx.Ops)
 			}
