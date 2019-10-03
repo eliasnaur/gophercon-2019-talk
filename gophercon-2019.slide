@@ -297,8 +297,8 @@ Clip drawing to a rectangle
 
 Or to an outline
 
-	var b paint.PathBuilder
-	b.Init(ops)
+	var b paint.Path
+	b.Begin(ops)
 	b.Line(...)
 	b.Quad(...) // Quadratic Beziér curve
 	b.Cube(...) // Cubic Beziér curve
