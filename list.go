@@ -29,9 +29,9 @@ func main() {
 		for e := range w.Events() {
 			if e, ok := e.(app.UpdateEvent); ok {
 				gtx.Reset(&e.Config, e.Size)
-				faces.Reset(gtx.Config)
-				f := faces.For(regular, unit.Sp(42))
-				drawList(gtx, list, f)
+				faces.Reset()
+				f := faces.For(regular)
+				drawList(gtx, list, f, unit.Sp(42))
 				w.Update(gtx.Ops)
 			}
 		}
@@ -40,12 +40,12 @@ func main() {
 }
 
 // START OMIT
-func drawList(gtx *layout.Context, list *layout.List, face text.Face) {
+func drawList(gtx *layout.Context, list *layout.List, face text.Face, size unit.Value) {
 	const n = 1e6
 	list.Layout(gtx, n, func(i int) {
 		txt := fmt.Sprintf("List element #%d", i)
 
-		lbl := text.Label{Face: face, Text: txt}
+		lbl := text.Label{Face: face, Size: size, Text: txt}
 		lbl.Layout(gtx)
 	})
 }

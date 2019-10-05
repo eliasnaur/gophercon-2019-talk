@@ -23,10 +23,10 @@ func main() {
 		for e := range w.Events() {
 			if e, ok := e.(app.UpdateEvent); ok {
 				gtx.Reset(&e.Config, e.Size)
-				faces.Reset(gtx.Config)
+				faces.Reset()
 
-				lbl := text.Label{Face: faces.For(regular, unit.Sp(72)), Text: "Hello, World!"} // HLdraw
-				lbl.Layout(gtx)                                                                 // HLdraw
+				lbl := text.Label{Face: faces.For(regular), Size: unit.Sp(72), Text: "Hello, World!"} // HLdraw
+				lbl.Layout(gtx)                                                                       // HLdraw
 
 				w.Update(gtx.Ops)
 			}

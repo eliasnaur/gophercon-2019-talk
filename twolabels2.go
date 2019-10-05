@@ -25,9 +25,9 @@ func main() {
 		for e := range w.Events() {
 			if e, ok := e.(app.UpdateEvent); ok {
 				gtx.Reset(&e.Config, e.Size)
-				faces.Reset(gtx.Config)
-				f := faces.For(regular, unit.Sp(122))
-				drawLabels(gtx, f) // HLdraw
+				faces.Reset()
+				f := faces.For(regular)
+				drawLabels(gtx, f, unit.Sp(122)) // HLdraw
 				w.Update(gtx.Ops)
 			}
 		}
@@ -37,9 +37,9 @@ func main() {
 }
 
 // START DRAW OMIT
-func drawLabels(gtx *layout.Context, face text.Face) {
+func drawLabels(gtx *layout.Context, face text.Face, size unit.Value) {
 	gtx.Constraints.Height.Min = 0 // HLdraw
-	lbl := text.Label{Face: face, Text: "One label"}
+	lbl := text.Label{Face: face, Size: size, Text: "One label"}
 	lbl.Layout(gtx) // HLdraw
 	dimensions := gtx.Dimensions
 	op.TransformOp{}.Offset(f32.Point{

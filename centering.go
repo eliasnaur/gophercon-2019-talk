@@ -24,9 +24,9 @@ func main() {
 		for e := range w.Events() {
 			if e, ok := e.(app.UpdateEvent); ok {
 				gtx.Reset(&e.Config, e.Size)
-				faces.Reset(gtx.Config)
-				f := faces.For(regular, unit.Sp(72))
-				drawLabels(gtx, f)
+				faces.Reset()
+				f := faces.For(regular)
+				drawLabels(gtx, f, unit.Sp(72))
 				w.Update(gtx.Ops)
 			}
 		}
@@ -35,10 +35,10 @@ func main() {
 }
 
 // START OMIT
-func drawLabels(gtx *layout.Context, face text.Face) {
+func drawLabels(gtx *layout.Context, face text.Face, size unit.Value) {
 	gtx.Constraints.Width.Min = 0
 	gtx.Constraints.Height.Min = 0
-	lbl := text.Label{Face: face, Text: "I'm centered!"}
+	lbl := text.Label{Face: face, Size: size, Text: "I'm centered!"}
 	var macro op.MacroOp  // HLcenter
 	macro.Record(gtx.Ops) // Start recording  // HLcenter
 	lbl.Layout(gtx)
