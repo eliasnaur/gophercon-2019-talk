@@ -30,21 +30,20 @@ func main() {
 // START OMIT
 func drawRects(gtx *layout.Context) {
 	flex := layout.Flex{}
-	flex.Init(gtx)
 
-	red := flex.Flexible(0.5, func() {
+	red := flex.Flex(gtx, 0.5, func() {
 		drawRect(gtx, color.RGBA{A: 0xff, R: 0xff})
 	})
 
-	green := flex.Flexible(0.25, func() {
+	green := flex.Flex(gtx, 0.25, func() {
 		drawRect(gtx, color.RGBA{A: 0xff, G: 0xff})
 	})
 
-	blue := flex.Flexible(0.25, func() {
+	blue := flex.Flex(gtx, 0.25, func() {
 		drawRect(gtx, color.RGBA{A: 0xff, B: 0xff})
 	})
 
-	flex.Layout(red, green, blue)
+	flex.Layout(gtx, red, green, blue)
 }
 
 // END OMIT
