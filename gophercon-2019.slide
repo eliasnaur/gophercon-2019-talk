@@ -148,7 +148,7 @@ Enable modules
 
 Build, install or run the program
 
-	go build gioui.org/apps/hello
+	go build gioui.org/example/hello
 	go install scatter.im/cmd/scatter
 	go run helloworld.go
 
