@@ -17,7 +17,7 @@ func main() {
 		// START OMIT
 		ops := new(op.Ops) // HLops
 		for e := range w.Events() {
-			if e, ok := e.(app.UpdateEvent); ok {
+			if e, ok := e.(app.FrameEvent); ok {
 				ops.Reset() // HLops
 
 				color := animateColor(e.Config.Now())
@@ -32,7 +32,7 @@ func main() {
 				op.InvalidateOp{}.Add(ops) // HLops
 
 				// Submit operations.
-				w.Update(ops) // HLops
+				e.Frame(ops) // HLops
 			}
 		}
 		// END OMIT

@@ -16,7 +16,7 @@ func main() {
 		w := app.NewWindow()
 		ops := new(op.Ops)
 		for e := range w.Events() {
-			if e, ok := e.(app.UpdateEvent); ok {
+			if e, ok := e.(app.FrameEvent); ok {
 				ops.Reset()
 
 				// START OMIT
@@ -38,7 +38,7 @@ func main() {
 				op.InvalidateOp{}.Add(ops) // HLdraw
 
 				// Submit operations to the window.
-				w.Update(ops) // HLdraw
+				e.Frame(ops) // HLdraw
 				// END OMIT
 			}
 		}
@@ -61,7 +61,7 @@ func roundRect(ops *op.Ops, width, height, se, sw, nw, ne float32) {
 	b.Cube(f32.Point{X: 0, Y: -nw * c}, f32.Point{X: nw - nw*c, Y: -nw}, f32.Point{X: nw, Y: -nw})
 	b.Line(f32.Point{X: w - ne - nw, Y: 0})
 	b.Cube(f32.Point{X: ne * c, Y: 0}, f32.Point{X: ne, Y: ne - ne*c}, f32.Point{X: ne, Y: ne})
-	b.End()
+	b.End().Add(ops)
 }
 
 // END RR OMIT

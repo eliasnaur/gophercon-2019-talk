@@ -4,31 +4,30 @@ import (
 	"gioui.org/app"
 	"gioui.org/layout"
 	"gioui.org/text"
-	"gioui.org/text/shape"
-	"gioui.org/unit"
+	"gioui.org/text/opentype"
+	"gioui.org/widget/material"
 	"golang.org/x/image/font/gofont/goregular"
-	"golang.org/x/image/font/sfnt"
 )
 
 // START OMIT
 func main() {
 	go func() {
-		regular, _ := sfnt.Parse(goregular.TTF)
 		w := app.NewWindow()
-		family := &shape.Family{
-			Regular: regular,
-		}
+		shaper := new(text.Shaper)
+		shaper.Register(text.Font{}, opentype.Must(
+			opentype.Parse(goregular.TTF),
+		))
+		th := material.NewTheme(shaper)
 		gtx := &layout.Context{
 			Queue: w.Queue(),
 		}
 		for e := range w.Events() {
-			if e, ok := e.(app.UpdateEvent); ok {
+			if e, ok := e.(app.FrameEvent); ok {
 				gtx.Reset(&e.Config, e.Size)
 
-				lbl := text.Label{Size: unit.Sp(72), Text: "Hello, World!"} // HLdraw
-				lbl.Layout(gtx, family)                                     // HLdraw
+				th.H1("Hello, World!").Layout(gtx) // HLdraw
 
-				w.Update(gtx.Ops)
+				e.Frame(gtx.Ops)
 			}
 		} // HLeventloop
 	}()

@@ -18,10 +18,10 @@ func main() {
 			Queue: w.Queue(),
 		}
 		for e := range w.Events() {
-			if e, ok := e.(app.UpdateEvent); ok {
+			if e, ok := e.(app.FrameEvent); ok {
 				gtx.Reset(&e.Config, e.Size)
 				drawRects(gtx)
-				w.Update(gtx.Ops)
+				e.Frame(gtx.Ops)
 			}
 		}
 	}()

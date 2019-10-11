@@ -6,20 +6,20 @@ import (
 	"gioui.org/app"
 	"gioui.org/layout"
 	"gioui.org/text"
-	"gioui.org/text/shape"
-	"gioui.org/unit"
+	"gioui.org/text/opentype"
+	"gioui.org/widget/material"
 
 	"golang.org/x/image/font/gofont/goregular"
-	"golang.org/x/image/font/sfnt"
 )
 
 func main() {
 	go func() {
 		w := app.NewWindow()
-		regular, _ := sfnt.Parse(goregular.TTF)
-		fml := &shape.Family{
-			Regular: regular,
-		}
+		shaper := new(text.Shaper)
+		shaper.Register(text.Font{}, opentype.Must(
+			opentype.Parse(goregular.TTF),
+		))
+		th := material.NewTheme(shaper)
 		// START INIT OMIT
 		list := &layout.List{
 			Axis: layout.Vertical,
@@ -29,10 +29,10 @@ func main() {
 		}
 		// END INIT OMIT
 		for e := range w.Events() {
-			if e, ok := e.(app.UpdateEvent); ok {
+			if e, ok := e.(app.FrameEvent); ok {
 				gtx.Reset(&e.Config, e.Size)
-				drawList(gtx, list, fml, unit.Sp(42))
-				w.Update(gtx.Ops)
+				drawList(gtx, list, th)
+				e.Frame(gtx.Ops)
 			}
 		}
 	}()
@@ -40,13 +40,12 @@ func main() {
 }
 
 // START OMIT
-func drawList(gtx *layout.Context, list *layout.List, fml text.Family, size unit.Value) {
+func drawList(gtx *layout.Context, list *layout.List, th *material.Theme) {
 	const n = 1e6
 	list.Layout(gtx, n, func(i int) {
 		txt := fmt.Sprintf("List element #%d", i)
 
-		lbl := text.Label{Size: size, Text: txt}
-		lbl.Layout(gtx, fml)
+		th.H3(txt).Layout(gtx)
 	})
 }
 

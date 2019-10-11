@@ -243,8 +243,8 @@ Only the app package depends on platform libraries
 
 	import "gioui.org/app"
 
-	var w app.Window
-	w.Update(&ops)
+	var e app.FrameEvent
+	e.Frame(&ops)
 
 
 : In Gio, the basic building block is the operation. There are operations for clipping, transforming and drawing as well as ops for controlling input flow and requesting a redraw for animation.
@@ -302,7 +302,7 @@ Or to an outline
 	b.Line(...)
 	b.Quad(...) // Quadratic Beziér curve
 	b.Cube(...) // Cubic Beziér curve
-	b.End()
+	b.End().Add(ops)
 
 : The major parts of any UI program are drawing, layout and input handling.
 
