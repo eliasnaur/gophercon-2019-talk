@@ -3,23 +3,17 @@ package main
 import (
 	"gioui.org/app"
 	"gioui.org/layout"
-	"gioui.org/text"
-	"gioui.org/text/opentype"
 	"gioui.org/unit"
 	"gioui.org/widget"
 	"gioui.org/widget/material"
 
-	"golang.org/x/image/font/gofont/goregular"
+	_ "gioui.org/font/gofont"
 )
 
 func main() {
 	go func() {
 		w := app.NewWindow()
-		shaper := new(text.Shaper)
-		shaper.Register(text.Font{}, opentype.Must(
-			opentype.Parse(goregular.TTF),
-		))
-		th := material.NewTheme(shaper)
+		th := material.NewTheme()
 		// START INIT OMIT
 		editor := new(widget.Editor)
 		editor.SetText("Hello, Gophercon! Edit me.")

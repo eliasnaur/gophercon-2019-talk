@@ -2,22 +2,16 @@ package main
 
 import (
 	"gioui.org/app"
+	_ "gioui.org/font/gofont"
 	"gioui.org/layout"
-	"gioui.org/text"
-	"gioui.org/text/opentype"
 	"gioui.org/widget/material"
-	"golang.org/x/image/font/gofont/goregular"
 )
 
 // START OMIT
 func main() {
 	go func() {
 		w := app.NewWindow()
-		shaper := new(text.Shaper)
-		shaper.Register(text.Font{}, opentype.Must(
-			opentype.Parse(goregular.TTF),
-		))
-		th := material.NewTheme(shaper)
+		th := material.NewTheme()
 		gtx := &layout.Context{
 			Queue: w.Queue(),
 		}
