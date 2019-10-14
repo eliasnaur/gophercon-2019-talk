@@ -5,6 +5,7 @@ import (
 
 	"gioui.org/app"
 	_ "gioui.org/font/gofont"
+	"gioui.org/io/system"
 	"gioui.org/layout"
 	"gioui.org/widget/material"
 )
@@ -22,8 +23,8 @@ func main() {
 		}
 		// END INIT OMIT
 		for e := range w.Events() {
-			if e, ok := e.(app.FrameEvent); ok {
-				gtx.Reset(&e.Config, e.Size)
+			if e, ok := e.(system.FrameEvent); ok {
+				gtx.Reset(e.Config, e.Size)
 				drawList(gtx, list, th)
 				e.Frame(gtx.Ops)
 			}

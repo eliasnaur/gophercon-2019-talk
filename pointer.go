@@ -8,6 +8,7 @@ import (
 	"gioui.org/f32"
 	"gioui.org/io/event"
 	"gioui.org/io/pointer"
+	"gioui.org/io/system"
 	"gioui.org/op"
 	"gioui.org/op/paint"
 )
@@ -19,7 +20,7 @@ func main() {
 		button := new(Button)
 		ops := new(op.Ops) // HLops
 		for e := range w.Events() {
-			if e, ok := e.(app.FrameEvent); ok {
+			if e, ok := e.(system.FrameEvent); ok {
 				ops.Reset()
 				queue := w.Queue() // HLqueue
 				button.Layout(queue, ops)

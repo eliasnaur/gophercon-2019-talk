@@ -3,6 +3,7 @@ package main
 import (
 	"gioui.org/app"
 	_ "gioui.org/font/gofont"
+	"gioui.org/io/system"
 	"gioui.org/layout"
 	"gioui.org/widget/material"
 )
@@ -16,8 +17,8 @@ func main() {
 			Queue: w.Queue(),
 		}
 		for e := range w.Events() {
-			if e, ok := e.(app.FrameEvent); ok {
-				gtx.Reset(&e.Config, e.Size)
+			if e, ok := e.(system.FrameEvent); ok {
+				gtx.Reset(e.Config, e.Size)
 
 				th.H1("Hello, World!").Layout(gtx) // HLdraw
 

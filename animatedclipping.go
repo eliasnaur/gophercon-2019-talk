@@ -7,6 +7,7 @@ import (
 
 	"gioui.org/app"
 	"gioui.org/f32"
+	"gioui.org/io/system"
 	"gioui.org/op"
 	"gioui.org/op/paint"
 )
@@ -16,7 +17,7 @@ func main() {
 		w := app.NewWindow()
 		ops := new(op.Ops)
 		for e := range w.Events() {
-			if e, ok := e.(app.FrameEvent); ok {
+			if e, ok := e.(system.FrameEvent); ok {
 				ops.Reset()
 
 				// START OMIT

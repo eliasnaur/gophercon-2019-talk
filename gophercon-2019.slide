@@ -241,9 +241,9 @@ Serializing operations
 
 Only the app package depends on platform libraries
 
-	import "gioui.org/app"
+	import "gioui.org/io/system"
 
-	var e app.FrameEvent
+	var e system.FrameEvent
 	e.Frame(&ops)
 
 

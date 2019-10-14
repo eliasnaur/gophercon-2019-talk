@@ -6,6 +6,7 @@ import (
 
 	"gioui.org/app"
 	"gioui.org/f32"
+	"gioui.org/io/system"
 	"gioui.org/layout"
 	"gioui.org/op/paint"
 	"gioui.org/unit"
@@ -18,8 +19,8 @@ func main() {
 			Queue: w.Queue(),
 		}
 		for e := range w.Events() {
-			if e, ok := e.(app.FrameEvent); ok {
-				gtx.Reset(&e.Config, e.Size)
+			if e, ok := e.(system.FrameEvent); ok {
+				gtx.Reset(e.Config, e.Size)
 				drawRects(gtx)
 				e.Frame(gtx.Ops)
 			}

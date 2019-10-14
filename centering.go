@@ -4,6 +4,7 @@ import (
 	"gioui.org/app"
 	"gioui.org/f32"
 	_ "gioui.org/font/gofont"
+	"gioui.org/io/system"
 	"gioui.org/layout"
 	"gioui.org/op"
 	"gioui.org/widget/material"
@@ -17,8 +18,8 @@ func main() {
 			Queue: w.Queue(),
 		}
 		for e := range w.Events() {
-			if e, ok := e.(app.FrameEvent); ok {
-				gtx.Reset(&e.Config, e.Size)
+			if e, ok := e.(system.FrameEvent); ok {
+				gtx.Reset(e.Config, e.Size)
 				drawLabels(gtx, th)
 				e.Frame(gtx.Ops)
 			}
