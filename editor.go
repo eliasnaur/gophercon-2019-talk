@@ -8,12 +8,13 @@ import (
 	"gioui.org/widget"
 	"gioui.org/widget/material"
 
-	_ "gioui.org/font/gofont"
+	"gioui.org/font/gofont"
 )
 
 func main() {
 	go func() {
 		w := app.NewWindow()
+		gofont.Register()
 		th := material.NewTheme()
 		// START INIT OMIT
 		editor := new(widget.Editor)

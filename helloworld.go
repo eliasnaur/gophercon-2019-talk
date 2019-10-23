@@ -2,7 +2,7 @@ package main
 
 import (
 	"gioui.org/app"
-	_ "gioui.org/font/gofont"
+	"gioui.org/font/gofont"
 	"gioui.org/io/system"
 	"gioui.org/layout"
 	"gioui.org/widget/material"
@@ -12,6 +12,7 @@ import (
 func main() {
 	go func() {
 		w := app.NewWindow()
+		gofont.Register()
 		th := material.NewTheme()
 		gtx := &layout.Context{
 			Queue: w.Queue(),
