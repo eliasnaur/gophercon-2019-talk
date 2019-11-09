@@ -9,6 +9,7 @@ import (
 	"gioui.org/f32"
 	"gioui.org/io/system"
 	"gioui.org/op"
+	"gioui.org/op/clip"
 	"gioui.org/op/paint"
 )
 
@@ -32,7 +33,12 @@ func main() {
 				// Color
 				paint.ColorOp{Color: color.RGBA{A: 0xff, G: 0xcc}}.Add(ops) // HLdraw
 				// Clip corners
-				roundRect(ops, 500, 500, radius, radius, radius, radius) // HLdraw
+				clip.RoundRect(ops, // HLdraw
+					f32.Rectangle{ // HLdraw
+						Max: f32.Point{X: 500, Y: 500}, // HLdraw
+					}, // HLdraw
+					radius, radius, radius, radius, // HLdraw
+				).Add(ops) // HLdraw
 				// Draw
 				paint.PaintOp{Rect: square}.Add(ops) // HLdraw
 				// Animate
@@ -45,24 +51,6 @@ func main() {
 		}
 	}()
 	app.Main()
-}
-
-// START RR OMIT
-// https://pomax.github.io/bezierinfo/#circles_cubic.
-func roundRect(ops *op.Ops, width, height, se, sw, nw, ne float32) {
-	w, h := float32(width), float32(height)
-	const c = 0.55228475 // 4*(sqrt(2)-1)/3
-	var b paint.Path
-	b.Begin(ops)
-	b.Move(f32.Point{X: w, Y: h - se})
-	b.Cube(f32.Point{X: 0, Y: se * c}, f32.Point{X: -se + se*c, Y: se}, f32.Point{X: -se, Y: se})
-	b.Line(f32.Point{X: sw - w + se, Y: 0})
-	b.Cube(f32.Point{X: -sw * c, Y: 0}, f32.Point{X: -sw, Y: -sw + sw*c}, f32.Point{X: -sw, Y: -sw})
-	b.Line(f32.Point{X: 0, Y: nw - h + sw})
-	b.Cube(f32.Point{X: 0, Y: -nw * c}, f32.Point{X: nw - nw*c, Y: -nw}, f32.Point{X: nw, Y: -nw})
-	b.Line(f32.Point{X: w - ne - nw, Y: 0})
-	b.Cube(f32.Point{X: ne * c, Y: 0}, f32.Point{X: ne, Y: ne - ne*c}, f32.Point{X: ne, Y: ne})
-	b.End().Add(ops)
 }
 
 // END RR OMIT
