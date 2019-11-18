@@ -54,9 +54,9 @@ func (b *Button) Layout(queue event.Queue, ops *op.Ops) {
 	if b.pressed {
 		col = color.RGBA{A: 0xff, G: 0xff}
 	}
-	pointer.RectAreaOp{ // HLevent
-		Rect: image.Rectangle{Max: image.Point{X: 500, Y: 500}}, // HLevent
-	}.Add(ops) // HLevent
+	pointer.Rect( // HLevent
+		image.Rectangle{Max: image.Point{X: 500, Y: 500}}, // HLevent
+	).Add(ops) // HLevent
 	pointer.InputOp{Key: b}.Add(ops) // HLevent
 	drawSquare(ops, col)
 }
