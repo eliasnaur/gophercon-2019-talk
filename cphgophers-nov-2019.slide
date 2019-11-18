@@ -306,7 +306,7 @@ Widgets accept constraints, output dimensions.
 	func (l Label) Layout(gtx *layout.Context)
 
 
-Context tracks UI state.
+Context tracks the current constraints and dimensions.
 
 	package layout // import "gioui.org/layout"
 
@@ -478,7 +478,50 @@ Determine scroll distance from mouse wheel or touch drag/fling
 : The Click state machine record the current pressed state, which the Scroll state machine track touch velocity, while animating it on touch release.
 
 
-* Widgets
+* Widgets and themes
+
+* Material theme
+
+	import "gioui.org/widget/material"
+
+	th := material.NewTheme()
+
+Labels (stateless)
+
+	th.Label(unit.Sp(14), "14sp text").Layout(gtx)
+	th.H3("H3 text").Layout(gtx)
+
+Customization
+
+	// Per theme
+	th.TextSize = unit.Sp(20)
+	th.Color.Primary = color.RGBA{...}
+
+	// Per widget
+	lbl := th.H3("Custom text") // Use theme properties.
+	lbl.Color = color.RGBA{...} // Set widget property.
+	lbl.Layout(gtx)
+
+
+* Stateful widgets
+
+	import "gioui.org/widget" // State
+	import "gioui.org/widget/material" // Theme
+
+	// Initialize and store button state.
+	var button = new(widget.Button)
+
+Stateless appearance
+
+	var th *material.Theme
+
+	th.Button("Click me").Layout(gtx)
+
+Events
+
+	for button.Clicked(gtx) {
+		fmt.Println("Clicked!")
+	}
 
 * Widgets - the Editor
 
@@ -491,6 +534,9 @@ Initialize the editor
 Draw, layout and handle input in one call, Layout.
 
 .play editor.go /START OMIT/,/END OMIT/
+
+
+* Demo - kitchen
 
 * Why Gio?
 
@@ -505,6 +551,3 @@ Gio is
 - Fast. GPU accelerated, very little per-frame garbage.
 - Convenient. Develop on desktop, deploy on mobile.
 - Public domain source (UNLICENCE). Dual licenced MIT to please your lawyers.
-
-Most importantly, Gio needs your help to succeed!
-
