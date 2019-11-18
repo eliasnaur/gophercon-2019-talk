@@ -6,9 +6,9 @@ import (
 
 	"gioui.org/app"
 	"gioui.org/f32"
-	"gioui.org/io/event"
 	"gioui.org/io/pointer"
 	"gioui.org/io/system"
+	"gioui.org/layout"
 	"gioui.org/op"
 	"gioui.org/op/paint"
 )
@@ -18,13 +18,14 @@ func main() {
 	go func() {
 		w := app.NewWindow()
 		button := new(Button)
-		ops := new(op.Ops) // HLops
+		gtx := &layout.Context{
+			Queue: w.Queue(),
+		}
 		for e := range w.Events() {
 			if e, ok := e.(system.FrameEvent); ok {
-				ops.Reset()
-				queue := w.Queue() // HLqueue
-				button.Layout(queue, ops)
-				e.Frame(ops)
+				gtx.Reset(e.Config, e.Size)
+				button.Layout(gtx)
+				e.Frame(gtx.Ops)
 			}
 		}
 	}()
@@ -38,8 +39,8 @@ type Button struct {
 }
 
 // START OMIT
-func (b *Button) Layout(queue event.Queue, ops *op.Ops) {
-	for _, e := range queue.Events(b) { // HLevent
+func (b *Button) Layout(gtx *layout.Context) {
+	for _, e := range gtx.Events(b) { // HLevent
 		if e, ok := e.(pointer.Event); ok { // HLevent
 			switch e.Type { // HLevent
 			case pointer.Press: // HLevent
@@ -56,9 +57,9 @@ func (b *Button) Layout(queue event.Queue, ops *op.Ops) {
 	}
 	pointer.Rect( // HLevent
 		image.Rectangle{Max: image.Point{X: 500, Y: 500}}, // HLevent
-	).Add(ops) // HLevent
-	pointer.InputOp{Key: b}.Add(ops) // HLevent
-	drawSquare(ops, col)
+	).Add(gtx.Ops) // HLevent
+	pointer.InputOp{Key: b}.Add(gtx.Ops) // HLevent
+	drawSquare(gtx.Ops, col)
 }
 
 // END OMIT
