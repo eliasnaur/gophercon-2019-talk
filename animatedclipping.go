@@ -33,12 +33,9 @@ func main() {
 				// Color
 				paint.ColorOp{Color: color.RGBA{A: 0xff, G: 0xcc}}.Add(ops) // HLdraw
 				// Clip corners
-				clip.Rect{ // HLdraw
-					Rect: f32.Rectangle{ // HLdraw
-						Max: f32.Point{X: 500, Y: 500}, // HLdraw
-					}, // HLdraw
-					NE: radius, NW: radius, SE: radius, SW: radius, // HLdraw
-				}.Op(ops).Add(ops) // HLdraw
+				clip.Rect{Rect: f32.Rectangle{ // HLdraw
+					Max: f32.Point{X: 500, Y: 500}, // HLdraw
+				}, NE: radius, NW: radius, SE: radius, SW: radius}.Op(ops).Add(ops) // HLdraw
 				// Draw
 				paint.PaintOp{Rect: square}.Add(ops) // HLdraw
 				// Animate
