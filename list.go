@@ -19,10 +19,10 @@ func main() {
 		list := &layout.List{
 			Axis: layout.Vertical,
 		}
+		// END INIT OMIT
 		gtx := &layout.Context{
 			Queue: w.Queue(),
 		}
-		// END INIT OMIT
 		for e := range w.Events() {
 			if e, ok := e.(system.FrameEvent); ok {
 				gtx.Reset(e.Config, e.Size)
