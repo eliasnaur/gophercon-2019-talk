@@ -12,24 +12,15 @@ https://eliasnaur.com/sponsor
 
 Gio - [[https://gioui.org][gioui.org]]
 
-Gio is a simple Go module for writing portable and fast graphical interfaces.
-
-Scatter - [[https://scatter.im][scatter.im]]
-
-Scatter is a Gio program for end-to-end encrypted messaging over email. 
-
-
-
-* Demo - Scatter
-
-
-* Features
-
 - Immediate mode design.
 - Cross platform (macOS, Linux, FreeBSD, Windows, Android, iOS, tvOS, WebAssembly).
 - GPU accelerated vector and text rendering.
 - No garbage during drawing and layout.
 - Core is 100% Go. OS-specific native interfaces are optional.
+
+
+* Demo - Scatter
+
 
 
 * Immediate mode UI
@@ -58,7 +49,7 @@ Scatter is a Gio program for end-to-end encrypted messaging over email.
 
 * Running Gio programs
 
-* Linux, macOS, Windows
+* Linux, macOS, Windows, FreeBSD
 
 Enable modules
 
@@ -535,8 +526,6 @@ Draw, layout and handle input in one call, Layout.
 
 .play editor.go /START OMIT/,/END OMIT/
 
-
-* Demo - kitchen
 
 * Why Gio?
 
