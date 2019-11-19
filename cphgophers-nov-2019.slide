@@ -506,7 +506,7 @@ Stateless appearance
 
 	var th *material.Theme
 
-	th.Button("Click me").Layout(gtx)
+	th.Button("Click me").Layout(gtx, button)
 
 Events
 
