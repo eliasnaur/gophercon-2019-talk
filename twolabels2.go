@@ -15,9 +15,7 @@ func main() {
 		w := app.NewWindow()
 		gofont.Register()
 		th := material.NewTheme()
-		gtx := &layout.Context{
-			Queue: w.Queue(),
-		}
+		gtx := layout.NewContext(w.Queue())
 		// START OMIT
 		for e := range w.Events() {
 			if e, ok := e.(system.FrameEvent); ok {

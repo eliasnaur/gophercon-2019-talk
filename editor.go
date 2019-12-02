@@ -20,9 +20,7 @@ func main() {
 		editor := new(widget.Editor)
 		editor.SetText("Hello, Gophers! Edit me.")
 		// END INIT OMIT
-		gtx := &layout.Context{
-			Queue: w.Queue(),
-		}
+		gtx := layout.NewContext(w.Queue())
 		for e := range w.Events() {
 			if e, ok := e.(system.FrameEvent); ok {
 				gtx.Reset(e.Config, e.Size) // HLdraw

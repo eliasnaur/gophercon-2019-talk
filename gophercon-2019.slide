@@ -291,9 +291,9 @@ Draw with the current color or image
 
 Clip drawing to a rectangle
 
-	import "gioui.org/op/paint"
+	import "gioui.org/op/clip"
 
-	paint.RectClip(image.Rectangle{...}).Add(ops)
+	clip.Rect{Rect: image.Rectangle{...}}.Op(ops).Add(ops)
 
 Or to an outline
 
@@ -326,8 +326,8 @@ Mouse and touch input
 	import "gioui.org/io/pointer"
 
 	// Define hit area.
-	pointer.RectAreaOp{Size: ...}.Add(ops)
-	pointer.EllipseAreaOp{Size: ...}.Add(ops)
+	pointer.Rect(...).Add(ops)
+	pointer.Ellipse().Add(ops)
 
 	// Declare pointer handler.
 	pointer.InputOp{Key: c, Grab true/false}

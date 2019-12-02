@@ -14,9 +14,7 @@ import (
 func main() {
 	go func() {
 		w := app.NewWindow()
-		gtx := &layout.Context{
-			Queue: w.Queue(),
-		}
+		gtx := layout.NewContext(w.Queue())
 		for e := range w.Events() {
 			if e, ok := e.(system.FrameEvent); ok {
 				gtx.Reset(e.Config, e.Size)
