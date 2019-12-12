@@ -29,21 +29,22 @@ func main() {
 
 // START OMIT
 func drawRects(gtx *layout.Context) {
-	stack := layout.Stack{Alignment: layout.Center}
+	layout.Stack{Alignment: layout.Center}.Layout(gtx,
+		// Red.
+		layout.Stacked(func() {
+			drawRect(gtx, color.RGBA{A: 0xff, R: 0xff}, unit.Dp(50))
+		}),
 
-	red := stack.Rigid(gtx, func() {
-		drawRect(gtx, color.RGBA{A: 0xff, R: 0xff}, unit.Dp(50))
-	})
+		// Green.
+		layout.Stacked(func() {
+			drawRect(gtx, color.RGBA{A: 0xff, G: 0xff}, unit.Dp(100))
+		}),
 
-	green := stack.Rigid(gtx, func() {
-		drawRect(gtx, color.RGBA{A: 0xff, G: 0xff}, unit.Dp(100))
-	})
-
-	blue := stack.Rigid(gtx, func() {
-		drawRect(gtx, color.RGBA{A: 0xff, B: 0xff}, unit.Dp(150))
-	})
-
-	stack.Layout(gtx, red, green, blue)
+		// Blue.
+		layout.Stacked(func() {
+			drawRect(gtx, color.RGBA{A: 0xff, B: 0xff}, unit.Dp(150))
+		}),
+	)
 }
 
 // END OMIT

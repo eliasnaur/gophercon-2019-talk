@@ -40,7 +40,7 @@ func drawLabels(gtx *layout.Context, th *material.Theme) {
 		X: float32(gtx.Constraints.Width.Max-dimensions.Size.X) / 2,
 		Y: float32(gtx.Constraints.Height.Max-dimensions.Size.Y) / 2,
 	}).Add(gtx.Ops)
-	macro.Add(gtx.Ops) // Replay operations // HLcenter
+	macro.Add() // Replay operations // HLcenter
 }
 
 // END OMIT
