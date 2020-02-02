@@ -322,8 +322,7 @@ Aligning
 
 	var gtx *layout.Context
 
-	align := layout.Align(layout.Center)
-	align.Layout(gtx, func() {
+	layout.Center.Layout(gtx, func() {
 		someWidget.Layout(gtx, ...) // Draw widget
 	})
 
