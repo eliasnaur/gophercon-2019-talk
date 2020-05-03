@@ -19,7 +19,7 @@ func main() {
 			if e, ok := e.(system.FrameEvent); ok {
 				gtx.Reset(e.Config, e.Size)
 
-				th.H1("Hello, World!").Layout(gtx) // HLdraw
+				material.H1(th, "Hello, World!").Layout(gtx) // HLdraw
 
 				e.Frame(gtx.Ops)
 			}

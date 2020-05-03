@@ -25,8 +25,8 @@ func main() {
 			if e, ok := e.(system.FrameEvent); ok {
 				gtx.Reset(e.Config, e.Size) // HLdraw
 				// START OMIT
-				ed := th.Editor("Hint")
-				ed.Font.Size = unit.Sp(52)
+				ed := material.Editor(th, "Hint")
+				ed.TextSize = unit.Sp(52)
 				ed.Layout(gtx, editor)
 				// END OMIT
 				e.Frame(gtx.Ops) // HLdraw

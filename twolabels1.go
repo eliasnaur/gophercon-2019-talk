@@ -30,8 +30,8 @@ func main() {
 // START DRAW OMIT
 
 func drawLabels(gtx *layout.Context, th *material.Theme) {
-	th.H1("One label").Layout(gtx)
-	th.H1("Another label").Layout(gtx)
+	material.H1(th, "One label").Layout(gtx)
+	material.H1(th, "Another label").Layout(gtx)
 }
 
 // END DRAW OMIT

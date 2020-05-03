@@ -38,7 +38,7 @@ func drawList(gtx *layout.Context, list *layout.List, th *material.Theme) {
 	list.Layout(gtx, n, func(i int) {
 		txt := fmt.Sprintf("List element #%d", i)
 
-		th.H3(txt).Layout(gtx)
+		material.H3(th, txt).Layout(gtx)
 	})
 }
 

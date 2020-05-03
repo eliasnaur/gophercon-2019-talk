@@ -31,13 +31,13 @@ func main() {
 
 // START DRAW OMIT
 func drawLabels(gtx *layout.Context, th *material.Theme) {
-	gtx.Constraints.Height.Min = 0 // HLdraw
-	th.H1("One label").Layout(gtx) // HLdraw
+	gtx.Constraints.Height.Min = 0           // HLdraw
+	material.H1(th, "One label").Layout(gtx) // HLdraw
 	dimensions := gtx.Dimensions
 	op.TransformOp{}.Offset(f32.Point{
 		Y: float32(dimensions.Size.Y), // HLdraw
 	}).Add(gtx.Ops)
-	th.H1("Another label").Layout(gtx)
+	material.H1(th, "Another label").Layout(gtx)
 }
 
 // END DRAW OMIT

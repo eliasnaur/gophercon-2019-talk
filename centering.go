@@ -33,7 +33,7 @@ func drawLabels(gtx *layout.Context, th *material.Theme) {
 	gtx.Constraints.Height.Min = 0
 	var macro op.MacroOp  // HLcenter
 	macro.Record(gtx.Ops) // Start recording  // HLcenter
-	th.H2("I'm centered!").Layout(gtx)
+	material.H2(th, "I'm centered!").Layout(gtx)
 	dimensions := gtx.Dimensions
 	macro.Stop() // End recording // HLcenter
 	op.TransformOp{}.Offset(f32.Point{
