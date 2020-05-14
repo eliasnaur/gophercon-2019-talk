@@ -14,10 +14,10 @@ func main() {
 		w := app.NewWindow()
 		gofont.Register()
 		th := material.NewTheme()
-		gtx := layout.NewContext(w.Queue())
+		gtx := new(layout.Context)
 		for e := range w.Events() {
 			if e, ok := e.(system.FrameEvent); ok {
-				gtx.Reset(e.Config, e.Size)
+				gtx.Reset(e.Queue, e.Config, e.Size)
 
 				material.H1(th, "Hello, World!").Layout(gtx) // HLdraw
 

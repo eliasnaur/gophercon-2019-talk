@@ -20,10 +20,10 @@ func main() {
 		editor := new(widget.Editor)
 		editor.SetText("Hello, Gophers! Edit me.")
 		// END INIT OMIT
-		gtx := layout.NewContext(w.Queue())
+		gtx := new(layout.Context)
 		for e := range w.Events() {
 			if e, ok := e.(system.FrameEvent); ok {
-				gtx.Reset(e.Config, e.Size) // HLdraw
+				gtx.Reset(e.Queue, e.Config, e.Size) // HLdraw
 				// START OMIT
 				ed := material.Editor(th, "Hint")
 				ed.TextSize = unit.Sp(52)

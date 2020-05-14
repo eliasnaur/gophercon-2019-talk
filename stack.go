@@ -15,10 +15,10 @@ import (
 func main() {
 	go func() {
 		w := app.NewWindow()
-		gtx := layout.NewContext(w.Queue())
+		gtx := new(layout.Context)
 		for e := range w.Events() {
 			if e, ok := e.(system.FrameEvent); ok {
-				gtx.Reset(e.Config, e.Size)
+				gtx.Reset(e.Queue, e.Config, e.Size)
 				drawRects(gtx)
 				e.Frame(gtx.Ops)
 			}

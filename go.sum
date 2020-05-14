@@ -1,8 +1,6 @@
 dmitri.shuralyov.com/gpu/mtl v0.0.0-20190408044501-666a987793e9/go.mod h1:H6x//7gZCb22OMCxBHrMx7a5I7Hp++hsVxbQ4BYO7hU=
-gioui.org v0.0.0-20200202161927-1cf8fee73ff1 h1:IjoHKA5smXf09yeUrYpeqUYLCPNI4NF8VENzqTSq0zk=
-gioui.org v0.0.0-20200202161927-1cf8fee73ff1/go.mod h1:AHI9rFr6AEEHCb8EPVtb/p5M+NMJRKH58IOp8O3Je04=
-gioui.org v0.0.0-20200503110655-d474b5b16a81 h1:7v3dtTlRk2A7j/iZnuVU8vyTpox1Ddtintk+C/cOW1w=
-gioui.org v0.0.0-20200503110655-d474b5b16a81/go.mod h1:AHI9rFr6AEEHCb8EPVtb/p5M+NMJRKH58IOp8O3Je04=
+gioui.org v0.0.0-20200514114436-31acd5451e03 h1:7y8Hok1HPkhkiPNXyuOqf3X9Sa4arQv0gQVaH9BKXp0=
+gioui.org v0.0.0-20200514114436-31acd5451e03/go.mod h1:AHI9rFr6AEEHCb8EPVtb/p5M+NMJRKH58IOp8O3Je04=
 github.com/BurntSushi/xgb v0.0.0-20160522181843-27f122750802/go.mod h1:IVnqGOEym/WlBOVXweHU+Q+/VP0lqqI8lqeDx9IjBqo=
 github.com/go-gl/glfw v0.0.0-20190409004039-e6da0acd62b1/go.mod h1:vR7hzQXu2zJy9AVAgeJqvqgH9Q5CA+iKCZ2gyEVpxRU=
 golang.org/x/crypto v0.0.0-20190308221718-c2843e01d9a2/go.mod h1:djNgcEr1/C05ACkg1iLfiJU5Ep61QUkGW8qpdssI0+w=
