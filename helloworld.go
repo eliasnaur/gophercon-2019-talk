@@ -5,6 +5,7 @@ import (
 	"gioui.org/font/gofont"
 	"gioui.org/io/system"
 	"gioui.org/layout"
+	"gioui.org/op"
 	"gioui.org/widget/material"
 )
 
@@ -14,10 +15,10 @@ func main() {
 		w := app.NewWindow()
 		gofont.Register()
 		th := material.NewTheme()
-		gtx := new(layout.Context)
+		var ops op.Ops
 		for e := range w.Events() {
 			if e, ok := e.(system.FrameEvent); ok {
-				gtx.Reset(e.Queue, e.Config, e.Size)
+				gtx := layout.NewContext(&ops, e.Queue, e.Config, e.Size)
 
 				material.H1(th, "Hello, World!").Layout(gtx) // HLdraw
 

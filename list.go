@@ -7,6 +7,7 @@ import (
 	"gioui.org/font/gofont"
 	"gioui.org/io/system"
 	"gioui.org/layout"
+	"gioui.org/op"
 	"gioui.org/widget/material"
 )
 
@@ -19,11 +20,11 @@ func main() {
 		list := &layout.List{
 			Axis: layout.Vertical,
 		}
-		gtx := new(layout.Context)
+		var ops op.Ops
 		// END INIT OMIT
 		for e := range w.Events() {
 			if e, ok := e.(system.FrameEvent); ok {
-				gtx.Reset(e.Queue, e.Config, e.Size)
+				gtx := layout.NewContext(&ops, e.Queue, e.Config, e.Size)
 				drawList(gtx, list, th)
 				e.Frame(gtx.Ops)
 			}
@@ -33,12 +34,12 @@ func main() {
 }
 
 // START OMIT
-func drawList(gtx *layout.Context, list *layout.List, th *material.Theme) {
+func drawList(gtx layout.Context, list *layout.List, th *material.Theme) layout.Dimensions {
 	const n = 1e6
-	list.Layout(gtx, n, func(i int) {
+	return list.Layout(gtx, n, func(gtx layout.Context, i int) layout.Dimensions {
 		txt := fmt.Sprintf("List element #%d", i)
 
-		material.H3(th, txt).Layout(gtx)
+		return material.H3(th, txt).Layout(gtx)
 	})
 }
 

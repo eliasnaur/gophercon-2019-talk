@@ -4,6 +4,7 @@ import (
 	"gioui.org/app"
 	"gioui.org/io/system"
 	"gioui.org/layout"
+	"gioui.org/op"
 	"gioui.org/unit"
 	"gioui.org/widget"
 	"gioui.org/widget/material"
@@ -20,14 +21,14 @@ func main() {
 		editor := new(widget.Editor)
 		editor.SetText("Hello, Gophers! Edit me.")
 		// END INIT OMIT
-		gtx := new(layout.Context)
+		var ops op.Ops
 		for e := range w.Events() {
 			if e, ok := e.(system.FrameEvent); ok {
-				gtx.Reset(e.Queue, e.Config, e.Size) // HLdraw
+				gtx := layout.NewContext(&ops, e.Queue, e.Config, e.Size) // HLdraw
 				// START OMIT
-				ed := material.Editor(th, "Hint")
+				ed := material.Editor(th, editor, "Hint")
 				ed.TextSize = unit.Sp(52)
-				ed.Layout(gtx, editor)
+				ed.Layout(gtx)
 				// END OMIT
 				e.Frame(gtx.Ops) // HLdraw
 			}
