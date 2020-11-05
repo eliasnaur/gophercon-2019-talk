@@ -23,20 +23,20 @@ func main() {
 
 				// START OMIT
 				square := f32.Rectangle{Max: f32.Point{X: 500, Y: 500}}
-				radius := animateRadius(e.Config.Now(), 250)
+				radius := animateRadius(e.Now, 250)
 
 				// Position
-				op.TransformOp{}.Offset(f32.Point{ // HLdraw
+				op.Affine(f32.Affine2D{}.Offset(f32.Point{ // HLdraw
 					X: 100, // HLdraw
 					Y: 100, // HLdraw
-				}).Add(ops) // HLdraw
+				})).Add(ops) // HLdraw
 				// Color
 				paint.ColorOp{Color: color.RGBA{A: 0xff, G: 0xcc}}.Add(ops) // HLdraw
 				// Clip corners
-				clip.Rect{Rect: square,
+				clip.RRect{Rect: square,
 					NE: radius, NW: radius, SE: radius, SW: radius}.Op(ops).Add(ops) // HLdraw
 				// Draw
-				paint.PaintOp{Rect: square}.Add(ops) // HLdraw
+				paint.PaintOp{}.Add(ops) // HLdraw
 				// Animate
 				op.InvalidateOp{}.Add(ops) // HLdraw
 

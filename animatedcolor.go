@@ -1,14 +1,15 @@
 package main
 
 import (
+	"image"
 	"image/color"
 	"math"
 	"time"
 
 	"gioui.org/app"
-	"gioui.org/f32"
 	"gioui.org/io/system"
 	"gioui.org/op"
+	"gioui.org/op/clip"
 	"gioui.org/op/paint"
 )
 
@@ -21,14 +22,15 @@ func main() {
 			if e, ok := e.(system.FrameEvent); ok {
 				ops.Reset() // HLops
 
-				color := animateColor(e.Config.Now())
-				square := f32.Rectangle{
-					Min: f32.Point{X: 50, Y: 50},
-					Max: f32.Point{X: 500, Y: 500},
+				color := animateColor(e.Now)
+				square := image.Rectangle{
+					Min: image.Point{X: 50, Y: 50},
+					Max: image.Point{X: 500, Y: 500},
 				}
 				// Add draw operations.
 				paint.ColorOp{Color: color}.Add(ops) // HLops
-				paint.PaintOp{Rect: square}.Add(ops) // HLops
+				clip.Rect(square).Add(ops)           // HLops
+				paint.PaintOp{}.Add(ops)             // HLops
 				// Request immediate redraw.
 				op.InvalidateOp{}.Add(ops) // HLops
 

@@ -13,13 +13,12 @@ import (
 func main() {
 	go func() {
 		w := app.NewWindow()
-		gofont.Register()
-		th := material.NewTheme()
+		th := material.NewTheme(gofont.Collection())
 		var ops op.Ops
 		// START OMIT
 		for e := range w.Events() {
 			if e, ok := e.(system.FrameEvent); ok {
-				gtx := layout.NewContext(&ops, e.Queue, e.Config, e.Size)
+				gtx := layout.NewContext(&ops, e)
 				drawLabels(gtx, th) // HLdraw
 				e.Frame(gtx.Ops)
 			}
@@ -33,9 +32,9 @@ func main() {
 func drawLabels(gtx layout.Context, th *material.Theme) {
 	gtx.Constraints.Min.Y = 0                              // HLdraw
 	dimensions := material.H1(th, "One label").Layout(gtx) // HLdraw
-	op.TransformOp{}.Offset(f32.Point{
+	op.Affine(f32.Affine2D{}.Offset(f32.Point{
 		Y: float32(dimensions.Size.Y), // HLdraw
-	}).Add(gtx.Ops)
+	})).Add(gtx.Ops)
 	material.H1(th, "Another label").Layout(gtx)
 }
 

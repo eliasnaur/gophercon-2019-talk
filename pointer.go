@@ -5,11 +5,11 @@ import (
 	"image/color"
 
 	"gioui.org/app"
-	"gioui.org/f32"
 	"gioui.org/io/pointer"
 	"gioui.org/io/system"
 	"gioui.org/layout"
 	"gioui.org/op"
+	"gioui.org/op/clip"
 	"gioui.org/op/paint"
 )
 
@@ -21,7 +21,7 @@ func main() {
 		var ops op.Ops
 		for e := range w.Events() {
 			if e, ok := e.(system.FrameEvent); ok {
-				gtx := layout.NewContext(&ops, e.Queue, e.Config, e.Size)
+				gtx := layout.NewContext(&ops, e)
 				button.Layout(gtx)
 				e.Frame(gtx.Ops)
 			}
@@ -63,10 +63,9 @@ func (b *Button) Layout(gtx layout.Context) layout.Dimensions {
 // END OMIT
 
 func drawSquare(ops *op.Ops, color color.RGBA) layout.Dimensions {
-	square := f32.Rectangle{
-		Max: f32.Point{X: 500, Y: 500},
+	square := image.Rectangle{
+		Max: image.Point{X: 500, Y: 500},
 	}
-	paint.ColorOp{Color: color}.Add(ops)
-	paint.PaintOp{Rect: square}.Add(ops)
+	paint.FillShape(ops, color, clip.Rect(square).Op())
 	return layout.Dimensions{Size: image.Pt(500, 500)}
 }

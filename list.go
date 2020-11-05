@@ -14,8 +14,7 @@ import (
 func main() {
 	go func() {
 		w := app.NewWindow()
-		gofont.Register()
-		th := material.NewTheme()
+		th := material.NewTheme(gofont.Collection())
 		// START INIT OMIT
 		list := &layout.List{
 			Axis: layout.Vertical,
@@ -24,7 +23,7 @@ func main() {
 		// END INIT OMIT
 		for e := range w.Events() {
 			if e, ok := e.(system.FrameEvent); ok {
-				gtx := layout.NewContext(&ops, e.Queue, e.Config, e.Size)
+				gtx := layout.NewContext(&ops, e)
 				drawList(gtx, list, th)
 				e.Frame(gtx.Ops)
 			}

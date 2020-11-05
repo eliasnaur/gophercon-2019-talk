@@ -15,8 +15,7 @@ import (
 func main() {
 	go func() {
 		w := app.NewWindow()
-		gofont.Register()
-		th := material.NewTheme()
+		th := material.NewTheme(gofont.Collection())
 		// START INIT OMIT
 		editor := new(widget.Editor)
 		editor.SetText("Hello, Gophers! Edit me.")
@@ -24,7 +23,7 @@ func main() {
 		var ops op.Ops
 		for e := range w.Events() {
 			if e, ok := e.(system.FrameEvent); ok {
-				gtx := layout.NewContext(&ops, e.Queue, e.Config, e.Size) // HLdraw
+				gtx := layout.NewContext(&ops, e) // HLdraw
 				// START OMIT
 				ed := material.Editor(th, editor, "Hint")
 				ed.TextSize = unit.Sp(52)

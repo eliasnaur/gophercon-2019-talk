@@ -1,13 +1,14 @@
 package main
 
 import (
+	"image"
 	"image/color"
 
 	"gioui.org/app"
-	"gioui.org/f32"
 	"gioui.org/io/system"
 	"gioui.org/layout"
 	"gioui.org/op"
+	"gioui.org/op/clip"
 	"gioui.org/op/paint"
 )
 
@@ -17,7 +18,7 @@ func main() {
 		var ops op.Ops
 		for e := range w.Events() {
 			if e, ok := e.(system.FrameEvent); ok {
-				gtx := layout.NewContext(&ops, e.Queue, e.Config, e.Size)
+				gtx := layout.NewContext(&ops, e)
 				drawRects(gtx)
 				e.Frame(gtx.Ops)
 			}
@@ -50,13 +51,7 @@ func drawRects(gtx layout.Context) layout.Dimensions {
 
 func drawRect(gtx layout.Context, color color.RGBA) layout.Dimensions {
 	cs := gtx.Constraints
-	square := f32.Rectangle{
-		Max: f32.Point{
-			X: float32(cs.Max.X),
-			Y: float32(cs.Max.Y),
-		},
-	}
-	paint.ColorOp{Color: color}.Add(gtx.Ops)
-	paint.PaintOp{Rect: square}.Add(gtx.Ops)
+	square := image.Rectangle{Max: cs.Max}
+	paint.FillShape(gtx.Ops, color, clip.Rect(square).Op())
 	return layout.Dimensions{Size: cs.Max}
 }
